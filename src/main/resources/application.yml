@@ -30,6 +30,11 @@ spring:
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url:
+    username:
+    password:
 
 server:
   port: 8081
