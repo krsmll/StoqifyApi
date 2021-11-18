@@ -2,7 +2,7 @@ package com.knits.product.controller;
 
 import com.knits.product.exceptions.UserException;
 import com.knits.product.service.UserService;
-import com.knits.product.dto.UserDTO;
+import com.knits.product.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -19,23 +19,23 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping(value = "/users/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable(value = "id", required = true) Long id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable(value = "id", required = true) Long id) {
 
         log.debug("REST request to get User : {}", id);
-        UserDTO userFound = userService.getUserById(id);
+        UserDto userFound = userService.getUserById(id);
         return ResponseEntity.ok().body(userFound);
     }
 
 
     @GetMapping(value = "/users/all")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         log.debug("REST request to get all Users");
         return ResponseEntity.ok().body(userService.fetchAllUsers());
     }
 
 
     @PostMapping(value = "/users")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to createUser User ");
         if (userDTO == null) {
             throw new UserException("User data are missing");
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/users")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to updateUser User ");
         if (userDTO == null) {
             throw new UserException("User data are missing");
@@ -53,8 +53,8 @@ public class UserController {
     }
 
     @PatchMapping(value = "/users/{id}")
-    public ResponseEntity<UserDTO> partialUpdateUser(@PathVariable(value = "id", required = false)Long id,
-                                                     @RequestBody UserDTO userDTO){
+    public ResponseEntity<UserDto> partialUpdateUser(@PathVariable(value = "id", required = false)Long id,
+                                                     @RequestBody UserDto userDTO){
         log.debug("REST request to updateUser User ");
 
         if (userDTO == null) {
@@ -73,7 +73,7 @@ public class UserController {
 
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
+    public ResponseEntity<List<UserDto>> getAllUsers(Pageable pageable) {
         throw new UnsupportedOperationException("getAllUsers(Pageable pageable) not implemented");
     }
 

@@ -4,7 +4,7 @@ import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.entity.User;
 import com.knits.product.repository.UserRepository;
-import com.knits.product.dto.UserDTO;
+import com.knits.product.dto.UserDto;
 import com.knits.product.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class UserService {
      * @return the persisted entity.
      */
     @Transactional
-    public UserDTO createNewUser(UserDTO userDTO) {
+    public UserDto createNewUser(UserDto userDTO) {
         log.debug("Request to save User : {}", userDTO);
        // userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = userMapper.toEntity(userDTO);
@@ -49,7 +49,7 @@ public class UserService {
      * @return the persisted entity.
      */
     @Transactional
-    public UserDTO partialUpdateUserData(UserDTO userDTO) {
+    public UserDto partialUpdateUserData(UserDto userDTO) {
         log.debug("Request to partially update User : {}", userDTO);
         User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.partialUpdate(user, userDTO);
@@ -66,7 +66,7 @@ public class UserService {
      * @return the persisted entity.
      */
     @Transactional
-    public UserDTO update(UserDTO userDTO) {
+    public UserDto update(UserDto userDTO) {
         log.debug("Request to update User : {}", userDTO);
         User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.update(user, userDTO);
@@ -76,7 +76,7 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
-    public List<UserDTO> fetchAllUsers() {
+    public List<UserDto> fetchAllUsers() {
         return userRepository.findAll().stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 
@@ -86,7 +86,7 @@ public class UserService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    public UserDTO getUserById(Long id) {
+    public UserDto getUserById(Long id) {
 
         log.debug("Request User by id : {}", id);
         User user = userRepository.findById(id).orElseThrow(() -> new UserException("User#" + id + " not found", ExceptionCodes.USER_NOT_FOUND));
@@ -110,13 +110,7 @@ public class UserService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Page<UserDTO> findAll(Pageable pageable) {
+    public Page<UserDto> findAll(Pageable pageable) {
         throw new UnsupportedOperationException("not yet implementes");
     }
-
-
-
-
-
-
 }
