@@ -33,7 +33,7 @@ public class User {
     private String email;
 
     @Column(name = "active", nullable = false)
-    private Boolean active = true;
+    private Boolean active;
 
     @ManyToOne
     private Group group;
