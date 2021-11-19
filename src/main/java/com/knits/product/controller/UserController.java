@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Slf4j
@@ -54,8 +53,8 @@ public class UserController {
     }
 
     @PatchMapping(value = "/users/{id}")
-    public ResponseEntity<UserDTO> partialUpdateUser(@PathVariable(value = "id", required = false) Long id,
-                                                     @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> partialUpdateUser(@PathVariable(value = "id", required = false)Long id,
+                                                     @RequestBody UserDTO userDTO){
         log.debug("REST request to updateUser User ");
 
         if (userDTO == null) {
@@ -76,13 +75,6 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         throw new UnsupportedOperationException("getAllUsers(Pageable pageable) not implemented");
-    }
-
-    @PutMapping(value = "/users/{id}/deactivate")
-    public ResponseEntity<Void> deactivateUser(@PathVariable(value = "id") Long id) {
-        log.debug("REST request to deactivate User ");
-        userService.deactivateUserById(id);
-        return ResponseEntity.ok().build();
     }
 
 }
