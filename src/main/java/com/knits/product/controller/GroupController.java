@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/api/groups")
 public class GroupController {
 
-    private GroupService groupService;
+    private final GroupService groupService;
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<GroupDto>> getAllGroups() {
@@ -58,7 +58,7 @@ public class GroupController {
         return ResponseEntity.ok().body(groupService.findGroupsByName(text));
     }
 
-    @PostMapping(value = "")
+    @PostMapping()
     public ResponseEntity<GroupDto> createGroup(@Validated(GroupDto.InsertGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request) {
         log.debug("REST request to createGroup");
 
@@ -73,7 +73,7 @@ public class GroupController {
         return ResponseEntity.created(uri).body(createdGroup);
     }
 
-    @PutMapping(value = "")
+    @PutMapping()
     public ResponseEntity<GroupDto> updateGroup(@Validated(GroupDto.UpdateGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request, HttpServletResponse response) {
         log.debug("REST request to updateGroup");
 
@@ -83,7 +83,7 @@ public class GroupController {
         return ResponseEntity.ok().body(updatedGroup);
     }
 
-    @PatchMapping(value = "")
+    @PatchMapping()
     public ResponseEntity<GroupDto> partialUpdateGroup(@Validated(GroupDto.UpdateGroup.class) @RequestBody GroupDto groupPartialDto, HttpServletRequest request, HttpServletResponse response) {
         log.debug("REST request to partialUpdateGroup");
 

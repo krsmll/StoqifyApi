@@ -5,7 +5,7 @@ import com.knits.product.exceptions.UserException;
 import com.knits.product.entity.User;
 import com.knits.product.repository.UserRepository;
 import com.knits.product.dto.UserDto;
-import com.knits.product.service.mapper.UserMapper;
+import com.knits.product.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

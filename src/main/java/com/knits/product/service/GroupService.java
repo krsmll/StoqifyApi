@@ -4,12 +4,13 @@ import com.knits.product.dto.GroupDto;
 import com.knits.product.entity.Group;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.repository.GroupRepository;
-import com.knits.product.service.mapper.GroupMapper;
+import com.knits.product.mapper.GroupMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,8 +19,8 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class GroupService {
-    private GroupMapper groupMapper;
-    private GroupRepository groupRepository;
+    private final GroupMapper groupMapper;
+    private final GroupRepository groupRepository;
 
     public List<GroupDto> fetchAllGroups() {
         log.debug("Request to get all Groups");
@@ -79,6 +80,10 @@ public class GroupService {
 
         Group group = groupMapper.toEntity(groupDto);
 
+        if (group.getCreatedAt() == null) {
+            group.setCreatedAt(new Date());
+        }
+
         if (group.getIsActive() == null) {
             group.setIsActive(true);
         }
@@ -101,12 +106,12 @@ public class GroupService {
     public List<GroupDto> getActiveGroups() {
         log.debug("Request for all active Groups");
 
-        return groupRepository.getActiveGroups().stream().map(groupMapper::toDto).collect(Collectors.toList());
+        return groupRepository.findByIsActiveTrue().stream().map(groupMapper::toDto).collect(Collectors.toList());
     }
 
     public List<GroupDto> getInactiveGroups() {
         log.debug("Request for all inactive Groups");
 
-        return groupRepository.getInactiveGroups().stream().map(groupMapper::toDto).collect(Collectors.toList());
+        return groupRepository.findByIsActiveFalse().stream().map(groupMapper::toDto).collect(Collectors.toList());
     }
 }

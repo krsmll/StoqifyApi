@@ -1,4 +1,4 @@
-package com.knits.product.service.mapper;
+package com.knits.product.mapper;
 
 import com.knits.product.dto.GroupDto;
 import com.knits.product.entity.Group;

@@ -21,7 +21,7 @@ public class GroupDto {
     private Boolean isActive;
 
     @Null
-    private Date createdAt = new Date();
+    private Date createdAt;
 
     public interface InsertGroup {
     }
