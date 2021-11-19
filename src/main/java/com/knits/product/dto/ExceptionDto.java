@@ -1,8 +1,6 @@
-package com.knits.product.service.dto;
+package com.knits.product.dto;
 
 import com.knits.product.exceptions.AppException;
-import com.knits.product.exceptions.ExceptionCodes;
-import com.knits.product.exceptions.SystemException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

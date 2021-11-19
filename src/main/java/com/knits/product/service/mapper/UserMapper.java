@@ -1,7 +1,7 @@
 package com.knits.product.service.mapper;
 
-import com.knits.product.model.User;
-import com.knits.product.service.dto.UserDTO;
+import com.knits.product.entity.User;
+import com.knits.product.dto.UserDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

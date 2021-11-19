@@ -1,4 +1,4 @@
-package com.knits.product.service.dto;
+package com.knits.product.dto;
 
 import lombok.Data;
 
@@ -11,5 +11,5 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private Boolean active = true;
+    private Boolean active;
 }

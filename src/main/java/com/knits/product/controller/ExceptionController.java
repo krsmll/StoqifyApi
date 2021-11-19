@@ -4,7 +4,7 @@ import com.knits.product.exceptions.AppException;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.SystemException;
 import com.knits.product.exceptions.UserException;
-import com.knits.product.service.dto.ExceptionDto;
+import com.knits.product.dto.ExceptionDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@ControllerAdvice
 @Slf4j
+@ControllerAdvice
 public class ExceptionController {
 
 
