@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class UserService {
     @Transactional
     public UserDTO createNewUser(UserDTO userDTO) {
         log.debug("Request to save User : {}", userDTO);
-       // userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        // userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = userMapper.toEntity(userDTO);
 
         user = userRepository.save(user);
@@ -51,7 +52,7 @@ public class UserService {
     @Transactional
     public UserDTO partialUpdateUserData(UserDTO userDTO) {
         log.debug("Request to partially update User : {}", userDTO);
-        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
+        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found", ExceptionCodes.USER_NOT_FOUND));
         userMapper.partialUpdate(user, userDTO);
 
         //TODO: manage User relationship to check updates
@@ -68,7 +69,7 @@ public class UserService {
     @Transactional
     public UserDTO update(UserDTO userDTO) {
         log.debug("Request to update User : {}", userDTO);
-        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
+        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found", ExceptionCodes.USER_NOT_FOUND));
         userMapper.update(user, userDTO);
 
         //TODO: manage User relationship to check updates
@@ -111,12 +112,22 @@ public class UserService {
      * @return the list of entities.
      */
     public Page<UserDTO> findAll(Pageable pageable) {
-        throw new UnsupportedOperationException("not yet implementes");
+        throw new UnsupportedOperationException("not yet implemented");
     }
 
+    /**
+     * Delete the "id" user.
+     *
+     * @param id the id of the entity.
+     */
+    @Transactional
+    public void deactivateUserById(Long id) {
+        log.debug("deactivate User by id : {}", id);
+        User user = userRepository.findById(id).orElseThrow(() -> new UserException("User#" + id + " not found", ExceptionCodes.USER_NOT_FOUND));
 
-
-
-
+        //TODO: manage User relationship to check updates
+        user.setActive(false);
+        userRepository.save(user);
+    }
 
 }
