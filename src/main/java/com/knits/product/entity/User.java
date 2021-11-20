@@ -2,7 +2,6 @@ package com.knits.product.entity;
 
 import lombok.Data;
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * This is an entity which is responsible to save and fetch user table data
@@ -37,9 +36,6 @@ public class User {
     @Column(name = "active", nullable = false)
     private Boolean active;
 
-    @Column(name = "role_id")
-    private Integer roleId;
-
-    @OneToMany
-    private List<Role> roles;
+    @ManyToOne
+    private Group group;
 }
