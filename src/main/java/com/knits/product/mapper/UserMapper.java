@@ -1,7 +1,7 @@
-package com.knits.product.service.mapper;
+package com.knits.product.mapper;
 
 import com.knits.product.entity.User;
-import com.knits.product.dto.UserDTO;
+import com.knits.product.dto.UserDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 public class UserMapper {
 
 
-    public User toEntity(UserDTO dto) {
+    public User toEntity(UserDto dto) {
         if (dto == null) {
             return null;
         }
@@ -27,12 +27,12 @@ public class UserMapper {
         return entity;
     }
 
-    public UserDTO toDto(User entity) {
+    public UserDto toDto(User entity) {
 
         if (entity == null) {
             return null;
         }
-        UserDTO dto = new UserDTO();
+        UserDto dto = new UserDto();
         dto.setId(entity.getId());
         dto.setLogin(entity.getLogin());
         dto.setFirstName(entity.getFirstName());
@@ -42,7 +42,7 @@ public class UserMapper {
         return dto;
     }
 
-    public void partialUpdate(User entity, UserDTO dto) {
+    public void partialUpdate(User entity, UserDto dto) {
         if (dto == null) {
             return;
         }
@@ -66,7 +66,7 @@ public class UserMapper {
         }
     }
 
-    public void update(User entity, UserDTO dto) {
+    public void update(User entity, UserDto dto) {
         if (dto == null) {
             return;
         }
@@ -78,25 +78,25 @@ public class UserMapper {
         entity.setActive(dto.getActive());
     }
 
-    public List<UserDTO> toDto(List<User> entityList) {
+    public List<UserDto> toDto(List<User> entityList) {
         if (entityList == null) {
             return null;
         }
 
-        List<UserDTO> list = new ArrayList<>(entityList.size());
+        List<UserDto> list = new ArrayList<>(entityList.size());
         for (User entity : entityList) {
             list.add(toDto(entity));
         }
         return list;
     }
 
-    public List<User> toEntity(List<UserDTO> dtoList) {
+    public List<User> toEntity(List<UserDto> dtoList) {
         if (dtoList == null) {
             return null;
         }
 
         List<User> list = new ArrayList<>(dtoList.size());
-        for (UserDTO userDTO : dtoList) {
+        for (UserDto userDTO : dtoList) {
             list.add(toEntity(userDTO));
         }
         return list;

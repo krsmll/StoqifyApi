@@ -3,7 +3,7 @@ package com.knits.product.dto;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UserDto {
 
     private Long id;
     private String login;
@@ -12,4 +12,5 @@ public class UserDTO {
     private String lastName;
     private String email;
     private Boolean active;
+    private GroupDto group;
 }
