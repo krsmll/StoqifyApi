@@ -37,7 +37,6 @@ public class UserService {
         log.debug("Request to save User : {}", userDTO);
        // userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = userMapper.toEntity(userDTO);
-
         user = userRepository.save(user);
         return userMapper.toDto(user);
     }
@@ -76,8 +75,8 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
-    public List<UserDto> fetchAllUsers() {
-        return userRepository.findAll().stream().map(userMapper::toDto).collect(Collectors.toList());
+    public List<User> fetchAllUsers() {
+        return userRepository.findAll();
     }
 
     /**
@@ -102,6 +101,16 @@ public class UserService {
     public void deleteUserDataByUserId(Long id) {
         log.debug("Delete User by id : {}", id);
         userRepository.deleteById(id);
+    }
+
+    /**
+     * Search user using search keyword.
+     *
+     * @param searchKeyword to search users
+     */
+    public List<User> searchUsersByKeyword(String searchKeyword) {
+        log.debug("Search User by search keyword : {}", searchKeyword);
+        return userRepository.findByLastNameStartsWith(searchKeyword);
     }
 
     /**
