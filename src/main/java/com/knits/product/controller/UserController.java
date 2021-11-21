@@ -6,6 +6,7 @@ import com.knits.product.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -77,4 +78,10 @@ public class UserController {
         throw new UnsupportedOperationException("getAllUsers(Pageable pageable) not implemented");
     }
 
+    @PutMapping(value = "addusergroup/{userid}/{groupid}")
+    public ResponseEntity<String> assignUserGroup(@PathVariable(value = "userid")Integer userId,
+                                                  @PathVariable(value = "groupid")Integer groupId) {
+        log.debug("REST request to add user in a group: {}", userId);
+        return new ResponseEntity<>(userService.addUserGroup(userId, groupId), HttpStatus.OK);
+    }
 }
