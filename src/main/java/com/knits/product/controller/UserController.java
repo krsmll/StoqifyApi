@@ -1,5 +1,6 @@
 package com.knits.product.controller;
 
+import com.knits.product.entity.User;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.service.UserService;
 import com.knits.product.dto.UserDto;
@@ -29,7 +30,7 @@ public class UserController {
 
 
     @GetMapping(value = "/users/all")
-    public ResponseEntity<List<UserDto>> getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         log.debug("REST request to get all Users");
         return ResponseEntity.ok().body(userService.fetchAllUsers());
     }
@@ -72,15 +73,28 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers(Pageable pageable) {
         throw new UnsupportedOperationException("getAllUsers(Pageable pageable) not implemented");
     }
 
-    @PutMapping("/removeusergroup/{userid}")
-    public ResponseEntity<String> removeUserGroup(@PathVariable(value = "userid")Integer userId) {
-        return new ResponseEntity<>(userService.removeUserGroup(userId), HttpStatus.OK);
+    @GetMapping("/searchuser/{searchkeyword}")
+    public ResponseEntity<List<User>> searchUser(@PathVariable String searchkeyword) {
+        log.debug("Searched Keyword : {}", searchkeyword);
+        return new ResponseEntity<List<User>>(userService.searchUsersByKeyword(searchkeyword), HttpStatus.OK);
     }
 
+    @PutMapping(value = "addusergroup/{userid}/{groupid}")
+    public ResponseEntity<String> assignUserGroup(@PathVariable(value = "userid")Integer userId,
+                                                  @PathVariable(value = "groupid")Integer groupId) {
+        log.debug("REST request to add user in a group: {}", userId);
+        return new ResponseEntity<>(userService.addUserGroup(userId, groupId), HttpStatus.OK);
+    }
+
+    @PutMapping("/adduserrole/{userid}/{roleid}")
+    public ResponseEntity<String> addUserRole(@PathVariable(value = "userid")Integer userId,
+                                              @PathVariable(value = "roleid")Integer roleId) {
+        log.debug("Requested to add user role");
+        return new ResponseEntity(userService.addUserRole(userId, roleId), HttpStatus.OK);
+    }
 }

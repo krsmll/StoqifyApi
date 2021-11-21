@@ -1,28 +1,5 @@
-# ===================================================================
-# Spring Boot configuration.
-#
-# This configuration will be overridden by the Spring profile you use,
-# for example application-dev.yml if you use the "dev" profile.
-#
-# ===================================================================
-
-# ===================================================================
-# Standard Spring Boot properties.
-# Full reference is available at:
-# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
-# ===================================================================
-
-
-# N.B. This file should be git ignored and configured locally by every developer
-
-
-logging:
-  level:
-    ROOT: INFO
-    org.hibernate.SQL: DEBUG
-    com.knits: DEBUG
-
 spring:
+
   devtools:
     restart:
       enabled: true
@@ -33,19 +10,20 @@ spring:
     serialization:
       indent-output: true
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: password123
+    driverClassName:
+    url:
+    username:
+    password:
     hikari:
       poolName: Hikari
       auto-commit: false
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        globally_quoted_identifiers: true
-
+        ddl-auto: update
+        naming:
+          physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+          implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
 
 server:
-  port: 8080
+  port: 8081

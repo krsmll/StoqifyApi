@@ -37,7 +37,6 @@ public class UserService {
         log.debug("Request to save User : {}", userDTO);
        // userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = userMapper.toEntity(userDTO);
-
         user = userRepository.save(user);
         return userMapper.toDto(user);
     }
@@ -76,8 +75,8 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
-    public List<UserDto> fetchAllUsers() {
-        return userRepository.findAll().stream().map(userMapper::toDto).collect(Collectors.toList());
+    public List<User> fetchAllUsers() {
+        return userRepository.findAll();
     }
 
     /**
@@ -105,6 +104,16 @@ public class UserService {
     }
 
     /**
+     * Search user using search keyword.
+     *
+     * @param searchKeyword to search users
+     */
+    public List<User> searchUsersByKeyword(String searchKeyword) {
+        log.debug("Search User by search keyword : {}", searchKeyword);
+        return userRepository.findByLastNameStartsWith(searchKeyword);
+    }
+
+    /**
      * Get all the users.
      *
      * @param pageable the pagination information.
@@ -116,15 +125,30 @@ public class UserService {
 
     /**
      *
-     * @param userId user id to remove group
-     * @return message string
+     * @param userId specific user on which the group will be apply
+     * @param groupId the group has been requested for
+     * @return
      */
     @Transactional
-    public String removeUserGroup(Integer userId) {
-        if(userRepository.removeUserFromGroup(userId) == 1) {
-            return "User removed from group";
+    public String addUserGroup(Integer userId, Integer groupId) {
+        if(userRepository.addUserGroup(userId, groupId) == 1) {
+            return "User has been added to the requested group";
         } else {
-            return "User could not remove from group";
+            return "User could not add in group";
+        }
+    }
+
+    /**
+     *
+     * @param userId the user will be use to set role
+     * @param roleId assign role
+     */
+    @Transactional
+    public String addUserRole(Integer userId, Integer roleId) {
+        if(userRepository.addUserRole(userId, roleId) == 1) {
+            return "Role has been assigned";
+        } else {
+            return "Could not assign user role";
         }
     }
 }
