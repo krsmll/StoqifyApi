@@ -25,4 +25,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query(value = "update user set role_id = ?2 where id = ?1", nativeQuery = true)
     int addUserRole(Integer userId, Integer roleId);
+
+    @Modifying
+    @Query(value = "update user set group_id = 0 where id = ?1", nativeQuery = true)
+    int removeUserFromGroup(Integer userId);
 }

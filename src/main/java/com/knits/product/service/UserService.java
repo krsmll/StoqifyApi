@@ -151,4 +151,18 @@ public class UserService {
             return "Could not assign user role";
         }
     }
+
+    /**
+     *
+     * @param userId user id to remove group
+     * @return message string
+     */
+    @Transactional
+    public String removeUserGroup(Integer userId) {
+        if(userRepository.removeUserFromGroup(userId) == 1) {
+            return "User removed from group";
+        } else {
+            return "User could not remove from group";
+        }
+    }
 }

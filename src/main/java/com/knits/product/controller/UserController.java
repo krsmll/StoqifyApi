@@ -97,4 +97,9 @@ public class UserController {
         log.debug("Requested to add user role");
         return new ResponseEntity(userService.addUserRole(userId, roleId), HttpStatus.OK);
     }
+
+    @PutMapping("/removeusergroup/{userid}")
+    public ResponseEntity<String> removeUserGroup(@PathVariable(value = "userid")Integer userId) {
+        return new ResponseEntity<>(userService.removeUserGroup(userId), HttpStatus.OK);
+    }
 }
