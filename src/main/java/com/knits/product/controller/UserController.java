@@ -90,4 +90,11 @@ public class UserController {
         log.debug("REST request to add user in a group: {}", userId);
         return new ResponseEntity<>(userService.addUserGroup(userId, groupId), HttpStatus.OK);
     }
+
+    @PutMapping("/adduserrole/{userid}/{roleid}")
+    public ResponseEntity<String> addUserRole(@PathVariable(value = "userid")Integer userId,
+                                              @PathVariable(value = "roleid")Integer roleId) {
+        log.debug("Requested to add user role");
+        return new ResponseEntity(userService.addUserRole(userId, roleId), HttpStatus.OK);
+    }
 }
