@@ -36,6 +36,9 @@ public class User {
     @Column(name = "active", nullable = false)
     private Boolean active;
 
+    @Column(name = "group_id", insertable = false, updatable = false)
+    private Integer groupId;
+
     @ManyToOne
     private Group group;
 }

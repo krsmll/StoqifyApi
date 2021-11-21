@@ -113,4 +113,18 @@ public class UserService {
     public Page<UserDto> findAll(Pageable pageable) {
         throw new UnsupportedOperationException("not yet implementes");
     }
+
+    /**
+     *
+     * @param userId user id to remove group
+     * @return message string
+     */
+    @Transactional
+    public String removeUserGroup(Integer userId) {
+        if(userRepository.removeUserFromGroup(userId) == 1) {
+            return "User removed from group";
+        } else {
+            return "User could not remove from group";
+        }
+    }
 }
