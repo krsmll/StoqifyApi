@@ -6,8 +6,11 @@ import com.knits.product.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Slf4j
@@ -75,6 +78,13 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers(Pageable pageable) {
         throw new UnsupportedOperationException("getAllUsers(Pageable pageable) not implemented");
+    }
+
+    @PutMapping("/adduserrole/{userid}/{roleid}")
+    public ResponseEntity<String> addUserRole(@PathVariable(value = "userid")Integer userId,
+                                            @PathVariable(value = "roleid")Integer roleId) {
+        log.debug("Requested to add user role");
+        return new ResponseEntity(userService.addUserRole(userId, roleId), HttpStatus.OK);
     }
 
 }

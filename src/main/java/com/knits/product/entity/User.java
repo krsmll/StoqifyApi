@@ -36,6 +36,9 @@ public class User {
     @Column(name = "active", nullable = false)
     private Boolean active;
 
+    @Column(name = "role_id")
+    private Integer roleId;
+
     @ManyToOne
     private Group group;
 }

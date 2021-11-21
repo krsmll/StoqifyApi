@@ -113,4 +113,18 @@ public class UserService {
     public Page<UserDto> findAll(Pageable pageable) {
         throw new UnsupportedOperationException("not yet implementes");
     }
+
+    /**
+     *
+     * @param userId the user will be use to set role
+     * @param roleId assign role
+     */
+    @Transactional
+    public String addUserRole(Integer userId, Integer roleId) {
+        if(userRepository.addUserRole(userId, roleId) == 1) {
+            return "Role has been assigned";
+        } else {
+            return "Could not assign user role";
+        }
+    }
 }
