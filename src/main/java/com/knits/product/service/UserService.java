@@ -122,4 +122,19 @@ public class UserService {
     public Page<UserDto> findAll(Pageable pageable) {
         throw new UnsupportedOperationException("not yet implementes");
     }
+
+    /**
+     *
+     * @param userId specific user on which the group will be apply
+     * @param groupId the group has been requested for
+     * @return
+     */
+    @Transactional
+    public String addUserGroup(Integer userId, Integer groupId) {
+        if(userRepository.addUserGroup(userId, groupId) == 1) {
+            return "User has been added to the requested group";
+        } else {
+            return "User could not add in group";
+        }
+    }
 }
