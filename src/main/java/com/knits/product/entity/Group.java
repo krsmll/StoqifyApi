@@ -1,16 +1,18 @@
 package com.knits.product.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "user_group")
-public class Group {
+@NoArgsConstructor
+public class Group implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -28,6 +30,6 @@ public class Group {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "group")
-    private List<User> users;
+   /* @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "group")
+    private List<User> users;*/
 }

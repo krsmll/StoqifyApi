@@ -2,6 +2,10 @@ package com.knits.product.entity;
 
 import lombok.Data;
 import javax.persistence.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import java.io.Serializable;
 
 /**
  * This is an entity which is responsible to save and fetch user table data
@@ -9,9 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 @Data
-public class User {
-
-    private static final long serialVersionUID = 1L;
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,6 +41,16 @@ public class User {
     @Column(name = "role_id")
     private Integer roleId;
 
+    @Column(name = "group_id", nullable = false)
+    private Integer groupId;
+
+    @OneToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id", insertable = false, updatable = false)
+    private Role role;
+
     @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "group_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Group group;
 }

@@ -12,5 +12,7 @@ public class UserDto {
     private String lastName;
     private String email;
     private Boolean active;
-    private GroupDto group;
+    private Integer roleId;
+    private Integer groupId;
+    /*private GroupDto group;*/
 }
