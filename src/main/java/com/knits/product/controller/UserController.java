@@ -1,11 +1,13 @@
 package com.knits.product.controller;
 
+import com.knits.product.entity.User;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.service.UserService;
 import com.knits.product.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -28,7 +30,7 @@ public class UserController {
 
 
     @GetMapping(value = "/users/all")
-    public ResponseEntity<List<UserDto>> getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         log.debug("REST request to get all Users");
         return ResponseEntity.ok().body(userService.fetchAllUsers());
     }
@@ -71,10 +73,14 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers(Pageable pageable) {
         throw new UnsupportedOperationException("getAllUsers(Pageable pageable) not implemented");
     }
 
+    @GetMapping("/searchuser/{searchkeyword}")
+    public ResponseEntity<List<User>> searchUser(@PathVariable String searchkeyword) {
+        log.debug("Searched Keyword : {}", searchkeyword);
+        return new ResponseEntity<List<User>>(userService.searchUsersByKeyword(searchkeyword), HttpStatus.OK);
+    }
 }
