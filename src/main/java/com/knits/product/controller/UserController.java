@@ -83,4 +83,11 @@ public class UserController {
         log.debug("Searched Keyword : {}", searchkeyword);
         return new ResponseEntity<List<User>>(userService.searchUsersByKeyword(searchkeyword), HttpStatus.OK);
     }
+
+    @PutMapping(value = "addusergroup/{userid}/{groupid}")
+    public ResponseEntity<String> assignUserGroup(@PathVariable(value = "userid")Integer userId,
+                                                  @PathVariable(value = "groupid")Integer groupId) {
+        log.debug("REST request to add user in a group: {}", userId);
+        return new ResponseEntity<>(userService.addUserGroup(userId, groupId), HttpStatus.OK);
+    }
 }
