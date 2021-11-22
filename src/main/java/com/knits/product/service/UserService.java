@@ -137,4 +137,32 @@ public class UserService {
             return "User could not add in group";
         }
     }
+
+    /**
+     *
+     * @param userId the user will be use to set role
+     * @param roleId assign role
+     */
+    @Transactional
+    public String addUserRole(Integer userId, Integer roleId) {
+        if(userRepository.addUserRole(userId, roleId) == 1) {
+            return "Role has been assigned";
+        } else {
+            return "Could not assign user role";
+        }
+    }
+
+    /**
+     *
+     * @param userId user id to remove group
+     * @return message string
+     */
+    @Transactional
+    public String removeUserGroup(Integer userId) {
+        if(userRepository.removeUserFromGroup(userId) == 1) {
+            return "User removed from group";
+        } else {
+            return "User could not remove from group";
+        }
+    }
 }
