@@ -1,10 +1,10 @@
 package com.knits.product.service;
 
-
 import com.knits.product.dto.RoleDTO;
 import com.knits.product.entity.Role;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
+import com.knits.product.mapper.RoleMapper1;
 import com.knits.product.repository.RoleRepository;
 import com.knits.product.mapper.RoleMapper;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +26,7 @@ public class RoleService {
 
     private final RoleMapper roleMapper;
     private final RoleRepository roleRepository;
+    private final RoleMapper1 roleMapper1;
 
     /**
      * Save a role.
@@ -38,10 +38,9 @@ public class RoleService {
     public RoleDTO createNewRole(RoleDTO roleDTO) {
         log.debug("Request to save Role : {}", roleDTO);
 
-        Role role = roleMapper.toEntity(roleDTO);
-
+        Role role = roleMapper1.toRoleEntity(roleDTO);
         role = roleRepository.save(role);
-        return roleMapper.toDto(role);
+        return roleMapper1.toRoleEntity(role);
     }
 
     /**

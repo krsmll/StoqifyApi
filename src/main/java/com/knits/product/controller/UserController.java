@@ -30,7 +30,7 @@ public class UserController {
 
 
     @GetMapping(value = "/users/all")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         log.debug("REST request to get all Users");
         return ResponseEntity.ok().body(userService.fetchAllUsers());
     }

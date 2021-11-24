@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 @Data
-public class User implements Serializable {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,12 +41,12 @@ public class User implements Serializable {
     @Column(name = "role_id")
     private Integer roleId;
 
-    @Column(name = "group_id", nullable = false)
+    @Column(name = "group_id")
     private Integer groupId;
 
     @OneToOne
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id", insertable = false, updatable = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Role role;
 
     @ManyToOne

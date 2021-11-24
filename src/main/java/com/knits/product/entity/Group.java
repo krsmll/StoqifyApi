@@ -11,10 +11,10 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "user_group")
-@NoArgsConstructor
-public class Group implements Serializable {
+public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
 
     @Column(name = "group_name", nullable = false, length = 128)
@@ -30,6 +30,6 @@ public class Group implements Serializable {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
-   /* @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "group")
-    private List<User> users;*/
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "group")
+    private List<User> users;
 }

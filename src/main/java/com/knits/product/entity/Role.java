@@ -6,13 +6,12 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@RequiredArgsConstructor
 @Table(name = "user_role")
-public class Role implements Serializable {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long roleId;
 
     @Column(name = "role_name", nullable = false)

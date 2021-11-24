@@ -3,6 +3,7 @@ package com.knits.product.service;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.entity.User;
+import com.knits.product.mapper.UserMapper1;
 import com.knits.product.repository.UserRepository;
 import com.knits.product.dto.UserDto;
 import com.knits.product.mapper.UserMapper;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserMapper userMapper;
+    private final UserMapper1 userMapper1;
     private final UserRepository userRepository;
 
     /**
@@ -75,8 +77,9 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
-    public List<User> fetchAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> fetchAllUsers() {
+
+        return userMapper1.toUserList(userRepository.findAll());
     }
 
     /**
