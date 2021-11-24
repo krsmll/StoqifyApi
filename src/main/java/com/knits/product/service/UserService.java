@@ -3,10 +3,9 @@ package com.knits.product.service;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.entity.User;
-import com.knits.product.mapper.UserMapper1;
+import com.knits.product.mapper.UserMapper;
 import com.knits.product.repository.UserRepository;
 import com.knits.product.dto.UserDto;
-import com.knits.product.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Service for managing {@link com.knits.product.entity.User}.
@@ -25,7 +23,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserMapper userMapper;
-    private final UserMapper1 userMapper1;
+    private final UserMapper userMapper1;
     private final UserRepository userRepository;
 
     /**
@@ -79,7 +77,7 @@ public class UserService {
 
     public List<UserDto> fetchAllUsers() {
 
-        return userMapper1.toUserList(userRepository.findAll());
+        return userMapper1.toUserDtoList(userRepository.findAll());
     }
 
     /**

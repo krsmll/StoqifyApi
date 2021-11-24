@@ -1,12 +1,11 @@
 package com.knits.product.service;
 
-import com.knits.product.dto.RoleDTO;
+import com.knits.product.dto.RoleDto;
 import com.knits.product.entity.Role;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
-import com.knits.product.mapper.RoleMapper1;
-import com.knits.product.repository.RoleRepository;
 import com.knits.product.mapper.RoleMapper;
+import com.knits.product.repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,9 +23,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class RoleService {
 
-    private final RoleMapper roleMapper;
     private final RoleRepository roleRepository;
-    private final RoleMapper1 roleMapper1;
+    private final RoleMapper roleMapper;
 
     /**
      * Save a role.
@@ -35,12 +33,12 @@ public class RoleService {
      * @return the persisted entity.
      */
 
-    public RoleDTO createNewRole(RoleDTO roleDTO) {
+    public RoleDto createNewRole(RoleDto roleDTO) {
         log.debug("Request to save Role : {}", roleDTO);
 
-        Role role = roleMapper1.toRoleEntity(roleDTO);
+        Role role = roleMapper.toEntity(roleDTO);
         role = roleRepository.save(role);
-        return roleMapper1.toRoleEntity(role);
+        return roleMapper.toDto(role);
     }
 
     /**
@@ -51,9 +49,9 @@ public class RoleService {
      */
 
     @Transactional
-    public RoleDTO partialUpdateRoleData(RoleDTO roleDTO) {
+    public RoleDto partialUpdateRoleData(RoleDto roleDTO) {
         log.debug("Request to partially update Role : {}", roleDTO);
-        Role role = roleRepository.findById(roleDTO.getRoleId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getRoleId() + " not found"));
+        Role role = roleRepository.findById(roleDTO.getId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
         roleMapper.partialUpdate(role, roleDTO);
 
         //TODO: manage Role relationship to check updates
@@ -69,9 +67,9 @@ public class RoleService {
      */
 
     @Transactional
-    public RoleDTO updateRoleData(RoleDTO roleDTO) {
+    public RoleDto updateRoleData(RoleDto roleDTO) {
         log.debug("Request to update Role : {}", roleDTO);
-        Role role = roleRepository.findById(roleDTO.getRoleId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getRoleId() + " not found"));
+        Role role = roleRepository.findById(roleDTO.getId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
         roleMapper.update(role, roleDTO);
 
         //TODO: manage role relationship to check updates
@@ -80,7 +78,7 @@ public class RoleService {
     }
 
 
-    public List<RoleDTO> fetchAllRoles() {
+    public List<RoleDto> fetchAllRoles() {
         return roleRepository.findAll().stream().map(roleMapper::toDto).collect(Collectors.toList());
     }
 
@@ -90,7 +88,7 @@ public class RoleService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    public RoleDTO getRoleById(Long id) {
+    public RoleDto getRoleById(Long id) {
         log.debug("Request User by id : {}", id);
         Role role = roleRepository.findById(id).orElseThrow(() -> new UserException("Role#" + id + "not found", ExceptionCodes.USER_NOT_FOUND));
         return roleMapper.toDto(role);
@@ -113,7 +111,7 @@ public class RoleService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    public Page<RoleDTO> findAll(Pageable pageable) {
+    public Page<RoleDto> findAll(Pageable pageable) {
         throw new UnsupportedOperationException("not yet implemented");
     }
 

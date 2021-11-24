@@ -2,7 +2,6 @@ package com.knits.product.entity;
 
 import lombok.*;
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
@@ -12,7 +11,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long roleId;
+    private Long id;
 
     @Column(name = "role_name", nullable = false)
     private String roleName;

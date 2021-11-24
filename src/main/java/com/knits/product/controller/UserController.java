@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @PatchMapping(value = "/users/{id}")
-    public ResponseEntity<UserDto> partialUpdateUser(@PathVariable(value = "id", required = false)Long id,
+    public ResponseEntity<UserDto> partialUpdateUser(@PathVariable(value = "id", required = false) Long id,
                                                      @RequestBody UserDto userDTO){
         log.debug("REST request to updateUser User ");
 

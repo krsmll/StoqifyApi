@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 
 @Data
-public class RoleDTO {
-    private Long roleId;
+public class RoleDto {
+    private Long id;
     private String roleName;
 }
