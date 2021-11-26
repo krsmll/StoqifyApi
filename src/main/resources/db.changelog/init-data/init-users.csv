@@ -1,0 +1,11 @@
+first_name,last_name,email,login,password_hash,active,role_id,group_id
+Rheta,Newlan,rnewlan0@jugem.jp,rnewlan0,230f28c84c5f491325c3509f,TRUE,1,1
+Lolly,Cribbin,lcribbin1@cargocollective.com,lcribbin1,172cbcce3dd33b25d72726062e78,TRUE,2,2
+Naoma,Iredale,niredale2@eepurl.com,niredale2,6a3de1a691c1e92c57ac2ef2f7cfb65d2f4f219ed7e,TRUE,2,2
+Ham,Elgie,helgie3@goodreads.com,helgie3,9ae22ee2043b6163f21d25751e14632159ea,FALSE,2,2
+Marius,Swallwell,mswallwell4@bloglovin.com,mswallwell4,1869f6b6aedd2ed648a59831660a3a2c9de56,TRUE,3,3
+Caryl,Zanni,czanni5@umich.edu,czanni5,108cf48217ab25770735f4f71956f29e6257,FALSE,3,3
+Ashbey,Hasselby,ahasselby6@bloglines.com,ahasselby6,bb89331d39806ea8d5314d55d3d,TRUE,3,3
+Milissent,Brattan,mbrattan7@skyrock.com,mbrattan7,8c723ca9f5663ebf4e824a74bea97cf,TRUE,3,3
+Ebba,Gilchriest,egilchriest8@php.net,egilchriest8,6a7d4ad989f4e8304ead3fed137fed42471e,TRUE,3,3
+Dorolisa,De La Haye,ddelahaye9@deliciousdays.com,ddelahaye9,6c5dd911fe07c9cecc56014f4697f35a261a,FALSE,3,3

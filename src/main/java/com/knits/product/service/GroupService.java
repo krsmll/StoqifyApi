@@ -80,10 +80,6 @@ public class GroupService {
 
         Group group = groupMapper.toEntity(groupDto);
 
-        if (group.getCreatedAt() == null) {
-            group.setCreatedAt(new Date());
-        }
-
         if (group.getIsActive() == null) {
             group.setIsActive(true);
         }
