@@ -4,8 +4,14 @@ import com.knits.product.dto.GroupDto;
 import com.knits.product.entity.Group;
 import org.mapstruct.*;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface GroupMapper {
+
+    List<Group> toEntityList(List<GroupDto> groupDtos);
+
+    List<GroupDto> toDtoList(List<Group> groups);
 
     GroupDto toDto(Group group);
 

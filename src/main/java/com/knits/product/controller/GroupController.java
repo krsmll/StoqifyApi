@@ -1,6 +1,8 @@
 package com.knits.product.controller;
 
 import com.knits.product.dto.GroupDto;
+import com.knits.product.dto.groups.InsertGroup;
+import com.knits.product.dto.groups.UpdateGroup;
 import com.knits.product.exceptions.SystemException;
 import com.knits.product.service.GroupService;
 import lombok.AllArgsConstructor;
@@ -59,7 +61,7 @@ public class GroupController {
     }
 
     @PostMapping()
-    public ResponseEntity<GroupDto> createGroup(@Validated(GroupDto.InsertGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request) {
+    public ResponseEntity<GroupDto> createGroup(@Validated(InsertGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request) {
         log.debug("REST request to createGroup");
 
         GroupDto createdGroup = groupService.createGroup(groupDto);
@@ -74,7 +76,7 @@ public class GroupController {
     }
 
     @PutMapping()
-    public ResponseEntity<GroupDto> updateGroup(@Validated(GroupDto.UpdateGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<GroupDto> updateGroup(@Validated(UpdateGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request, HttpServletResponse response) {
         log.debug("REST request to updateGroup");
 
         GroupDto updatedGroup = groupService.updateGroup(groupDto);
@@ -84,7 +86,7 @@ public class GroupController {
     }
 
     @PatchMapping()
-    public ResponseEntity<GroupDto> partialUpdateGroup(@Validated(GroupDto.UpdateGroup.class) @RequestBody GroupDto groupPartialDto, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<GroupDto> partialUpdateGroup(@Validated(UpdateGroup.class) @RequestBody GroupDto groupPartialDto, HttpServletRequest request, HttpServletResponse response) {
         log.debug("REST request to partialUpdateGroup");
 
         GroupDto groupDto = groupService.partialUpdateGroup(groupPartialDto);

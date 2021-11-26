@@ -1,12 +1,13 @@
 package com.knits.product.dto;
 
+import com.knits.product.dto.groups.InsertGroup;
+import com.knits.product.dto.groups.UpdateGroup;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class GroupDto {
@@ -14,7 +15,7 @@ public class GroupDto {
     private long id;
 
     @NotBlank(groups = {InsertGroup.class, UpdateGroup.class})
-    @Max(128)
+    @Size(max = 128)
     private String name;
 
     @Null
@@ -23,10 +24,7 @@ public class GroupDto {
     @Null
     private Date createdAt;
 
-    public interface InsertGroup {
-    }
-
-    public interface UpdateGroup {
-    }
+    @NotNull
+    private List<UserDto> users;
 }
 

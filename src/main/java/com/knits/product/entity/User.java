@@ -11,7 +11,7 @@ import java.io.Serializable;
  * This is an entity which is responsible to save and fetch user table data
  */
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Data
 public class User {
 
@@ -39,10 +39,10 @@ public class User {
     private Boolean active;
 
     @Column(name = "role_id")
-    private Integer roleId;
+    private Long roleId;
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private Long groupId;
 
     @OneToOne
     @NotFound(action = NotFoundAction.IGNORE)
