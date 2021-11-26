@@ -28,6 +28,6 @@ public class Group {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, mappedBy = "group")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private List<User> users;
 }

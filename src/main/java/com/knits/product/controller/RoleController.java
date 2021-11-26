@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Slf4j
@@ -16,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api")
 public class RoleController {
+
     private final RoleService roleService;
 
     @GetMapping(value = "/roles/{id}")
@@ -50,7 +50,7 @@ public class RoleController {
         if (roleDTO == null) {
             throw new UserException("Role data are missing");
         }
-        roleDTO.setRoleId(id);
+        roleDTO.setId(id);
         return ResponseEntity.ok().body(roleService.partialUpdateRoleData(roleDTO));
     }
 

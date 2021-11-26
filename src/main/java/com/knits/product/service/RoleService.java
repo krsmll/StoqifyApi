@@ -52,7 +52,7 @@ public class RoleService {
     @Transactional
     public RoleDto partialUpdateRoleData(RoleDto roleDTO) {
         log.debug("Request to partially update Role : {}", roleDTO);
-        Role role = roleRepository.findById(roleDTO.getRoleId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getRoleId() + " not found"));
+        Role role = roleRepository.findById(roleDTO.getId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
         roleMapper.partialUpdate(role, roleDTO);
 
         //TODO: manage Role relationship to check updates
@@ -70,7 +70,7 @@ public class RoleService {
     @Transactional
     public RoleDto updateRoleData(RoleDto roleDTO) {
         log.debug("Request to update Role : {}", roleDTO);
-        Role role = roleRepository.findById(roleDTO.getRoleId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getRoleId() + " not found"));
+        Role role = roleRepository.findById(roleDTO.getId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
         roleMapper.update(role, roleDTO);
 
         //TODO: manage role relationship to check updates

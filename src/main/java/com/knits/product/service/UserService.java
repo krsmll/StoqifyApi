@@ -23,7 +23,6 @@ import java.util.List;
 public class UserService {
 
     private final UserMapper userMapper;
-    private final UserMapper userMapper1;
     private final UserRepository userRepository;
 
     /**
@@ -77,7 +76,7 @@ public class UserService {
 
     public List<UserDto> fetchAllUsers() {
 
-        return userMapper1.toUserDtoList(userRepository.findAll());
+        return userMapper.toUserDtoList(userRepository.findAll());
     }
 
     /**
