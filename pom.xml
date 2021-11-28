@@ -30,6 +30,13 @@
                 <activatedProperties>prod</activatedProperties>
             </properties>
         </profile>
+        <profile>
+            <id>integrationtests</id>
+            <properties>
+                <integration.skip>true</integration.skip>
+                <acceptance.skip>false</acceptance.skip>
+            </properties>
+        </profile>
     </profiles>
 
     <properties>
@@ -42,13 +49,11 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <spring-boot.version>2.5.3</spring-boot.version>
-        <org.projectlombok.version>1.18.16</org.projectlombok.version>
+        <org.projectlombok.version>1.18.20</org.projectlombok.version>
 
     </properties>
 
     <dependencies>
-
-
         <!-- common -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -106,6 +111,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>

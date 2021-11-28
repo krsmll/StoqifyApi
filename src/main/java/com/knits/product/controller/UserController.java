@@ -85,21 +85,21 @@ public class UserController {
     }
 
     @PutMapping(value = "addusergroup/{userid}/{groupid}")
-    public ResponseEntity<String> assignUserGroup(@PathVariable(value = "userid")Integer userId,
-                                                  @PathVariable(value = "groupid")Integer groupId) {
+    public ResponseEntity<String> assignUserGroup(@PathVariable(value = "userid")Long userId,
+                                                  @PathVariable(value = "groupid")Long groupId) {
         log.debug("REST request to add user in a group: {}", userId);
         return new ResponseEntity<>(userService.addUserGroup(userId, groupId), HttpStatus.OK);
     }
 
     @PutMapping("/adduserrole/{userid}/{roleid}")
-    public ResponseEntity<String> addUserRole(@PathVariable(value = "userid")Integer userId,
-                                              @PathVariable(value = "roleid")Integer roleId) {
+    public ResponseEntity<String> addUserRole(@PathVariable(value = "userid")Long userId,
+                                              @PathVariable(value = "roleid")Long roleId) {
         log.debug("Requested to add user role");
         return new ResponseEntity(userService.addUserRole(userId, roleId), HttpStatus.OK);
     }
 
     @PutMapping("/removeusergroup/{userid}")
-    public ResponseEntity<String> removeUserGroup(@PathVariable(value = "userid")Integer userId) {
+    public ResponseEntity<String> removeUserGroup(@PathVariable(value = "userid")Long userId) {
         return new ResponseEntity<>(userService.removeUserGroup(userId), HttpStatus.OK);
     }
 }

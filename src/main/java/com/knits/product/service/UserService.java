@@ -8,6 +8,7 @@ import com.knits.product.repository.UserRepository;
 import com.knits.product.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.List;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Qualifier("sessionFactory")
 public class UserService {
 
     private final UserMapper userMapper;
@@ -110,7 +112,7 @@ public class UserService {
      */
     public List<User> searchUsersByKeyword(String searchKeyword) {
         log.debug("Search User by search keyword : {}", searchKeyword);
-        return userRepository.findByLastNameStartsWith(searchKeyword);
+        return userRepository.findByLastNameStartsWithIgnoreCase(searchKeyword);
     }
 
     /**
@@ -130,7 +132,7 @@ public class UserService {
      * @return
      */
     @Transactional
-    public String addUserGroup(Integer userId, Integer groupId) {
+    public String addUserGroup(Long userId, Long groupId) {
         if(userRepository.addUserGroup(userId, groupId) == 1) {
             return "User has been added to the requested group";
         } else {
@@ -144,7 +146,7 @@ public class UserService {
      * @param roleId assign role
      */
     @Transactional
-    public String addUserRole(Integer userId, Integer roleId) {
+    public String addUserRole(Long userId, Long roleId) {
         if(userRepository.addUserRole(userId, roleId) == 1) {
             return "Role has been assigned";
         } else {
@@ -158,7 +160,7 @@ public class UserService {
      * @return message string
      */
     @Transactional
-    public String removeUserGroup(Integer userId) {
+    public String removeUserGroup(Long userId) {
         if(userRepository.removeUserFromGroup(userId) == 1) {
             return "User removed from group";
         } else {
