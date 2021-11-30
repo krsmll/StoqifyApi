@@ -1,4 +1,4 @@
-package com.knits.product.repository;
+package com.knits.product;
 
 import com.knits.product.entity.Group;
 import org.springframework.data.jpa.repository.JpaRepository;

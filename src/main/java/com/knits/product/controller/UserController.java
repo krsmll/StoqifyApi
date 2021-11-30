@@ -85,7 +85,7 @@ public class UserController {
     }
 
     @PutMapping(value = "addusergroup/{userid}/{groupid}")
-    public ResponseEntity<String> assignUserGroup(@PathVariable(value = "userid")Long userId,
+    public ResponseEntity<UserDto> assignUserGroup(@PathVariable(value = "userid")Long userId,
                                                   @PathVariable(value = "groupid")Long groupId) {
         log.debug("REST request to add user in a group: {}", userId);
         return new ResponseEntity<>(userService.addUserGroup(userId, groupId), HttpStatus.OK);

@@ -1,4 +1,4 @@
-package com.knits.product.repository;
+package com.knits.product;
 
 import com.knits.product.entity.Role;
 import com.knits.product.entity.User;

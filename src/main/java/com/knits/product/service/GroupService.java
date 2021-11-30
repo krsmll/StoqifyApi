@@ -3,7 +3,7 @@ package com.knits.product.service;
 import com.knits.product.dto.GroupDto;
 import com.knits.product.entity.Group;
 import com.knits.product.exceptions.UserException;
-import com.knits.product.repository.GroupRepository;
+import com.knits.product.GroupRepository;
 import com.knits.product.mapper.GroupMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

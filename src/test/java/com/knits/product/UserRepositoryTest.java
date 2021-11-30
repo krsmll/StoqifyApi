@@ -1,15 +1,20 @@
-package com.knits.product.repository;
+package com.knits.product;
 
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.runner.RunWith;
 import org.junit.jupiter.api.Test;
 import java.util.stream.Collectors;
 import com.knits.product.entity.User;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest
 @Profile("integrationtest")
@@ -17,7 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 class UserRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
+
+    UserRepositoryTest() {
+
+    }
 
     @Test
     void test_to_check_atleast_one_user_exists() {
@@ -34,7 +43,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    void test_to_remove_a_user_from_group() {
+    void removeUserFromGroup() {
         User getSearchedUsers = userRepository.findAll().stream().filter(k -> k.getGroupId() != null)
                 .collect(Collectors.toList()).get(0);
         Long Userid = getSearchedUsers.getId();

@@ -4,7 +4,7 @@ import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.entity.User;
 import com.knits.product.mapper.UserMapper;
-import com.knits.product.repository.UserRepository;
+import com.knits.product.UserRepository;
 import com.knits.product.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,6 @@ import java.util.List;
 @Slf4j
 @Service
 @AllArgsConstructor
-@Qualifier("sessionFactory")
 public class UserService {
 
     private final UserMapper userMapper;
@@ -132,12 +131,12 @@ public class UserService {
      * @return
      */
     @Transactional
-    public String addUserGroup(Long userId, Long groupId) {
-        if(userRepository.addUserGroup(userId, groupId) == 1) {
-            return "User has been added to the requested group";
-        } else {
-            return "User could not add in group";
-        }
+    public UserDto addUserGroup(Long userId, Long groupId) {
+
+        User getUserData = userRepository.findById(userId).orElseThrow(() -> new UserException("User Not found"));
+        getUserData.setGroupId(groupId);
+        userRepository.save(getUserData);
+        return userMapper.toDto(getUserData);
     }
 
     /**
@@ -161,6 +160,11 @@ public class UserService {
      */
     @Transactional
     public String removeUserGroup(Long userId) {
+
+        User getUserData = userRepository.findById(userId).orElseThrow(() -> new UserException("User Not found"));
+        getUserData.setGroupId(0L);
+        userRepository.save(getUserData);
+
         if(userRepository.removeUserFromGroup(userId) == 1) {
             return "User removed from group";
         } else {

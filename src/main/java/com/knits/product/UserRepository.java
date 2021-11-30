@@ -1,4 +1,4 @@
-package com.knits.product.repository;
+package com.knits.product;
 
 import com.knits.product.entity.User;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,14 +20,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByLastNameStartsWithIgnoreCase(String keyword);
 
     @Modifying
-    @Query(value = "update user set group_id = ?2 where id = ?1", nativeQuery = true)
+    @Query(value = "update users set group_id = ?2 where id = ?1", nativeQuery = true)
     int addUserGroup(Long userId, Long groupId);
 
     @Modifying
-    @Query(value = "update user set role_id = ?2 where id = ?1", nativeQuery = true)
+    @Query(value = "update users set role_id = ?2 where id = ?1", nativeQuery = true)
     int addUserRole(Long userId, Long roleId);
 
     @Modifying
-    @Query(value = "update user set group_id = 0 where id = ?1", nativeQuery = true)
+    @Query(value = "update users set group_id = 0 where id = ?1", nativeQuery = true)
     int removeUserFromGroup(Long userId);
 }

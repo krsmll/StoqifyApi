@@ -5,7 +5,7 @@ import com.knits.product.entity.Role;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.mapper.RoleMapper;
-import com.knits.product.repository.RoleRepository;
+import com.knits.product.RoleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
