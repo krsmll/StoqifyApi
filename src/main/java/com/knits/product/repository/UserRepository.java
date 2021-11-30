@@ -1,4 +1,4 @@
-package com.knits.product;
+package com.knits.product.repository;
 
 import com.knits.product.entity.User;
 import org.springframework.beans.factory.annotation.Qualifier;

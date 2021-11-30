@@ -5,13 +5,16 @@ import javax.persistence.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * This is an entity which is responsible to save and fetch user table data
  */
 @Entity
 @Table(name = "users")
 @Data
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,13 +45,15 @@ public class User {
     @Column(name = "group_id")
     private Long groupId;
 
-    @OneToOne
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinTable(
+            name = "users_role",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
     private Role role;
 
-    @ManyToOne
+    /*@ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "group_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Group group;
+    private Group group;*/
 }

@@ -2,8 +2,7 @@ package com.knits.product;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import org.junit.jupiter.params.ParameterizedTest;
+import com.knits.product.repository.UserRepository;
 import org.junit.runner.RunWith;
 import org.junit.jupiter.api.Test;
 import java.util.stream.Collectors;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest
 @Profile("integrationtest")

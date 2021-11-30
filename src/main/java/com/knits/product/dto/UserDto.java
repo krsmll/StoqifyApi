@@ -15,5 +15,5 @@ public class UserDto {
     private Integer roleId;
     private Integer groupId;
     private RoleDto role;
-    private GroupDto group;
+    /*private GroupDto group;*/
 }
