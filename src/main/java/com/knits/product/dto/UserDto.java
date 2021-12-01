@@ -12,8 +12,8 @@ public class UserDto {
     private String lastName;
     private String email;
     private Boolean active;
-    private Integer roleId;
-    private Integer groupId;
-    private RoleDto role;
-    /*private GroupDto group;*/
+    private Long roleId;
+    private String roleName;
+    private Long groupId;
+    private String groupName;
 }

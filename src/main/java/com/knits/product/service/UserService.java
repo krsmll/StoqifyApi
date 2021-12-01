@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service for managing {@link com.knits.product.entity.User}.
@@ -74,9 +75,10 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
-    public List<UserDto> fetchAllUsers() {
+    public List<User> fetchAllUsers() {
 
-        return userMapper.toUserDtoList(userRepository.findAll());
+        //return userRepository.findAll().stream().map(userMapper::toDto).collect(Collectors.toList());
+        return userRepository.findAll();
     }
 
     /**
@@ -125,31 +127,29 @@ public class UserService {
 
     /**
      *
-     * @param userId specific user on which the group will be apply
-     * @param groupId the group has been requested for
-     * @return
+     * @param UserDto specific user id and group id in this dto
+     * @return UserDto
      */
     @Transactional
-    public UserDto addUserGroup(Long userId, Long groupId) {
+    public UserDto addUserGroup(UserDto userDto) {
 
-        User getUserData = userRepository.findById(userId).orElseThrow(() -> new UserException("User Not found"));
-        getUserData.setGroupId(groupId);
+        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User Not found"));
+        getUserData.setGroupId(userDto.getGroupId());
         userRepository.save(getUserData);
         return userMapper.toDto(getUserData);
     }
 
     /**
      *
-     * @param userId the user will be use to set role
-     * @param roleId assign role
+     * @param UserDto with requested role id
+     * @return  UserDto with updated data
      */
     @Transactional
-    public String addUserRole(Long userId, Long roleId) {
-        if(userRepository.addUserRole(userId, roleId) == 1) {
-            return "Role has been assigned";
-        } else {
-            return "Could not assign user role";
-        }
+    public UserDto addUserRole(UserDto userDto) {
+        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User not found"));
+        getUserData.setRoleId(userDto.getRoleId());
+        userRepository.save(getUserData);
+        return userMapper.toDto(getUserData);
     }
 
     /**

@@ -50,8 +50,8 @@ public class User implements Serializable {
     @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "id"))
     private Role role;
 
-    /*@ManyToOne
+    @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "group_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Group group;*/
+    private Group group;
 }
