@@ -11,7 +11,7 @@ public interface UserMapper {
 
     User toEntity(UserDto userDto);
 
-    //@Mapping(target = "roleName", source = "role.roleName")
+    @Mapping(target = "roleName", source = "role.roleName")
     //@Mapping(target = "groupName", source = "group.name")
     UserDto toDto(User user);
 

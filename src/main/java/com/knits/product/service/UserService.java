@@ -75,10 +75,9 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
-    public List<User> fetchAllUsers() {
+    public List<UserDto> fetchAllUsers() {
 
-        //return userRepository.findAll().stream().map(userMapper::toDto).collect(Collectors.toList());
-        return userRepository.findAll();
+        return userRepository.findAll().stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 
     /**
