@@ -171,7 +171,7 @@ public class UserService {
     public UserDto removeUserGroup(UserDto userDto) {
 
         User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User Not found"));
-        getUserData.setGroupId(0L);
+        //getUserData.setGroupId(0L);
         userRepository.save(getUserData);
         return userMapper.toDto(getUserData);
     }
