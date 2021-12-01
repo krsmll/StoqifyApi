@@ -45,31 +45,29 @@ public class UserController {
         return ResponseEntity.ok().body(userService.createNewUser(userDTO));
     }
 
-    @PutMapping(value = "/users")
+    @PutMapping(value = "/updateuser")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to updateUser User ");
         if (userDTO == null) {
             throw new UserException("User data are missing");
         }
-        return ResponseEntity.ok().body(userService.update(userDTO));
+        return ResponseEntity.ok().body(userService.updateUser(userDTO));
     }
 
-    @PatchMapping(value = "/users/{id}")
-    public ResponseEntity<UserDto> partialUpdateUser(@PathVariable(value = "id", required = false) Long id,
-                                                     @RequestBody UserDto userDTO){
+    @PatchMapping(value = "/partialupdateusers")
+    public ResponseEntity<UserDto> partialUpdateUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to updateUser User ");
 
         if (userDTO == null) {
             throw new UserException("User data are missing");
         }
-        userDTO.setId(id);
         return ResponseEntity.ok().body(userService.partialUpdateUserData(userDTO));
     }
 
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        log.debug("REST request to delete User : {}", id);
-        userService.deleteUserDataByUserId(id);
+    @DeleteMapping("/deleteuser")
+    public ResponseEntity<Void> deleteUser(@RequestBody UserDto userDto) {
+        log.debug("REST request to delete User : {}", userDto.getId());
+        userService.deleteUserDataByUserId(userDto);
         return ResponseEntity.noContent().build();
     }
 
@@ -96,8 +94,8 @@ public class UserController {
         return new ResponseEntity(userService.addUserRole(userDto), HttpStatus.OK);
     }
 
-    @PutMapping("/removeusergroup/{userid}")
-    public ResponseEntity<String> removeUserGroup(@PathVariable(value = "userid")Long userId) {
-        return new ResponseEntity<>(userService.removeUserGroup(userId), HttpStatus.OK);
+    @PutMapping("/removeusergroup")
+    public ResponseEntity<UserDto> removeUserGroup(@RequestBody UserDto userDto) {
+        return new ResponseEntity<>(userService.removeUserGroup(userDto), HttpStatus.OK);
     }
 }

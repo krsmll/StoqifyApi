@@ -1,11 +1,15 @@
 package com.knits.product.service;
 
+import com.knits.product.entity.UsersGroup;
+import com.knits.product.entity.UsersRole;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.entity.User;
 import com.knits.product.mapper.UserMapper;
 import com.knits.product.repository.UserRepository;
 import com.knits.product.dto.UserDto;
+import com.knits.product.repository.UsersGroupRepository;
+import com.knits.product.repository.UsersRoleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,6 +29,8 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final UsersRoleRepository usersRoleRepository;
+    private final UsersGroupRepository usersGroupRepository;
 
     /**
      * Save a employee.
@@ -65,7 +71,7 @@ public class UserService {
      * @return the persisted entity.
      */
     @Transactional
-    public UserDto update(UserDto userDTO) {
+    public UserDto updateUser(UserDto userDTO) {
         log.debug("Request to update User : {}", userDTO);
         User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.update(user, userDTO);
@@ -99,9 +105,14 @@ public class UserService {
      * @param id the id of the entity.
      */
     @Transactional
-    public void deleteUserDataByUserId(Long id) {
-        log.debug("Delete User by id : {}", id);
-        userRepository.deleteById(id);
+    public void deleteUserDataByUserId(UserDto userDto) {
+        log.debug("Delete User by id : {}", userDto.getId());
+        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User#" + userDto.getId() + " not found"));
+        UsersRole getUserRole = usersRoleRepository.findOneByRoleId(getUserData.getRoleId());
+        UsersGroup getUserGroup = usersGroupRepository.findOneByGroupId(getUserData.getGroupId());
+        usersGroupRepository.delete(getUserGroup);
+        usersRoleRepository.delete(getUserRole);
+        userRepository.delete(getUserData);
     }
 
     /**
@@ -153,20 +164,15 @@ public class UserService {
 
     /**
      *
-     * @param userId user id to remove group
-     * @return message string
+     * @param UserDto it should have only id which is user id
+     * @return UserDto
      */
     @Transactional
-    public String removeUserGroup(Long userId) {
+    public UserDto removeUserGroup(UserDto userDto) {
 
-        User getUserData = userRepository.findById(userId).orElseThrow(() -> new UserException("User Not found"));
-        //getUserData.setGroupId(0L);
+        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User Not found"));
+        getUserData.setGroupId(0L);
         userRepository.save(getUserData);
-
-        if(userRepository.removeUserFromGroup(userId) == 1) {
-            return "User removed from group";
-        } else {
-            return "User could not remove from group";
-        }
+        return userMapper.toDto(getUserData);
     }
 }
