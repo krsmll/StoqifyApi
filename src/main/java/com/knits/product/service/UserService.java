@@ -133,7 +133,7 @@ public class UserService {
     public UserDto addUserGroup(UserDto userDto) {
 
         User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User Not found"));
-        getUserData.setGroupId(userDto.getGroupId());
+        //getUserData.setGroupId(userDto.getGroupId());
         userRepository.save(getUserData);
         return userMapper.toDto(getUserData);
     }
@@ -146,7 +146,7 @@ public class UserService {
     @Transactional
     public UserDto addUserRole(UserDto userDto) {
         User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User not found"));
-        getUserData.setRoleId(userDto.getRoleId());
+        //getUserData.setRoleId(userDto.getRoleId());
         userRepository.save(getUserData);
         return userMapper.toDto(getUserData);
     }
@@ -160,7 +160,7 @@ public class UserService {
     public String removeUserGroup(Long userId) {
 
         User getUserData = userRepository.findById(userId).orElseThrow(() -> new UserException("User Not found"));
-        getUserData.setGroupId(0L);
+        //getUserData.setGroupId(0L);
         userRepository.save(getUserData);
 
         if(userRepository.removeUserFromGroup(userId) == 1) {
