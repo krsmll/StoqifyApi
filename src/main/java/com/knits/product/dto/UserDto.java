@@ -1,7 +1,6 @@
 package com.knits.product.dto;
 
 import lombok.Data;
-import org.mapstruct.Mapping;
 
 @Data
 public class UserDto {

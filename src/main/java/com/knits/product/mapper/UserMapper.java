@@ -10,12 +10,14 @@ public interface UserMapper {
 
     User toEntity(UserDto userDto);
 
-    @Mapping(target = "groupName", source = "group.name")
-    @Mapping(target = "roleName", source = "role.roleName")
+    @Mapping(source = "user.group.id", target = "groupId")
+    @Mapping(source = "user.role.id", target = "roleId")
+    @Mapping(source = "user.group.name", target = "groupName")
+    @Mapping(source = "user.role.roleName", target = "roleName")
     UserDto toDto(User user);
 
-    void update(@MappingTarget User group, UserDto updatedGroup);
+    void update(@MappingTarget User user, UserDto updatedUser);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget User group, UserDto updatedGroup);
+    void partialUpdate(@MappingTarget User user, UserDto updatedUser);
 }

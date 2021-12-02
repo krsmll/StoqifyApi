@@ -28,6 +28,7 @@ public class Group {
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
     private Date createdAt;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "group")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<User> users;
 }
