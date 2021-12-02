@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +24,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class RoleService {
 
-    private final RoleRepository roleRepository;
     private final RoleMapper roleMapper;
+    private final RoleRepository roleRepository;
 
     /**
      * Save a role.
@@ -32,13 +33,13 @@ public class RoleService {
      * @param roleDTO the entity to save.
      * @return the persisted entity.
      */
-
+    @Transactional
     public RoleDto createNewRole(RoleDto roleDTO) {
         log.debug("Request to save Role : {}", roleDTO);
 
-        Role role = roleMapper.toEntity(roleDTO);
+        Role role = roleMapper.toRoleEntity(roleDTO);
         role = roleRepository.save(role);
-        return roleMapper.toDto(role);
+        return roleMapper.toRoleEntity(role);
     }
 
     /**
@@ -56,7 +57,7 @@ public class RoleService {
 
         //TODO: manage Role relationship to check updates
         roleRepository.save(role);
-        return roleMapper.toDto(role);
+        return roleMapper.toRoleEntity(role);
     }
 
     /**
@@ -74,12 +75,12 @@ public class RoleService {
 
         //TODO: manage role relationship to check updates
         roleRepository.save(role);
-        return roleMapper.toDto(role);
+        return roleMapper.toRoleEntity(role);
     }
 
-
+    @Transactional
     public List<RoleDto> fetchAllRoles() {
-        return roleRepository.findAll().stream().map(roleMapper::toDto).collect(Collectors.toList());
+        return roleRepository.findAll().stream().map(roleMapper::toRoleEntity).collect(Collectors.toList());
     }
 
     /**
@@ -88,10 +89,11 @@ public class RoleService {
      * @param id the id of the entity.
      * @return the entity.
      */
+    @Transactional
     public RoleDto getRoleById(Long id) {
         log.debug("Request User by id : {}", id);
         Role role = roleRepository.findById(id).orElseThrow(() -> new UserException("Role#" + id + "not found", ExceptionCodes.USER_NOT_FOUND));
-        return roleMapper.toDto(role);
+        return roleMapper.toRoleEntity(role);
     }
 
     /**
@@ -99,8 +101,8 @@ public class RoleService {
      *
      * @param id the id of the entity.
      */
-
-    public void deleteRoleDateByRoleId(Long id) {
+    @Transactional
+    public void deleteRoleDataByRoleId(Long id) {
         log.debug("Delete Role by id : {}", id);
         roleRepository.deleteById(id);
     }
@@ -111,11 +113,10 @@ public class RoleService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
+    @Transactional
     public Page<RoleDto> findAll(Pageable pageable) {
         throw new UnsupportedOperationException("not yet implemented");
     }
-
-
 
 
 }
