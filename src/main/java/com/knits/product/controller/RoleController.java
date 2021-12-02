@@ -1,14 +1,13 @@
 package com.knits.product.controller;
 
+import java.util.List;
 import com.knits.product.dto.RoleDto;
-import com.knits.product.exceptions.UserException;
 import com.knits.product.service.RoleService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -18,11 +17,11 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    @GetMapping(value = "/roles/{id}")
-    public ResponseEntity<RoleDto> getRoleById(@PathVariable(value = "id") Long id) {
+    @GetMapping(value = "/getrole")
+    public ResponseEntity<RoleDto> getRoleById(@RequestBody RoleDto roleDto) {
 
-        log.debug("REST request to get Role : {}", id);
-        RoleDto roleFound = roleService.getRoleById(id);
+        log.debug("REST request to get Role : {}", roleDto.getId());
+        RoleDto roleFound = roleService.getRoleById(roleDto);
         return ResponseEntity.ok().body(roleFound);
     }
 
@@ -33,32 +32,23 @@ public class RoleController {
     }
 
 
-    @PostMapping(value = "/roles")
+    @PostMapping(value = "/createrole")
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDTO) {
         log.debug("REST request to createRole Roles ");
-        if (roleDTO == null) {
-            throw new UserException("User data are missing");
-        }
         return ResponseEntity.ok().body(roleService.createNewRole(roleDTO));
     }
 
-    @PatchMapping(value = "/roles/{id}")
-    public ResponseEntity<RoleDto> partialUpdateRole(@PathVariable(value = "id", required = false) Long id,
-                                                     @RequestBody RoleDto roleDTO) {
+    @PatchMapping(value = "/partialroleupdate")
+    public ResponseEntity<RoleDto> partialUpdateRole(@RequestBody RoleDto roleDto) {
         log.debug("REST request to updateRole Role ");
-
-        if (roleDTO == null) {
-            throw new UserException("Role data are missing");
-        }
-        roleDTO.setId(id);
-        return ResponseEntity.ok().body(roleService.partialUpdateRoleData(roleDTO));
+        return ResponseEntity.ok().body(roleService.partialUpdateRoleData(roleDto));
     }
 
 
-    @DeleteMapping(value = "/roles/{id}")
-    public ResponseEntity<RoleDto> deleteRoleById(@PathVariable Long id) {
-        log.debug("REST request to delete Role : {}", id);
-        roleService.deleteRoleDataByRoleId(id);
+    @DeleteMapping(value = "/deleterole")
+    public ResponseEntity<RoleDto> deleteRoleById(@RequestBody RoleDto roleDto) {
+        log.debug("REST request to delete Role : {}", roleDto.getId());
+        roleService.deleteRoleDataByRoleId(roleDto);
         return ResponseEntity.noContent().build();
 
     }
@@ -67,8 +57,5 @@ public class RoleController {
     public ResponseEntity<List<RoleDto>> getAllRoles(Pageable pageable) {
         throw new UnsupportedOperationException("getAllRoles(Pageable pageable) not implemented");
     }
-
-
-
 
 }
