@@ -1,19 +1,17 @@
 package com.knits.product.entity;
 
 import lombok.Data;
+import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
-
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * This is an entity which is responsible to save and fetch user table data
  */
 @Entity
-@Table(name = "users")
 @Data
+@Table(name = "users")
 public class User implements Serializable {
 
     @Id

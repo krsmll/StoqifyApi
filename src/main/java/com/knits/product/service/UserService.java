@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * Service for managing {@link com.knits.product.entity.User}.
  */
 @Slf4j
-@Service
+@Service("userService")
 @AllArgsConstructor
 public class UserService {
 
@@ -58,8 +58,6 @@ public class UserService {
         log.debug("Request to partially update User : {}", userDTO);
         User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.partialUpdate(user, userDTO);
-
-        //TODO: manage User relationship to check updates
         userRepository.save(user);
         return userMapper.toDto(user);
     }
@@ -75,14 +73,11 @@ public class UserService {
         log.debug("Request to update User : {}", userDTO);
         User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.update(user, userDTO);
-
-        //TODO: manage User relationship to check updates
         userRepository.save(user);
         return userMapper.toDto(user);
     }
 
     public List<UserDto> fetchAllUsers() {
-
         return userRepository.findAll().stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 
@@ -93,7 +88,6 @@ public class UserService {
      * @return the entity.
      */
     public UserDto getUserById(Long id) {
-
         log.debug("Request User by id : {}", id);
         User user = userRepository.findById(id).orElseThrow(() -> new UserException("User#" + id + " not found", ExceptionCodes.USER_NOT_FOUND));
         return userMapper.toDto(user);
@@ -142,9 +136,8 @@ public class UserService {
      */
     @Transactional
     public UserDto addUserGroup(UserDto userDto) {
-
-        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User Not found"));
-        //getUserData.setGroupId(userDto.getGroupId());
+        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User# "+ userDto.getId() +" Not found"));
+        getUserData.setGroupId(userDto.getGroupId());
         userRepository.save(getUserData);
         return userMapper.toDto(getUserData);
     }
@@ -156,8 +149,8 @@ public class UserService {
      */
     @Transactional
     public UserDto addUserRole(UserDto userDto) {
-        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User not found"));
-        //getUserData.setRoleId(userDto.getRoleId());
+        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User# "+ userDto.getId() +" not found"));
+        getUserData.setRoleId(userDto.getRoleId());
         userRepository.save(getUserData);
         return userMapper.toDto(getUserData);
     }
@@ -169,10 +162,9 @@ public class UserService {
      */
     @Transactional
     public UserDto removeUserGroup(UserDto userDto) {
-
-        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User Not found"));
-        //getUserData.setGroupId(0L);
-        userRepository.save(getUserData);
+        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User# "+ userDto.getId() +" not found "));
+        UsersGroup getUserGroupDataByUserId = usersGroupRepository.findOneByUserId(userDto.getId());
+        usersGroupRepository.delete(getUserGroupDataByUserId);
         return userMapper.toDto(getUserData);
     }
 }
