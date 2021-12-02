@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="Kristjan Mill" id="1">
+        <createTable tableName="user_role">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_role_pkey"/>
+            </column>
+
+            <column name="role_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Kristjan Mill">
+        <createTable tableName="user_group">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_group_pkey"/>
+            </column>
+
+            <column name="group_name" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="VARCHAR(1024)"/>
+
+            <column defaultValueBoolean="true" name="is_active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="Kristjan Mill">
+        <createTable tableName="users">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="email" type="VARCHAR(254)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column defaultValueBoolean="true" name="active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="role_id" type="BIGINT"/>
+
+            <column name="group_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="Kristjan Mill">
+        <createTable tableName="users_group">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_group_pkey"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="group_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="Kristjan Mill">
+        <createTable tableName="users_role">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_role_pkey"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="role_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="Kristjan Mill">
+        <addForeignKeyConstraint baseTableName="users" baseColumnNames="role_id" constraintName="fk_users_users_role"
+                                 referencedTableName="users_role"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="users_role" baseColumnNames="user_id"
+                                 constraintName="fk_users_role_users"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="users_role" baseColumnNames="role_id"
+                                 constraintName="fk_users_role_user_role"
+                                 referencedTableName="user_role"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="users" baseColumnNames="group_id" constraintName="fk_users_users_group"
+                                 referencedTableName="users_role"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="users_group" baseColumnNames="user_id"
+                                 constraintName="fk_users_group_users"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="users_group" baseColumnNames="group_id"
+                                 constraintName="fk_users_group_user_group"
+                                 referencedTableName="user_group"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="8" author="Kristjan Mill">
+        <loadData schemaName="public" tableName="user_group" file="db.changelog/init-data/init-groups.csv">
+            <column header="group_name" name="group_name" type="STRING"/>
+            <column header="description" name="description" type="STRING"/>
+            <column header="is_active" name="is_active" type="BOOLEAN"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="9" author="Kristjan Mill">
+        <loadData schemaName="public" tableName="user_role" file="db.changelog/init-data/init-roles.csv">
+            <column header="role_name" name="role_name" type="STRING"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="10" author="Kristjan Mill">
+        <loadData schemaName="public" tableName="users" file="db.changelog/init-data/init-users.csv">
+            <column header="first_name" name="first_name" type="STRING"/>
+            <column header="last_name" name="last_name" type="STRING"/>
+            <column header="email" name="email" type="STRING"/>
+            <column header="login" name="login" type="STRING"/>
+            <column header="password_hash" name="password_hash" type="STRING"/>
+            <column header="active" name="active" type="BOOLEAN"/>
+            <column header="role_id" name="role_id" type="NUMERIC"/>
+            <column header="group_id" name="group_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="11" author="Kristjan Mill">
+        <loadData schemaName="public" tableName="users_role" file="db.changelog/init-data/init-user-roles.csv">
+            <column header="role_id" name="role_id" type="NUMERIC"/>
+            <column header="user_id" name="user_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="12" author="Kristjan Mill">
+        <loadData schemaName="public" tableName="users_group" file="db.changelog/init-data/init-user-groups.csv">
+            <column header="group_id" name="group_id" type="NUMERIC"/>
+            <column header="user_id" name="user_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

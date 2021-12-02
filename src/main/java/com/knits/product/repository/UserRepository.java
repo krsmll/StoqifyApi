@@ -19,14 +19,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByLastNameStartsWith(String keyword);
 
     @Modifying
-    @Query(value = "update user set group_id = ?2 where id = ?1", nativeQuery = true)
+    @Query(value = "update users set group_id = ?2 where id = ?1", nativeQuery = true)
     int addUserGroup(Integer userId, Integer groupId);
 
     @Modifying
-    @Query(value = "update user set role_id = ?2 where id = ?1", nativeQuery = true)
+    @Query(value = "update users set role_id = ?2 where id = ?1", nativeQuery = true)
     int addUserRole(Integer userId, Integer roleId);
 
     @Modifying
-    @Query(value = "update user set group_id = 0 where id = ?1", nativeQuery = true)
+    @Query(value = "update users set group_id = 0 where id = ?1", nativeQuery = true)
     int removeUserFromGroup(Integer userId);
 }

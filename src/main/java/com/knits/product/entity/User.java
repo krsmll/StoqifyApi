@@ -14,7 +14,7 @@ import org.hibernate.annotations.NotFoundAction;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -36,19 +36,13 @@ public class User {
     @Column(name = "active", nullable = false)
     private Boolean active;
 
-    @Column(name = "role_id")
-    private Long roleId;
-
-    @Column(name = "group_id")
-    private Long groupId;
-
-    @OneToOne
+    @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Role role;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "group_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Group group;
 }

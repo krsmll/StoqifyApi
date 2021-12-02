@@ -13,12 +13,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service for managing {@link com.knits.product.entity.User}.
  */
 @Slf4j
 @Service
+@Transactional
 @AllArgsConstructor
 public class UserService {
 
@@ -31,7 +33,6 @@ public class UserService {
      * @param userDTO the entity to save.
      * @return the persisted entity.
      */
-    @Transactional
     public UserDto createNewUser(UserDto userDTO) {
         log.debug("Request to save User : {}", userDTO);
        // userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
@@ -46,7 +47,6 @@ public class UserService {
      * @param userDTO the entity to update partially.
      * @return the persisted entity.
      */
-    @Transactional
     public UserDto partialUpdateUserData(UserDto userDTO) {
         log.debug("Request to partially update User : {}", userDTO);
         User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
@@ -63,7 +63,6 @@ public class UserService {
      * @param userDTO the entity to update.
      * @return the persisted entity.
      */
-    @Transactional
     public UserDto update(UserDto userDTO) {
         log.debug("Request to update User : {}", userDTO);
         User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
@@ -75,8 +74,9 @@ public class UserService {
     }
 
     public List<UserDto> fetchAllUsers() {
-
-        return userMapper.toUserDtoList(userRepository.findAll());
+        return userRepository.findAll().stream()
+                .map(it -> userMapper.toDto(it))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -97,7 +97,6 @@ public class UserService {
      *
      * @param id the id of the entity.
      */
-    @Transactional
     public void deleteUserDataByUserId(Long id) {
         log.debug("Delete User by id : {}", id);
         userRepository.deleteById(id);
@@ -129,7 +128,6 @@ public class UserService {
      * @param groupId the group has been requested for
      * @return
      */
-    @Transactional
     public String addUserGroup(Integer userId, Integer groupId) {
         if(userRepository.addUserGroup(userId, groupId) == 1) {
             return "User has been added to the requested group";
@@ -143,7 +141,6 @@ public class UserService {
      * @param userId the user will be use to set role
      * @param roleId assign role
      */
-    @Transactional
     public String addUserRole(Integer userId, Integer roleId) {
         if(userRepository.addUserRole(userId, roleId) == 1) {
             return "Role has been assigned";
@@ -157,7 +154,6 @@ public class UserService {
      * @param userId user id to remove group
      * @return message string
      */
-    @Transactional
     public String removeUserGroup(Integer userId) {
         if(userRepository.removeUserFromGroup(userId) == 1) {
             return "User removed from group";
