@@ -1,11 +1,15 @@
 package com.knits.product.service;
 
+import com.knits.product.entity.UsersGroup;
+import com.knits.product.entity.UsersRole;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.entity.User;
 import com.knits.product.mapper.UserMapper;
+import com.knits.product.repository.UserGroupRepository;
 import com.knits.product.repository.UserRepository;
 import com.knits.product.dto.UserDto;
+import com.knits.product.repository.UsersRoleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,6 +30,8 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final UsersRoleRepository usersRoleRepository;
+    private final UserGroupRepository userGroupRepository;
 
     /**
      * Save a employee.
@@ -35,7 +41,6 @@ public class UserService {
      */
     public UserDto createNewUser(UserDto userDTO) {
         log.debug("Request to save User : {}", userDTO);
-       // userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = userMapper.toEntity(userDTO);
         user = userRepository.save(user);
         return userMapper.toDto(user);
@@ -49,10 +54,9 @@ public class UserService {
      */
     public UserDto partialUpdateUserData(UserDto userDTO) {
         log.debug("Request to partially update User : {}", userDTO);
-        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
+        User user = userRepository.findById(userDTO.getId())
+                .orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.partialUpdate(user, userDTO);
-
-        //TODO: manage User relationship to check updates
         userRepository.save(user);
         return userMapper.toDto(user);
     }
@@ -65,10 +69,9 @@ public class UserService {
      */
     public UserDto update(UserDto userDTO) {
         log.debug("Request to update User : {}", userDTO);
-        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
+        User user = userRepository.findById(userDTO.getId())
+                .orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.update(user, userDTO);
-
-        //TODO: manage User relationship to check updates
         userRepository.save(user);
         return userMapper.toDto(user);
     }
@@ -80,15 +83,16 @@ public class UserService {
     }
 
     /**
-     * Get by the "id" user.
+     * Get user "id" by UserDto.
      *
-     * @param id the id of the entity.
+     * @param UserDto the id of the entity.
      * @return the entity.
      */
-    public UserDto getUserById(Long id) {
+    public UserDto getUserById(UserDto userDto) {
 
-        log.debug("Request User by id : {}", id);
-        User user = userRepository.findById(id).orElseThrow(() -> new UserException("User#" + id + " not found", ExceptionCodes.USER_NOT_FOUND));
+        log.debug("Request User by id : {}", userDto.getId());
+        User user = userRepository.findById(userDto.getId())
+                .orElseThrow(() -> new UserException("User#" + userDto.getId() + " not found", ExceptionCodes.USER_NOT_FOUND));
         return userMapper.toDto(user);
     }
 
@@ -97,9 +101,9 @@ public class UserService {
      *
      * @param id the id of the entity.
      */
-    public void deleteUserDataByUserId(Long id) {
-        log.debug("Delete User by id : {}", id);
-        userRepository.deleteById(id);
+    public void deleteUserDataByUserId(UserDto userDto) {
+        log.debug("Delete User by id : {}", userDto.getId());
+        userRepository.deleteById(userDto.getId());
     }
 
     /**
@@ -109,7 +113,7 @@ public class UserService {
      */
     public List<User> searchUsersByKeyword(String searchKeyword) {
         log.debug("Search User by search keyword : {}", searchKeyword);
-        return userRepository.findByLastNameStartsWith(searchKeyword);
+        return userRepository.findByLastNameStartsWithIgnoreCase(searchKeyword);
     }
 
     /**
@@ -128,12 +132,9 @@ public class UserService {
      * @param groupId the group has been requested for
      * @return
      */
-    public String addUserGroup(Integer userId, Integer groupId) {
-        if(userRepository.addUserGroup(userId, groupId) == 1) {
-            return "User has been added to the requested group";
-        } else {
-            return "User could not add in group";
-        }
+    public String addUserGroup(UserDto userDto) {
+        userGroupRepository.save(new UsersGroup(0L, userDto.getGroupId(), userDto.getId()));
+        return "User could not add in group";
     }
 
     /**
@@ -141,12 +142,8 @@ public class UserService {
      * @param userId the user will be use to set role
      * @param roleId assign role
      */
-    public String addUserRole(Integer userId, Integer roleId) {
-        if(userRepository.addUserRole(userId, roleId) == 1) {
-            return "Role has been assigned";
-        } else {
-            return "Could not assign user role";
-        }
+    public void addUserRole(UserDto userDto) {
+        usersRoleRepository.save(new UsersRole(0L, userDto.getRoleId(), userDto.getId()));
     }
 
     /**
@@ -154,11 +151,9 @@ public class UserService {
      * @param userId user id to remove group
      * @return message string
      */
-    public String removeUserGroup(Integer userId) {
-        if(userRepository.removeUserFromGroup(userId) == 1) {
-            return "User removed from group";
-        } else {
-            return "User could not remove from group";
-        }
+    public void removeUserGroup(UserDto userDto) {
+        UsersGroup usersGroupData = userGroupRepository.findOneByUserId(userDto.getId())
+                .orElseThrow(() -> new UserException("User# " + userDto.getId() + " not found"));
+        userGroupRepository.delete(usersGroupData);
     }
 }

@@ -1,18 +1,20 @@
 package com.knits.product.controller;
 
+import java.util.List;
+import javax.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import com.knits.product.dto.UserDto;
 import com.knits.product.entity.User;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.service.UserService;
-import com.knits.product.dto.UserDto;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @Slf4j
+@Validated
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
@@ -20,11 +22,11 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping(value = "/users/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable(value = "id", required = true) Long id) {
+    @GetMapping(value = "/users")
+    public ResponseEntity<UserDto> getUserById(@RequestBody UserDto userDto) {
 
-        log.debug("REST request to get User : {}", id);
-        UserDto userFound = userService.getUserById(id);
+        log.debug("REST request to get User : {}", userDto.getId());
+        UserDto userFound = userService.getUserById(userDto);
         return ResponseEntity.ok().body(userFound);
     }
 
@@ -36,7 +38,7 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/users")
+    @PostMapping(value = "/createuser")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to createUser User ");
         if (userDTO == null) {
@@ -45,7 +47,7 @@ public class UserController {
         return ResponseEntity.ok().body(userService.createNewUser(userDTO));
     }
 
-    @PutMapping(value = "/users")
+    @PutMapping(value = "/updateuser")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to updateUser User ");
         if (userDTO == null) {
@@ -54,28 +56,17 @@ public class UserController {
         return ResponseEntity.ok().body(userService.update(userDTO));
     }
 
-    @PatchMapping(value = "/users/{id}")
-    public ResponseEntity<UserDto> partialUpdateUser(@PathVariable(value = "id") Long id,
-                                                     @RequestBody UserDto userDTO){
+    @PatchMapping(value = "/partialuserupdate/")
+    public ResponseEntity<UserDto> partialUpdateUser(@RequestBody UserDto userDto){
         log.debug("REST request to updateUser User ");
-
-        if (userDTO == null) {
-            throw new UserException("User data are missing");
-        }
-        userDTO.setId(id);
-        return ResponseEntity.ok().body(userService.partialUpdateUserData(userDTO));
+        return ResponseEntity.ok().body(userService.partialUpdateUserData(userDto));
     }
 
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        log.debug("REST request to delete User : {}", id);
-        userService.deleteUserDataByUserId(id);
+    @DeleteMapping("/deleteuser")
+    public ResponseEntity<Void> deleteUser(@RequestBody UserDto userDto) {
+        log.debug("REST request to delete User : {}", userDto.getId());
+        userService.deleteUserDataByUserId(userDto);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/users")
-    public ResponseEntity<List<UserDto>> getAllUsers(Pageable pageable) {
-        throw new UnsupportedOperationException("getAllUsers(Pageable pageable) not implemented");
     }
 
     @GetMapping("/searchuser/{searchkeyword}")
@@ -84,22 +75,22 @@ public class UserController {
         return new ResponseEntity<List<User>>(userService.searchUsersByKeyword(searchkeyword), HttpStatus.OK);
     }
 
-    @PutMapping(value = "addusergroup/{userid}/{groupid}")
-    public ResponseEntity<String> assignUserGroup(@PathVariable(value = "userid")Integer userId,
-                                                  @PathVariable(value = "groupid")Integer groupId) {
-        log.debug("REST request to add user in a group: {}", userId);
-        return new ResponseEntity<>(userService.addUserGroup(userId, groupId), HttpStatus.OK);
+    @PutMapping(value = "addusergroup")
+    public ResponseEntity<String> assignUserGroup(@Valid @RequestBody UserDto userDto) {
+        log.debug("REST request to add user in a group: {}", userDto.getId());
+        return new ResponseEntity<>(userService.addUserGroup(userDto), HttpStatus.OK);
     }
 
-    @PutMapping("/adduserrole/{userid}/{roleid}")
-    public ResponseEntity<String> addUserRole(@PathVariable(value = "userid")Integer userId,
-                                              @PathVariable(value = "roleid")Integer roleId) {
+    @PutMapping("/adduserrole")
+    public ResponseEntity<Void> addUserRole(@Valid @RequestBody UserDto userDto) {
         log.debug("Requested to add user role");
-        return new ResponseEntity(userService.addUserRole(userId, roleId), HttpStatus.OK);
+        userService.addUserRole(userDto);
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/removeusergroup/{userid}")
-    public ResponseEntity<String> removeUserGroup(@PathVariable(value = "userid")Integer userId) {
-        return new ResponseEntity<>(userService.removeUserGroup(userId), HttpStatus.OK);
+    @PutMapping("/removeusergroup")
+    public ResponseEntity<String> removeUserGroup(@RequestBody UserDto userDto) {
+        userService.removeUserGroup(userDto);
+        return ResponseEntity.noContent().build();
     }
 }

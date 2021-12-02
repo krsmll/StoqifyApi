@@ -1,6 +1,7 @@
 package com.knits.product.service;
 
 import com.knits.product.dto.RoleDto;
+import com.knits.product.dto.UserDto;
 import com.knits.product.entity.Role;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
@@ -12,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,10 +52,9 @@ public class RoleService {
     @Transactional
     public RoleDto partialUpdateRoleData(RoleDto roleDTO) {
         log.debug("Request to partially update Role : {}", roleDTO);
-        Role role = roleRepository.findById(roleDTO.getId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
+        Role role = roleRepository.findById(roleDTO.getId())
+                .orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
         roleMapper.partialUpdate(role, roleDTO);
-
-        //TODO: manage Role relationship to check updates
         roleRepository.save(role);
         return roleMapper.toRoleEntity(role);
     }
@@ -70,10 +69,9 @@ public class RoleService {
     @Transactional
     public RoleDto updateRoleData(RoleDto roleDTO) {
         log.debug("Request to update Role : {}", roleDTO);
-        Role role = roleRepository.findById(roleDTO.getId()).orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
+        Role role = roleRepository.findById(roleDTO.getId())
+                .orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
         roleMapper.update(role, roleDTO);
-
-        //TODO: manage role relationship to check updates
         roleRepository.save(role);
         return roleMapper.toRoleEntity(role);
     }
@@ -86,25 +84,26 @@ public class RoleService {
     /**
      * Get by the "id" role.
      *
-     * @param id the id of the entity.
+     * @param RoleDto the id of the entity.
      * @return the entity.
      */
     @Transactional
-    public RoleDto getRoleById(Long id) {
-        log.debug("Request User by id : {}", id);
-        Role role = roleRepository.findById(id).orElseThrow(() -> new UserException("Role#" + id + "not found", ExceptionCodes.USER_NOT_FOUND));
+    public RoleDto getRoleById(RoleDto roleDto) {
+        log.debug("Request User by id : {}", roleDto.getId());
+        Role role = roleRepository.findById(roleDto.getId())
+                .orElseThrow(() -> new UserException("Role#" + roleDto.getId() + "not found", ExceptionCodes.USER_NOT_FOUND));
         return roleMapper.toRoleEntity(role);
     }
 
     /**
      * Delete the "id" role.
      *
-     * @param id the id of the entity.
+     * @param RoleDto the id of the entity.
      */
     @Transactional
-    public void deleteRoleDataByRoleId(Long id) {
-        log.debug("Delete Role by id : {}", id);
-        roleRepository.deleteById(id);
+    public void deleteRoleDataByRoleId(RoleDto roleDto) {
+        log.debug("Delete Role by id : {}", roleDto.getId());
+        roleRepository.deleteById(roleDto.getId());
     }
 
     /**

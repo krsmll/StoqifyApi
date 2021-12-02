@@ -7,13 +7,12 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-
     User toEntity(UserDto userDto);
 
-    @Mapping(source = "user.group.id", target = "groupId")
-    @Mapping(source = "user.role.id", target = "roleId")
-    @Mapping(source = "user.group.name", target = "groupName")
-    @Mapping(source = "user.role.roleName", target = "roleName")
+    @Mapping(source = "group.id", target = "groupId")
+    @Mapping(source = "role.id", target = "roleId")
+    @Mapping(source = "group.name", target = "groupName")
+    @Mapping(source = "role.roleName", target = "roleName")
     UserDto toDto(User user);
 
     void update(@MappingTarget User user, UserDto updatedUser);
