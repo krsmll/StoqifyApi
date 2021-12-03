@@ -18,7 +18,7 @@ spring:
     # The commented value for `active` can be replaced with valid Spring profiles to load.
     # Otherwise, it will be filled in by maven when building the JAR file
     # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
-    active: dev
+    active: spring.profile.active
   data:
     jpa:
       repositories:
@@ -31,13 +31,13 @@ spring:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/KN
-    username: debian-sys-maint
-    password: xhnDbihLeKXc1i9r
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/warehouse?useSSL=false
+    username: root
+    password: database
   liquibase:
     change-log: classpath:db.changelog/app-changelog-root.xml
     drop-first: true
 
 server:
-  port: 8081
+  port: 8080
