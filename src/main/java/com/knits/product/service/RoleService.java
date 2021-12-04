@@ -84,26 +84,26 @@ public class RoleService {
     /**
      * Get by the "id" role.
      *
-     * @param RoleDto the id of the entity.
+     * @param roleId the id of the entity.
      * @return the entity.
      */
     @Transactional
-    public RoleDto getRoleById(RoleDto roleDto) {
-        log.debug("Request User by id : {}", roleDto.getId());
-        Role role = roleRepository.findById(roleDto.getId())
-                .orElseThrow(() -> new UserException("Role#" + roleDto.getId() + "not found", ExceptionCodes.USER_NOT_FOUND));
+    public RoleDto getRoleById(Long roleId) {
+        log.debug("Request User by id : {}", roleId);
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new UserException("Role#" + roleId + "not found", ExceptionCodes.USER_NOT_FOUND));
         return roleMapper.toRoleEntity(role);
     }
 
     /**
      * Delete the "id" role.
      *
-     * @param RoleDto the id of the entity.
+     * @param roleId the id of the entity.
      */
     @Transactional
-    public void deleteRoleDataByRoleId(RoleDto roleDto) {
-        log.debug("Delete Role by id : {}", roleDto.getId());
-        roleRepository.deleteById(roleDto.getId());
+    public void deleteRoleDataByRoleId(Long roleId) {
+        log.debug("Delete Role by id : {}", roleId);
+        roleRepository.deleteById(roleId);
     }
 
     /**
