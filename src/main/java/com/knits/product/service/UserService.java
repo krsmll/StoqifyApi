@@ -76,6 +76,10 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
+    /**
+     *
+     * @return List of users
+     */
     public List<UserDto> fetchAllUsers() {
         return userRepository.findAll().stream()
                 .map(it -> userMapper.toDto(it))
