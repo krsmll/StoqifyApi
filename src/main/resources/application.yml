@@ -26,7 +26,7 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
@@ -35,6 +35,9 @@ spring:
     url: jdbc:mysql://localhost:3306/KN
     username: debian-sys-maint
     password: xhnDbihLeKXc1i9r
+  liquibase:
+    change-log: classpath:db.changelog/app-changelog-root.xml
+    drop-first: true
 
 server:
   port: 8081

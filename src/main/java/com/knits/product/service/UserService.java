@@ -6,9 +6,9 @@ import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.entity.User;
 import com.knits.product.mapper.UserMapper;
+import com.knits.product.repository.UserGroupRepository;
 import com.knits.product.repository.UserRepository;
 import com.knits.product.dto.UserDto;
-import com.knits.product.repository.UsersGroupRepository;
 import com.knits.product.repository.UsersRoleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,14 +23,15 @@ import java.util.stream.Collectors;
  * Service for managing {@link com.knits.product.entity.User}.
  */
 @Slf4j
-@Service("userService")
+@Service
+@Transactional
 @AllArgsConstructor
 public class UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final UsersRoleRepository usersRoleRepository;
-    private final UsersGroupRepository usersGroupRepository;
+    private final UserGroupRepository userGroupRepository;
 
     /**
      * Save a employee.
@@ -38,10 +39,8 @@ public class UserService {
      * @param userDTO the entity to save.
      * @return the persisted entity.
      */
-    @Transactional
     public UserDto createNewUser(UserDto userDTO) {
         log.debug("Request to save User : {}", userDTO);
-       // userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = userMapper.toEntity(userDTO);
         user = userRepository.save(user);
         return userMapper.toDto(user);
@@ -53,10 +52,10 @@ public class UserService {
      * @param userDTO the entity to update partially.
      * @return the persisted entity.
      */
-    @Transactional
     public UserDto partialUpdateUserData(UserDto userDTO) {
         log.debug("Request to partially update User : {}", userDTO);
-        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
+        User user = userRepository.findById(userDTO.getId())
+                .orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.partialUpdate(user, userDTO);
         userRepository.save(user);
         return userMapper.toDto(user);
@@ -68,28 +67,36 @@ public class UserService {
      * @param userDTO the entity to update.
      * @return the persisted entity.
      */
-    @Transactional
-    public UserDto updateUser(UserDto userDTO) {
+    public UserDto update(UserDto userDTO) {
         log.debug("Request to update User : {}", userDTO);
-        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
+        User user = userRepository.findById(userDTO.getId())
+                .orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.update(user, userDTO);
         userRepository.save(user);
         return userMapper.toDto(user);
     }
 
+    /**
+     *
+     * @return List of users
+     */
     public List<UserDto> fetchAllUsers() {
-        return userRepository.findAll().stream().map(userMapper::toDto).collect(Collectors.toList());
+        return userRepository.findAll().stream()
+                .map(it -> userMapper.toDto(it))
+                .collect(Collectors.toList());
     }
 
     /**
-     * Get by the "id" user.
+     * Get user "id" by UserDto.
      *
-     * @param id the id of the entity.
+     * @param userId the id of the entity.
      * @return the entity.
      */
-    public UserDto getUserById(Long id) {
-        log.debug("Request User by id : {}", id);
-        User user = userRepository.findById(id).orElseThrow(() -> new UserException("User#" + id + " not found", ExceptionCodes.USER_NOT_FOUND));
+    public UserDto getUserById(Long userId) {
+
+        log.debug("Request User by id : {}", userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException("User#" + userId + " not found", ExceptionCodes.USER_NOT_FOUND));
         return userMapper.toDto(user);
     }
 
@@ -98,15 +105,9 @@ public class UserService {
      *
      * @param id the id of the entity.
      */
-    @Transactional
     public void deleteUserDataByUserId(UserDto userDto) {
         log.debug("Delete User by id : {}", userDto.getId());
-        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User#" + userDto.getId() + " not found"));
-        UsersRole getUserRole = usersRoleRepository.findOneByRoleId(getUserData.getRoleId());
-        UsersGroup getUserGroup = usersGroupRepository.findOneByGroupId(getUserData.getGroupId());
-        usersGroupRepository.delete(getUserGroup);
-        usersRoleRepository.delete(getUserRole);
-        userRepository.delete(getUserData);
+        userRepository.deleteById(userDto.getId());
     }
 
     /**
@@ -131,40 +132,32 @@ public class UserService {
 
     /**
      *
-     * @param UserDto specific user id and group id in this dto
-     * @return UserDto
+     * @param userId specific user on which the group will be apply
+     * @param groupId the group has been requested for
+     * @return
      */
-    @Transactional
-    public UserDto addUserGroup(UserDto userDto) {
-        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User# "+ userDto.getId() +" Not found"));
-        getUserData.setGroupId(userDto.getGroupId());
-        userRepository.save(getUserData);
-        return userMapper.toDto(getUserData);
+    public String addUserGroup(UserDto userDto) {
+        userGroupRepository.save(new UsersGroup(0L, userDto.getGroupId(), userDto.getId()));
+        return "User could not add in group";
     }
 
     /**
      *
-     * @param UserDto with requested role id
-     * @return  UserDto with updated data
+     * @param userId the user will be use to set role
+     * @param roleId assign role
      */
-    @Transactional
-    public UserDto addUserRole(UserDto userDto) {
-        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User# "+ userDto.getId() +" not found"));
-        getUserData.setRoleId(userDto.getRoleId());
-        userRepository.save(getUserData);
-        return userMapper.toDto(getUserData);
+    public void addUserRole(UserDto userDto) {
+        usersRoleRepository.save(new UsersRole(0L, userDto.getRoleId(), userDto.getId()));
     }
 
     /**
      *
-     * @param UserDto it should have only id which is user id
-     * @return UserDto
+     * @param userId user id to remove group
+     * @return message string
      */
-    @Transactional
-    public UserDto removeUserGroup(UserDto userDto) {
-        User getUserData = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserException("User# "+ userDto.getId() +" not found "));
-        UsersGroup getUserGroupDataByUserId = usersGroupRepository.findOneByUserId(userDto.getId());
-        usersGroupRepository.delete(getUserGroupDataByUserId);
-        return userMapper.toDto(getUserData);
+    public void removeUserGroup(UserDto userDto) {
+        UsersGroup usersGroupData = userGroupRepository.findOneByUserId(userDto.getId())
+                .orElseThrow(() -> new UserException("User# " + userDto.getId() + " not found"));
+        userGroupRepository.delete(usersGroupData);
     }
 }

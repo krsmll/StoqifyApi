@@ -34,17 +34,11 @@ class UserRepositoryTest {
     }
 
     @Test
-    void removeUserFromGroup() {
-        /*User getSearchedUsers = userRepository.findAll().stream().filter(k -> k.getGroupId() != null)
-                .collect(Collectors.toList()).get(0);
-        Long Userid = getSearchedUsers.getId();
-
-        userRepository.removeUserFromGroup(Userid);*/
+    void test_to_remove_user_from_group() {
     }
 
     @Test
     void test_to_check_by_adding_a_user_to_specific_group() {
-
     }
 
     @Test

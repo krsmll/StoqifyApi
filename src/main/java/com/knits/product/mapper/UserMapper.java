@@ -9,18 +9,18 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
+    List<UserDto> toDtoList(List<User> users);
+
     User toEntity(UserDto userDto);
 
-    @Mapping(target = "roleName", source = "role.roleName")
-    @Mapping(target = "groupName", source = "group.name")
+    @Mapping(source = "group.id", target = "groupId")
+    @Mapping(source = "role.id", target = "roleId")
+    @Mapping(source = "group.name", target = "groupName")
+    @Mapping(source = "role.roleName", target = "roleName")
     UserDto toDto(User user);
 
-    UserDto toUserDtoList(User users);
-
-    List<User> toUserList(List<UserDto> userDtos);
-
-    void update(@MappingTarget User group, UserDto updatedGroup);
+    void update(@MappingTarget User user, UserDto updatedUser);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(@MappingTarget User group, UserDto updatedGroup);
+    void partialUpdate(@MappingTarget User user, UserDto updatedUser);
 }

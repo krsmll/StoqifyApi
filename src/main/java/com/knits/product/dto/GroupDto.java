@@ -3,8 +3,6 @@ package com.knits.product.dto;
 import com.knits.product.dto.groups.InsertGroup;
 import com.knits.product.dto.groups.UpdateGroup;
 import lombok.Data;
-
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;

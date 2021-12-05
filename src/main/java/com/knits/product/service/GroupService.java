@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional
 @AllArgsConstructor
 public class GroupService {
     private final GroupMapper groupMapper;
@@ -47,7 +48,6 @@ public class GroupService {
         return groups.stream().map(groupMapper::toDto).collect(Collectors.toList());
     }
 
-    @Transactional
     public GroupDto updateGroup(GroupDto groupDto) {
         log.debug("Request to update Group : {}", groupDto);
 
@@ -60,7 +60,6 @@ public class GroupService {
         return groupMapper.toDto(groupRepository.save(group));
     }
 
-    @Transactional
     public GroupDto partialUpdateGroup(GroupDto groupDto) {
         log.debug("Request to partially update Group : {}", groupDto);
 
@@ -73,7 +72,6 @@ public class GroupService {
         return groupMapper.toDto(groupRepository.save(group));
     }
 
-    @Transactional
     public GroupDto createGroup(GroupDto groupDto) {
         log.debug("Request to create Group : {}", groupDto);
 
@@ -86,7 +84,6 @@ public class GroupService {
         return groupMapper.toDto(groupRepository.save(group));
     }
 
-    @Transactional
     public void setGroupStatus(long id, boolean status) {
         log.debug("Request to change Group with an ID of {} to status : {}", id, status);
 

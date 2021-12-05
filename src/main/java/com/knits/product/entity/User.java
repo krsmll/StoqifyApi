@@ -1,7 +1,6 @@
 package com.knits.product.entity;
 
 import lombok.Data;
-import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -10,12 +9,12 @@ import org.hibernate.annotations.NotFoundAction;
  * This is an entity which is responsible to save and fetch user table data
  */
 @Entity
-@Data
 @Table(name = "users")
-public class User implements Serializable {
+@Data
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -37,19 +36,13 @@ public class User implements Serializable {
     @Column(name = "active", nullable = false)
     private Boolean active;
 
-    @Column(name = "role_id")
-    private Long roleId;
-
-    @Column(name = "group_id")
-    private Long groupId;
-
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Role role;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Group group;
 }
