@@ -7,6 +7,7 @@ import com.knits.product.exceptions.SystemException;
 import com.knits.product.service.GroupService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -111,5 +112,11 @@ public class GroupController {
         groupService.setGroupStatus(id, false);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/operator/users")
+    public ResponseEntity<List<GroupDto>> getUsersBelongsToOperator() {
+        log.debug("REST request to get all users of Operator");
+        return ResponseEntity.ok().body(groupService.getUsersOfOperatorGroup());
     }
 }

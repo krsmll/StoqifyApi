@@ -9,4 +9,5 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
     List<Group> findByNameContainingIgnoreCase(String name);
     List<Group> findByIsActiveFalse();
     List<Group> findByIsActiveTrue();
+    List<Group> findByName(String groupName);
 }
