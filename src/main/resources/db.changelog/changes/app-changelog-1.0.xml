@@ -83,7 +83,20 @@
             <column name="role_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet id="7" author="Kristjan Mill">
+    <changeSet id="7" author="Soumen Banerjee">
+        <createTable tableName="driver_carrier">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="driver_carrier_pkey"/>
+            </column>
+            <column name="first_name" type="VARCHAR(128)"/>
+            <column name="last_name" type="VARCHAR(128)"/>
+            <column name="driving_licence_number" type="VARCHAR(128)"/>
+            <column name="phone_no" type="VARCHAR(128)"/>
+            <column name="driver_address" type="VARCHAR(128)"/>
+            <column name="carrier_company_name" type="VARCHAR(128)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="Kristjan Mill">
         <addForeignKeyConstraint baseTableName="users" baseColumnNames="role_id" constraintName="fk_users_users_role"
                                  referencedTableName="users_role"
                                  referencedColumnNames="id"/>
@@ -107,19 +120,19 @@
                                  referencedTableName="user_group"
                                  referencedColumnNames="id"/>
     </changeSet>
-    <changeSet id="8" author="Kristjan Mill">
+    <changeSet id="9" author="Kristjan Mill">
         <loadData schemaName="public" tableName="user_group" file="db.changelog/init-data/init-groups.csv">
             <column header="group_name" name="group_name" type="STRING"/>
             <column header="description" name="description" type="STRING"/>
             <column header="is_active" name="is_active" type="BOOLEAN"/>
         </loadData>
     </changeSet>
-    <changeSet id="9" author="Kristjan Mill">
+    <changeSet id="10" author="Kristjan Mill">
         <loadData schemaName="public" tableName="user_role" file="db.changelog/init-data/init-roles.csv">
             <column header="role_name" name="role_name" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet id="10" author="Kristjan Mill">
+    <changeSet id="11" author="Kristjan Mill">
         <loadData schemaName="public" tableName="users" file="db.changelog/init-data/init-users.csv">
             <column header="first_name" name="first_name" type="STRING"/>
             <column header="last_name" name="last_name" type="STRING"/>
@@ -131,16 +144,26 @@
             <column header="group_id" name="group_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="11" author="Kristjan Mill">
+    <changeSet id="12" author="Kristjan Mill">
         <loadData schemaName="public" tableName="users_role" file="db.changelog/init-data/init-user-roles.csv">
             <column header="role_id" name="role_id" type="NUMERIC"/>
             <column header="user_id" name="user_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="12" author="Kristjan Mill">
+    <changeSet id="13" author="Kristjan Mill">
         <loadData schemaName="public" tableName="users_group" file="db.changelog/init-data/init-user-groups.csv">
             <column header="group_id" name="group_id" type="NUMERIC"/>
             <column header="user_id" name="user_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="14" author="Soumen Banerjee">
+        <loadData schemaName="public" tableName="driver_carrier" file="db.changelog/init-data/init-drivers.csv">
+            <column header="first_name" name="first_name" type="STRING"/>
+            <column header="last_name" name="last_name" type="STRING"/>
+            <column header="driving_licence_number" name="driving_licence_number" type="STRING"/>
+            <column header="phone_no" name="phone_no" type="STRING"/>
+            <column header="driver_address" name="driver_address" type="STRING"/>
+            <column header="carrier_company_name" name="carrier_company_name" type="STRING"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>

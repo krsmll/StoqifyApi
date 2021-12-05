@@ -6,6 +6,7 @@ import com.knits.product.exceptions.SystemException;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.dto.ExceptionDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
