@@ -38,11 +38,11 @@ public class User {
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Role role;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Group group;
 }

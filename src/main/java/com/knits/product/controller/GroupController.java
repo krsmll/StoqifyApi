@@ -60,7 +60,7 @@ public class GroupController {
         return ResponseEntity.ok().body(groupService.findGroupsByName(text));
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<GroupDto> createGroup(@Validated(InsertGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request) {
         log.debug("REST request to createGroup");
 
@@ -75,7 +75,7 @@ public class GroupController {
         return ResponseEntity.created(uri).body(createdGroup);
     }
 
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<GroupDto> updateGroup(@Validated(UpdateGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request, HttpServletResponse response) {
         log.debug("REST request to updateGroup");
 
@@ -85,7 +85,7 @@ public class GroupController {
         return ResponseEntity.ok().body(updatedGroup);
     }
 
-    @PatchMapping()
+    @PatchMapping
     public ResponseEntity<GroupDto> partialUpdateGroup(@Validated(UpdateGroup.class) @RequestBody GroupDto groupPartialDto, HttpServletRequest request, HttpServletResponse response) {
         log.debug("REST request to partialUpdateGroup");
 

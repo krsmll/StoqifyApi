@@ -4,8 +4,12 @@ import com.knits.product.dto.UserDto;
 import com.knits.product.entity.User;
 import org.mapstruct.*;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
+    List<UserDto> toDtoList(List<User> users);
 
     User toEntity(UserDto userDto);
 
