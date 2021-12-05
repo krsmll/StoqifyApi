@@ -37,9 +37,9 @@ public class RoleService {
     public RoleDto createNewRole(RoleDto roleDTO) {
         log.debug("Request to save Role : {}", roleDTO);
 
-        Role role = roleMapper.toRoleEntity(roleDTO);
+        Role role = roleMapper.toEntity(roleDTO);
         role = roleRepository.save(role);
-        return roleMapper.toRoleEntity(role);
+        return roleMapper.toDto(role);
     }
 
     /**
@@ -56,7 +56,7 @@ public class RoleService {
                 .orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
         roleMapper.partialUpdate(role, roleDTO);
         roleRepository.save(role);
-        return roleMapper.toRoleEntity(role);
+        return roleMapper.toDto(role);
     }
 
     /**
@@ -73,12 +73,12 @@ public class RoleService {
                 .orElseThrow(() -> new UserException("Role#" + roleDTO.getId() + " not found"));
         roleMapper.update(role, roleDTO);
         roleRepository.save(role);
-        return roleMapper.toRoleEntity(role);
+        return roleMapper.toDto(role);
     }
 
     @Transactional
     public List<RoleDto> fetchAllRoles() {
-        return roleRepository.findAll().stream().map(roleMapper::toRoleEntity).collect(Collectors.toList());
+        return roleRepository.findAll().stream().map(roleMapper::toDto).collect(Collectors.toList());
     }
 
     /**
@@ -92,7 +92,7 @@ public class RoleService {
         log.debug("Request User by id : {}", roleId);
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new UserException("Role#" + roleId + "not found", ExceptionCodes.USER_NOT_FOUND));
-        return roleMapper.toRoleEntity(role);
+        return roleMapper.toDto(role);
     }
 
     /**

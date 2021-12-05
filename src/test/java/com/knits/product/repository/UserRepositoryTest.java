@@ -1,19 +1,13 @@
-package com.knits.product;
+package com.knits.product.repository;
 
 import java.util.List;
-import com.knits.product.repository.UserRepository;
-import org.junit.runner.RunWith;
 import org.junit.jupiter.api.Test;
 import com.knits.product.entity.User;
 import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Profile;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@DataJpaTest
-@Profile("integrationtest")
-@RunWith(SpringRunner.class)
+@SpringBootTest
 class UserRepositoryTest {
 
     @Autowired
@@ -31,21 +25,5 @@ class UserRepositoryTest {
         List<User> getSearchedUsers = userRepository.findByLastNameStartsWithIgnoreCase("cri");
 
         assertTrue(getSearchedUsers.size() > 0);
-    }
-
-    @Test
-    void test_to_remove_user_from_group() {
-    }
-
-    @Test
-    void test_to_check_by_adding_a_user_to_specific_group() {
-    }
-
-    @Test
-    void addUserGroup() {
-    }
-
-    @Test
-    void addUserRole() {
     }
 }
