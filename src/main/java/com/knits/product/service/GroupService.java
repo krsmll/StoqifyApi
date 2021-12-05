@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,6 +18,7 @@ import java.util.stream.Collectors;
 @Transactional
 @AllArgsConstructor
 public class GroupService {
+
     private final GroupMapper groupMapper;
     private final GroupRepository groupRepository;
 
@@ -105,5 +105,9 @@ public class GroupService {
         log.debug("Request for all inactive Groups");
 
         return groupRepository.findByIsActiveFalse().stream().map(groupMapper::toDto).collect(Collectors.toList());
+    }
+
+    public List<GroupDto> getUsersOfOperatorGroup() {
+        return groupRepository.findByName("Operator").stream().map(groupMapper::toDto).collect(Collectors.toList());
     }
 }
