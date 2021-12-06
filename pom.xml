@@ -30,6 +30,13 @@
                 <activatedProperties>prod</activatedProperties>
             </properties>
         </profile>
+        <profile>
+            <id>integrationtests</id>
+            <properties>
+                <integration.skip>true</integration.skip>
+                <acceptance.skip>false</acceptance.skip>
+            </properties>
+        </profile>
     </profiles>
 
     <properties>
@@ -47,8 +54,6 @@
     </properties>
 
     <dependencies>
-
-
         <!-- common -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -120,6 +125,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

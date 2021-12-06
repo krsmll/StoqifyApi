@@ -76,6 +76,10 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
+    /**
+     *
+     * @return List of users
+     */
     public List<UserDto> fetchAllUsers() {
         return userRepository.findAll().stream()
                 .map(it -> userMapper.toDto(it))
@@ -85,14 +89,14 @@ public class UserService {
     /**
      * Get user "id" by UserDto.
      *
-     * @param UserDto the id of the entity.
+     * @param userId the id of the entity.
      * @return the entity.
      */
-    public UserDto getUserById(UserDto userDto) {
+    public UserDto getUserById(Long userId) {
 
-        log.debug("Request User by id : {}", userDto.getId());
-        User user = userRepository.findById(userDto.getId())
-                .orElseThrow(() -> new UserException("User#" + userDto.getId() + " not found", ExceptionCodes.USER_NOT_FOUND));
+        log.debug("Request User by id : {}", userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException("User#" + userId + " not found", ExceptionCodes.USER_NOT_FOUND));
         return userMapper.toDto(user);
     }
 

@@ -2,11 +2,14 @@ package com.knits.product.mapper;
 
 import com.knits.product.dto.GroupDto;
 import com.knits.product.entity.Group;
-import org.mapstruct.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface GroupMapper {
 
     List<Group> toEntityList(List<GroupDto> groupDtos);

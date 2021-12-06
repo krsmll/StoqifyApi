@@ -17,11 +17,11 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    @GetMapping(value = "/getrole")
-    public ResponseEntity<RoleDto> getRoleById(@RequestBody RoleDto roleDto) {
+    @GetMapping(value = "/roles/{id}")
+    public ResponseEntity<RoleDto> getRoleById(@PathVariable("id") Long roleId) {
 
-        log.debug("REST request to get Role : {}", roleDto.getId());
-        RoleDto roleFound = roleService.getRoleById(roleDto);
+        log.debug("REST request to get Role : {}", roleId);
+        RoleDto roleFound = roleService.getRoleById(roleId);
         return ResponseEntity.ok().body(roleFound);
     }
 
@@ -32,23 +32,23 @@ public class RoleController {
     }
 
 
-    @PostMapping(value = "/createrole")
+    @PostMapping(value = "/roles")
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDTO) {
         log.debug("REST request to createRole Roles ");
         return ResponseEntity.ok().body(roleService.createNewRole(roleDTO));
     }
 
-    @PatchMapping(value = "/partialroleupdate")
+    @PatchMapping(value = "/roles")
     public ResponseEntity<RoleDto> partialUpdateRole(@RequestBody RoleDto roleDto) {
         log.debug("REST request to updateRole Role ");
         return ResponseEntity.ok().body(roleService.partialUpdateRoleData(roleDto));
     }
 
 
-    @DeleteMapping(value = "/deleterole")
-    public ResponseEntity<RoleDto> deleteRoleById(@RequestBody RoleDto roleDto) {
-        log.debug("REST request to delete Role : {}", roleDto.getId());
-        roleService.deleteRoleDataByRoleId(roleDto);
+    @DeleteMapping(value = "/roles/{id}")
+    public ResponseEntity<RoleDto> deleteRoleById(@PathVariable("id") Long roleId) {
+        log.debug("REST request to delete Role : {}", roleId);
+        roleService.deleteRoleDataByRoleId(roleId);
         return ResponseEntity.noContent().build();
 
     }

@@ -1,17 +1,18 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import javax.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import com.knits.product.dto.UserDto;
 import com.knits.product.entity.User;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @Validated
@@ -22,11 +23,11 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping(value = "/users")
-    public ResponseEntity<UserDto> getUserById(@RequestBody UserDto userDto) {
+    @GetMapping(value = "/users/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId) {
 
-        log.debug("REST request to get User : {}", userDto.getId());
-        UserDto userFound = userService.getUserById(userDto);
+        log.debug("REST request to get User : {}", userId);
+        UserDto userFound = userService.getUserById(userId);
         return ResponseEntity.ok().body(userFound);
     }
 
@@ -38,7 +39,7 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/createuser")
+    @PostMapping(value = "/users")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to createUser User ");
         if (userDTO == null) {
@@ -47,7 +48,7 @@ public class UserController {
         return ResponseEntity.ok().body(userService.createNewUser(userDTO));
     }
 
-    @PutMapping(value = "/updateuser")
+    @PutMapping(value = "/users")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to updateUser User ");
         if (userDTO == null) {
@@ -56,13 +57,13 @@ public class UserController {
         return ResponseEntity.ok().body(userService.update(userDTO));
     }
 
-    @PatchMapping(value = "/partialuserupdate/")
-    public ResponseEntity<UserDto> partialUpdateUser(@RequestBody UserDto userDto){
+    @PatchMapping(value = "/users")
+    public ResponseEntity<UserDto> partialUpdateUser(@RequestBody UserDto userDto) {
         log.debug("REST request to updateUser User ");
         return ResponseEntity.ok().body(userService.partialUpdateUserData(userDto));
     }
 
-    @DeleteMapping("/deleteuser")
+    @DeleteMapping("/users")
     public ResponseEntity<Void> deleteUser(@RequestBody UserDto userDto) {
         log.debug("REST request to delete User : {}", userDto.getId());
         userService.deleteUserDataByUserId(userDto);
@@ -75,7 +76,7 @@ public class UserController {
         return new ResponseEntity<List<User>>(userService.searchUsersByKeyword(searchkeyword), HttpStatus.OK);
     }
 
-    @PutMapping(value = "addusergroup")
+    @PutMapping("/addusergroup")
     public ResponseEntity<String> assignUserGroup(@Valid @RequestBody UserDto userDto) {
         log.debug("REST request to add user in a group: {}", userDto.getId());
         return new ResponseEntity<>(userService.addUserGroup(userDto), HttpStatus.OK);
