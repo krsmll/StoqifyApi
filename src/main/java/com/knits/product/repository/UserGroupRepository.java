@@ -5,6 +5,5 @@ import com.knits.product.entity.UsersGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserGroupRepository extends JpaRepository<UsersGroup, Long> {
-
     Optional<UsersGroup> findOneByUserId(Long userId);
 }
