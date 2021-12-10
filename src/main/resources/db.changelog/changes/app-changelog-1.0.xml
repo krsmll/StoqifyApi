@@ -65,7 +65,7 @@
             <column name="group_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet id="5" author="Kristjan Mill">
+    <changeSet id="4" author="Kristjan Mill">
         <createTable tableName="users_group">
             <column name="id" type="BIGSERIAL">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="users_group_pkey"/>
@@ -74,7 +74,7 @@
             <column name="group_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet id="6" author="Kristjan Mill">
+    <changeSet id="5" author="Kristjan Mill">
         <createTable tableName="users_role">
             <column name="id" type="BIGSERIAL">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="users_role_pkey"/>
@@ -83,7 +83,7 @@
             <column name="role_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet id="7" author="Soumen Banerjee">
+    <changeSet id="6" author="Soumen Banerjee">
         <createTable tableName="driver_carrier">
             <column name="id" type="BIGSERIAL">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="driver_carrier_pkey"/>
@@ -94,6 +94,17 @@
             <column name="phone_no" type="VARCHAR(128)"/>
             <column name="driver_address" type="VARCHAR(128)"/>
             <column name="carrier_company_name" type="VARCHAR(128)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="Soumen Banerjee">
+        <createTable tableName="trailer">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="trailer_pkey"/>
+            </column>
+            <column name="brand_name" type="VARCHAR(128)"/>
+            <column name="model" type="VARCHAR(128)"/>
+            <column name="licence_number" type="VARCHAR(128)"/>
+            <column name="carrier" type="VARCHAR(128)"/>
         </createTable>
     </changeSet>
     <changeSet id="8" author="Kristjan Mill">
@@ -164,6 +175,14 @@
             <column header="phone_no" name="phone_no" type="STRING"/>
             <column header="driver_address" name="driver_address" type="STRING"/>
             <column header="carrier_company_name" name="carrier_company_name" type="STRING"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="15" author="Soumen Banerjee">
+        <loadData schemaName="public" tableName="trailer" file="db.changelog/init-data/init-trailer.csv">
+            <column header="brand_name" name="brand_name" type="VARCHAR(128)"/>
+            <column header="model" name="model" type="VARCHAR(128)"/>
+            <column header="licence_number" name="licence_number" type="VARCHAR(128)"/>
+            <column header="carrier" name="carrier" type="VARCHAR(128)"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>
