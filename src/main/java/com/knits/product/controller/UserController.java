@@ -1,18 +1,15 @@
 package com.knits.product.controller;
 
-import com.knits.product.dto.UserDto;
-import com.knits.product.entity.User;
-import com.knits.product.exceptions.UserException;
-import com.knits.product.service.UserService;
+import java.util.List;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import com.knits.product.dto.UserDto;
+import com.knits.product.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import com.knits.product.exceptions.UserException;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
+import org.springframework.validation.annotation.Validated;
 
 @Slf4j
 @Validated
@@ -71,15 +68,15 @@ public class UserController {
     }
 
     @GetMapping("/searchuser/{searchkeyword}")
-    public ResponseEntity<List<User>> searchUser(@PathVariable String searchkeyword) {
+    public ResponseEntity<List<UserDto>> searchUser(@PathVariable String searchkeyword) {
         log.debug("Searched Keyword : {}", searchkeyword);
-        return new ResponseEntity<List<User>>(userService.searchUsersByKeyword(searchkeyword), HttpStatus.OK);
+        return ResponseEntity.ok().body(userService.searchUsersByKeyword(searchkeyword));
     }
 
     @PutMapping("/addusergroup")
     public ResponseEntity<String> assignUserGroup(@Valid @RequestBody UserDto userDto) {
         log.debug("REST request to add user in a group: {}", userDto.getId());
-        return new ResponseEntity<>(userService.addUserGroup(userDto), HttpStatus.OK);
+        return ResponseEntity.ok().body(userService.addUserGroup(userDto));
     }
 
     @PutMapping("/adduserrole")

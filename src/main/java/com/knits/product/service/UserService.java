@@ -115,9 +115,10 @@ public class UserService {
      *
      * @param searchKeyword to search users
      */
-    public List<User> searchUsersByKeyword(String searchKeyword) {
+    public List<UserDto> searchUsersByKeyword(String searchKeyword) {
         log.debug("Search User by search keyword : {}", searchKeyword);
-        return userRepository.findByLastNameStartsWithIgnoreCase(searchKeyword);
+        return userRepository.findByLastNameStartsWithIgnoreCase(searchKeyword)
+                .stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 
     /**
