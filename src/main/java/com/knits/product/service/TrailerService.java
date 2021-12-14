@@ -4,7 +4,6 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import com.knits.product.dto.TrailerDto;
 import com.knits.product.entity.Trailer;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.knits.product.mapper.TrailerMapper;
 import com.knits.product.exceptions.UserException;
@@ -14,7 +13,7 @@ import com.knits.product.repository.TrailerRepository;
  * This is a service class which is responsible to process trailer data
  * @author Soumen Banerjee
  */
-@Service
+@Service("trailer")
 @AllArgsConstructor
 public class TrailerService {
 

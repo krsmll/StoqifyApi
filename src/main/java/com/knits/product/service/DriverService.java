@@ -15,7 +15,7 @@ import com.knits.product.repository.DriverRepository;
  * @author Soumen Banerjee
  */
 @Slf4j
-@Service
+@Service("driver")
 @AllArgsConstructor
 public class DriverService {
 

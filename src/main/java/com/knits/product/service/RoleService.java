@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * Service for managing {@link com.knits.product.entity.Role}.
  */
 @Slf4j
-@Service
+@Service("role")
 @AllArgsConstructor
 public class RoleService {
 
