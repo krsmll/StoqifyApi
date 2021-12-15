@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
+/**
+ * This is a test class for trailer controller
+ * @author Soumen Banerjee
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class TrailerControllerTest {

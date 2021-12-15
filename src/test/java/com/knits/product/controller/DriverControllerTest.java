@@ -10,6 +10,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This is a test class for driver controller
+ * @author Soumen Banerjee
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class DriverControllerTest {

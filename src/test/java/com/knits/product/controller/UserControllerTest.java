@@ -13,6 +13,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This is a test class for User controller
+ * @author Soumen Banerjee
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class UserControllerTest {

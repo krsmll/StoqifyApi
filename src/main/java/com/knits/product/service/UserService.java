@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * Service for managing {@link com.knits.product.entity.User}.
  */
 @Slf4j
-@Service
+@Service("user")
 @Transactional
 @AllArgsConstructor
 public class UserService {
