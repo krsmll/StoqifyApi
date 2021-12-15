@@ -1,9 +1,17 @@
 package com.knits.product.dto;
 
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+/**
+ * This is a Data Transfer Object class to handle requested data
+ * @author Soumen Banerjee
+ */
 @Data
-public class PurchaseOrderDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderLineDto {
 
     private Long id;
     private Long itemId;

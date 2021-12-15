@@ -5,11 +5,12 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "purchase_order")
-public class PurchaseOrderEntity {
+@Table(name = "orderline")
+public class OrderLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "item_id", nullable = false)

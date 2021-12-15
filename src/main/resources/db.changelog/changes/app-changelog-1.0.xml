@@ -108,7 +108,7 @@
         </createTable>
     </changeSet>
     <changeSet id="8" author="Soumen Banerjee">
-        <createTable tableName="purchase_order">
+        <createTable tableName="orderline">
             <column name="id" type="BIGSERIAL">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="purchase_pkey"/>
             </column>
@@ -198,7 +198,7 @@
         </loadData>
     </changeSet>
     <changeSet id="17" author="Soumen Banerjee">
-        <loadData tableName="purchase_order" file="db.changelog/init-data/init-purchase-order.csv">
+        <loadData tableName="orderline" file="db.changelog/init-data/init-order-lines.csv">
             <column header="item_id" name="item_id" type="NUMERIC"/>
             <column header="unit_price" name="unit_price" type="NUMERIC"/>
             <column header="ordered_quantity" name="ordered_qnt" type="NUMERIC"/>

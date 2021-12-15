@@ -7,6 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * This is a test class for User Role repository
+ * @author Soumen Banerjee
+ */
 @SpringBootTest
 class UsersRoleRepositoryTest {
 
