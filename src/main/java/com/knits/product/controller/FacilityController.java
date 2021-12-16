@@ -27,4 +27,9 @@ public class FacilityController {
     public ResponseEntity<List<FacilityDto>> saveFacilityData(@RequestBody FacilityDto facilityDto) {
         return ResponseEntity.ok().body(facilityService.saveFacilityData(facilityDto));
     }
+
+    @PutMapping("/facility/edit")
+    public ResponseEntity<List<FacilityDto>> editFacilityData(@RequestBody FacilityDto facilityDto) {
+        return ResponseEntity.ok().body(facilityService.editFacilityData(facilityDto));
+    }
 }
