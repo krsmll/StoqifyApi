@@ -32,4 +32,9 @@ public class FacilityController {
     public ResponseEntity<List<FacilityDto>> editFacilityData(@RequestBody FacilityDto facilityDto) {
         return ResponseEntity.ok().body(facilityService.editFacilityData(facilityDto));
     }
+
+    @GetMapping("/facility/{searchedword}")
+    public ResponseEntity<FacilityDto> searchFacilityData(@PathVariable("searchedword")String facilitySearchWord) {
+        return ResponseEntity.ok().body(facilityService.getFacilitySearchedData(facilitySearchWord));
+    }
 }

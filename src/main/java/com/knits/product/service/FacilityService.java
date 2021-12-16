@@ -52,4 +52,13 @@ public class FacilityService {
         return facilityMapper.toFacilityDtoList(facilityRepository.findAll());
     }
 
+    /**
+     *
+     * @param facilitySearchedWord search word
+     * @return facility dto
+     */
+    public FacilityDto getFacilitySearchedData(String facilitySearchedWord) {
+        return facilityMapper.toFacilityDto(facilityRepository.findByNameStartsWithIgnoreCase(facilitySearchedWord)
+                .orElseThrow(() -> new UserException("Facility# " + facilitySearchedWord + " by word not found")));
+    }
 }
