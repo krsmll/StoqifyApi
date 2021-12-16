@@ -13,7 +13,7 @@ import com.knits.product.repository.OrderLineRepository;
  * This service class is responsible for handling purchase order data
  * @author Soumen Banerjee
  */
-@Service("purchaseOrder")
+@Service("orderLine")
 @AllArgsConstructor
 public class OrderLineService {
 
