@@ -1,0 +1,5 @@
+supplier_company_id,customer_comapny_id,status,type,shipping_date,order_date,deliver_date,cancel_date
+1,1,TRUE,R,2020-12-03,2020-12-02,2020-12-12,2020-12-11
+2,1,TRUE,R,2020-12-03,2020-12-02,2020-12-12,2020-12-11
+3,1,TRUE,A,2020-12-03,2020-12-02,2020-12-12,2020-12-11
+4,1,TRUE,R,2020-12-03,2020-12-02,2020-12-12,2020-12-11
