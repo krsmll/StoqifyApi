@@ -1,0 +1,4 @@
+name,code,country,city,zip_code,street,ing_ltd,status
+Rheta,EE8978,Estonia,Tallinn,10133,Parnu mnt 2, 88, TRUE
+Lili,EE8142,Estonia,Tallinn,11233,Parnu mnt4, 18, TRUE
+Maria,EE4211,Estonia,Tallinn,12533,Parnu mnt 5, 78, TRUE
