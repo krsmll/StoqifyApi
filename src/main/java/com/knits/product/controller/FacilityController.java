@@ -37,4 +37,9 @@ public class FacilityController {
     public ResponseEntity<FacilityDto> searchFacilityData(@PathVariable("searchedword")String facilitySearchWord) {
         return ResponseEntity.ok().body(facilityService.getFacilitySearchedData(facilitySearchWord));
     }
+
+    @PatchMapping("/facility/deactivate")
+    public ResponseEntity<List<FacilityDto>> searchedFailcityData(@RequestBody FacilityDto facilityDto) {
+        return ResponseEntity.ok().body(facilityService.deactivateFacilityData(facilityDto));
+    }
 }
