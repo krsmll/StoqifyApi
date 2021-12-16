@@ -61,4 +61,19 @@ public class FacilityService {
         return facilityMapper.toFacilityDto(facilityRepository.findByNameStartsWithIgnoreCase(facilitySearchedWord)
                 .orElseThrow(() -> new UserException("Facility# " + facilitySearchedWord + " by word not found")));
     }
+
+    /**
+     *
+     * @param facilityDto requested facility id  to deactive
+     * @return returnn all facility data after deactivation
+     */
+    public List<FacilityDto> deactivateFacilityData(FacilityDto facilityDto) {
+        Facility getFacilityData = facilityRepository.findById(facilityDto.getId())
+                .orElseThrow(() -> new UserException("Facility #" + facilityDto.getId() + " not found"));
+
+        getFacilityData.setStatus(false);
+        facilityRepository.save(getFacilityData);
+
+        return facilityMapper.toFacilityDtoList(facilityRepository.findAll());
+    }
 }
