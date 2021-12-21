@@ -59,17 +59,13 @@ class RoleControllerTest {
     @Test
     void test_to_create_new_role() throws Exception {
 
-
-
         RoleDto role = new RoleDto();
         role.setRoleName("Test");
 
-        System.out.println(role);
-
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/roles")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"roleName\": \"Test\"}"))
+                        .post("/api/roles")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"roleName\": \"Test\"}"))
                 .andExpect(status().isOk());
     }
 
@@ -80,10 +76,7 @@ class RoleControllerTest {
         MvcResult getAllRoleControllerResult = mockMvc.perform(MockMvcRequestBuilders
                 .delete("/api/roles/4")).andReturn();
         int status = getAllRoleControllerResult.getResponse().getStatus();
-        String content = getAllRoleControllerResult.getResponse().getContentAsString();
-        assertEquals(content, "Deleted role " + 4);
-
-        assertEquals(200, status);
+        assertEquals(204, status);
     }
 
 
