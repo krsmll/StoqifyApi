@@ -150,7 +150,47 @@
             <column name="status" type="BOOLEAN"/>
         </createTable>
     </changeSet>
-    <changeSet id="11" author="Kristjan Mill">
+    <changeSet id="11" author="Soumen Banerjee">
+        <createTable tableName="purchase_order_line">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="purchase_order_line_pkey"/>
+            </column>
+            <column name="order_line_id" type="BIGINT"/>
+            <column name="purchase_order_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="12" author="Soumen Banerjee">
+        <createTable tableName="purchase_order">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="purchase_order_pkey"/>
+            </column>
+            <column name="supplier_company_id" type="BIGINT"/>
+            <column name="customer_comapny_id" type="BIGINT"/>
+            <column name="status" type="BOOLEAN"/>
+            <column name="type" type="VARCHAR(28)"/>
+            <column name="order_date" type="DATE"/>
+            <column name="shipping_date" type="DATE"/>
+            <column name="deliver_date" type="DATE"/>
+            <column name="cancel_date" type="DATE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Lucky Ogogo" id="13">
+        <createTable tableName="item">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="item_pkey"/>
+            </column>
+            <column name="item_id" type="BIGINT"/>
+            <column name="item_name" type="VARCHAR(128)"/>
+            <column name="description" type="VARCHAR(128)"/>
+            <column name="item_qty" type="Integer"/>
+            <column name="entered_at" type="DATE"/>
+        </createTable>
+    </changeSet>
+
+
+
+
+    <changeSet id="14" author="Kristjan Mill">
         <addForeignKeyConstraint baseTableName="users" baseColumnNames="role_id" constraintName="fk_users_users_role"
                                  referencedTableName="users_role"
                                  referencedColumnNames="id"/>
@@ -174,19 +214,19 @@
                                  referencedTableName="user_group"
                                  referencedColumnNames="id"/>
     </changeSet>
-    <changeSet id="12" author="Kristjan Mill">
+    <changeSet id="15" author="Kristjan Mill">
         <loadData tableName="user_group" file="db.changelog/init-data/init-groups.csv">
             <column header="group_name" name="group_name" type="STRING"/>
             <column header="description" name="description" type="STRING"/>
             <column header="is_active" name="is_active" type="BOOLEAN"/>
         </loadData>
     </changeSet>
-    <changeSet id="13" author="Kristjan Mill">
+    <changeSet id="16" author="Kristjan Mill">
         <loadData tableName="user_role" file="db.changelog/init-data/init-roles.csv">
             <column header="role_name" name="role_name" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet id="14" author="Kristjan Mill">
+    <changeSet id="17" author="Kristjan Mill">
         <loadData tableName="users" file="db.changelog/init-data/init-users.csv">
             <column header="first_name" name="first_name" type="STRING"/>
             <column header="last_name" name="last_name" type="STRING"/>
@@ -198,19 +238,19 @@
             <column header="group_id" name="group_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="15" author="Kristjan Mill">
+    <changeSet id="18" author="Kristjan Mill">
         <loadData tableName="users_role" file="db.changelog/init-data/init-user-roles.csv">
             <column header="role_id" name="role_id" type="NUMERIC"/>
             <column header="user_id" name="user_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="16" author="Kristjan Mill">
+    <changeSet id="19" author="Kristjan Mill">
         <loadData tableName="users_group" file="db.changelog/init-data/init-user-groups.csv">
             <column header="group_id" name="group_id" type="NUMERIC"/>
             <column header="user_id" name="user_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="17" author="Soumen Banerjee">
+    <changeSet id="20" author="Soumen Banerjee">
         <loadData tableName="driver_carrier" file="db.changelog/init-data/init-drivers.csv">
             <column header="first_name" name="first_name" type="STRING"/>
             <column header="last_name" name="last_name" type="STRING"/>
@@ -220,7 +260,7 @@
             <column header="carrier_company_name" name="carrier_company_name" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet id="18" author="Soumen Banerjee">
+    <changeSet id="21" author="Soumen Banerjee">
         <loadData tableName="trailer" file="db.changelog/init-data/init-trailer.csv">
             <column name="brand_name" type="VARCHAR(128)"/>
             <column name="model" type="VARCHAR(128)"/>
@@ -228,7 +268,7 @@
             <column name="carrier" type="VARCHAR(128)"/>
         </loadData>
     </changeSet>
-    <changeSet id="19" author="Soumen Banerjee">
+    <changeSet id="22" author="Soumen Banerjee">
         <loadData tableName="orderline" file="db.changelog/init-data/init-order-lines.csv">
             <column header="item_id" name="item_id" type="NUMERIC"/>
             <column header="unit_price" name="unit_price" type="NUMERIC"/>
@@ -237,7 +277,7 @@
             <column header="shipped_quantity" name="shipped_qnt" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="20" author="Soumen Banerjee">
+    <changeSet id="23" author="Soumen Banerjee">
         <loadData tableName="facility" file="db.changelog/init-data/init-facility.csv">
             <column header="name" name="name" type="VARCHAR(28)"/>
             <column header="code" name="code" type="VARCHAR(28)"/>
@@ -247,6 +287,33 @@
             <column header="street" name="street" type="VARCHAR(28)"/>
             <column header="ing_ltd" name="ing_ltd" type="VARCHAR(28)"/>
             <column header="status" name="status" type="BOOLEAN"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="24" author="Soumen Banerjee">
+        <loadData tableName="purchase_order_line" file="db.changelog/init-data/init-purchase-order-line.csv">
+            <column header="order_line_id" name="order_line_id" type="NUMERIC"/>
+            <column header="purchase_order_id" name="purchase_order_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="25" author="Soumen Banerjee">
+        <loadData tableName="purchase_order" file="db.changelog/init-data/init-purchase-order.csv">
+            <column header="supplier_company_id" name="supplier_company_id" type="NUMERIC"/>
+            <column header="customer_comapny_id" name="customer_comapny_id" type="NUMERIC"/>
+            <column header="status" name="status" type="BOOLEAN"/>
+            <column header="type" name="type" type="VARCHAR(28)"/>
+            <column header="order_date" name="order_date" type="DATE"/>
+            <column header="shipping_date" name="shipping_date" type="DATE"/>
+            <column header="deliver_date" name="deliver_date" type="DATE"/>
+            <column header="cancel_date" name="cancel_date" type="DATE"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="26" author="Lucky Ogogo">
+        <loadData tableName="item" file="db.changelog/init-data/init-item.csv">
+            <column header="item_id" name="item_id" type="NUMERIC"/>
+            <column header="item_name" name="item_name" type="VARCHAR(28)"/>
+            <column header="description" name="description" type="VARCHAR(128)"/>
+            <column header="item_qty" name="item_qty" type="NUMERIC"/>
+            <column header="entered_at" name="entered_at" type="DATE"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>
