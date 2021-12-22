@@ -3,6 +3,7 @@ package com.knits.product.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -25,7 +26,7 @@ public class Item {
     private int quantity;
 
     @Column(name = "entered_at", nullable = false, updatable = false, insertable = false)
-    private Date enteredAt;
+    private LocalDate enteredAt;
 
 
 }
