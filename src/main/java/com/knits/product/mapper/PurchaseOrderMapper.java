@@ -13,5 +13,6 @@ import com.knits.product.entity.PurchaseOrder;
 public interface PurchaseOrderMapper {
 
     List<PurchaseOrderDto> toPurchaseOrderDtoList(List<PurchaseOrder> purchaseOrders);
+    PurchaseOrderDto toDto(PurchaseOrder purchaseOrder);
     PurchaseOrder toPurchaseEntity(PurchaseOrderDto purchaseOrderDto);
 }

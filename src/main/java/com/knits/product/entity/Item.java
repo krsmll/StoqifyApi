@@ -24,8 +24,6 @@ public class Item {
     @Column(name = "item_qty", nullable = false)
     private int quantity;
 
-    @Column(name = "entered_at", nullable = false, updatable = false, insertable = false)
+    @Column(name = "entered_at", columnDefinition = "DATE", nullable = false, updatable = false, insertable = false)
     private Date enteredAt;
-
-
 }

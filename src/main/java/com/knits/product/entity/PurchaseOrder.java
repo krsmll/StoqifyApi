@@ -3,11 +3,13 @@ package com.knits.product.entity;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 /**
- * This is purchase order entitiy to handle data
+ * This is purchase order entity to handle data
  * @author Soumen Banerjee
  */
 @Data
@@ -23,7 +25,7 @@ public class PurchaseOrder {
     private Long supplierCompanyId;
 
     @Column(name = "customer_comapny_id")
-    private Long customerComapnyId;
+    private Long customerCompanyId;
 
     @Column(name = "status")
     private Boolean status;
@@ -43,9 +45,9 @@ public class PurchaseOrder {
     @Column(name = "order_date")
     private LocalDate orderDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinTable(name = "purchase_order_line", joinColumns = @JoinColumn(name = "purchase_order_id"),
             inverseJoinColumns = @JoinColumn(name = "order_line_id"))
-    private OrderLine orderLine;
+    private List<PurchaseOrder> purchaseOrders;
 }

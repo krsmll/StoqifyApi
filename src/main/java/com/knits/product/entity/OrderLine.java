@@ -4,7 +4,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * This is orderline entity class
+ * This is order line entity class
  * @author Soumen Banerjee
  */
 @Data

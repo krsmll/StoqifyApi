@@ -17,7 +17,7 @@ import com.knits.product.repository.PurchaseOrderLineRepository;
  */
 @Service("purchaseOrder")
 @AllArgsConstructor
-public class PurchasrOrderService {
+public class PurchaseOrderService {
 
     private final OrderLineMapper orderLineMapper;
     private final PurchaseOrderMapper purchaseOrderMapper;

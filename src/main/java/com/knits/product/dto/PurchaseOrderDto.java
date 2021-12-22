@@ -2,6 +2,7 @@ package com.knits.product.dto;
 
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * This is Data transfer object class to handle request purchase data
