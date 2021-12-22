@@ -45,7 +45,7 @@ public class PurchaseOrder {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinTable(name = "purchase_order_line", joinColumns = @JoinColumn(name = "purchase_order_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_line_id"))
+    @JoinTable(name = "purchase_order_line", joinColumns = @JoinColumn(name = "order_line_id"),
+            inverseJoinColumns = @JoinColumn(name = "purchase_order_id"))
     private OrderLine orderLine;
 }

@@ -1,6 +1,9 @@
 package com.knits.product.service;
 
 import java.util.List;
+
+import com.knits.product.entity.PurchaseOrder;
+import com.knits.product.exceptions.UserException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.knits.product.dto.PurchaseOrderDto;
@@ -47,5 +50,19 @@ public class PurchasrOrderService {
 
        purchaseOrderLineRepository.save(new PurchaseOrderLine(0L, lastOrderLineId, lastPurchaseOrderId));
        return purchaseOrderMapper.toPurchaseOrderDtoList(purchaseOrderRepository.findAll());
+    }
+
+    /**
+     *
+     * @param purchaseOrderId requested purchase order id to cancel it
+     * @return list of purchase order after cancle the purchase order
+     */
+    public List<PurchaseOrderDto> cancelPurchaseOrder(Long purchaseOrderId) {
+        PurchaseOrder getPurchaseOrderLineData = purchaseOrderRepository.findById(purchaseOrderId)
+                .orElseThrow(() -> new UserException("Purchase Order #" + purchaseOrderId + " not found"));
+
+        getPurchaseOrderLineData.setType("C");
+        purchaseOrderRepository.save(getPurchaseOrderLineData);
+        return purchaseOrderMapper.toPurchaseOrderDtoList(purchaseOrderRepository.findAll());
     }
 }
