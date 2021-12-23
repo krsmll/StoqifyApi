@@ -179,10 +179,10 @@
             <column name="id" type="BIGSERIAL">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="item_pkey"/>
             </column>
-            <column name="item_id" type="BIGINT"/>
+<!--            <column name="item_id" type="BIGINT"/>-->
             <column name="item_name" type="VARCHAR(128)"/>
             <column name="description" type="VARCHAR(128)"/>
-            <column name="item_qty" type="Integer"/>
+            <column name="item_qty" type="INTEGER"/>
             <column name="entered_at" type="DATE"/>
         </createTable>
     </changeSet>
@@ -309,7 +309,7 @@
     </changeSet>
     <changeSet id="26" author="Lucky Ogogo">
         <loadData tableName="item" file="db.changelog/init-data/init-item.csv">
-            <column header="item_id" name="item_id" type="NUMERIC"/>
+<!--            <column header="item_id" name="item_id" type="NUMERIC"/>-->
             <column header="item_name" name="item_name" type="VARCHAR(28)"/>
             <column header="description" name="description" type="VARCHAR(128)"/>
             <column header="item_qty" name="item_qty" type="NUMERIC"/>

@@ -33,13 +33,10 @@ public class RoleService {
      * @param roleDTO the entity to save.
      * @return the persisted entity.
      */
-    @Transactional
     public RoleDto createNewRole(RoleDto roleDTO) {
         log.debug("Request to save Role : {}", roleDTO);
-
         Role role = roleMapper.toEntity(roleDTO);
-        role = roleRepository.save(role);
-        return roleMapper.toDto(role);
+        return roleMapper.toDto(roleRepository.save(role));
     }
 
     /**
@@ -49,7 +46,6 @@ public class RoleService {
      * @return the persisted entity.
      */
 
-    @Transactional
     public RoleDto partialUpdateRoleData(RoleDto roleDTO) {
         log.debug("Request to partially update Role : {}", roleDTO);
         Role role = roleRepository.findById(roleDTO.getId())
@@ -66,7 +62,7 @@ public class RoleService {
      * @return the persisted entity.
      */
 
-    @Transactional
+
     public RoleDto updateRoleData(RoleDto roleDTO) {
         log.debug("Request to update Role : {}", roleDTO);
         Role role = roleRepository.findById(roleDTO.getId())
@@ -76,7 +72,6 @@ public class RoleService {
         return roleMapper.toDto(role);
     }
 
-    @Transactional
     public List<RoleDto> fetchAllRoles() {
         return roleRepository.findAll().stream().map(roleMapper::toDto).collect(Collectors.toList());
     }
@@ -87,7 +82,6 @@ public class RoleService {
      * @param roleId the id of the entity.
      * @return the entity.
      */
-    @Transactional
     public RoleDto getRoleById(Long roleId) {
         log.debug("Request User by id : {}", roleId);
         Role role = roleRepository.findById(roleId)
@@ -100,7 +94,6 @@ public class RoleService {
      *
      * @param roleId the id of the entity.
      */
-    @Transactional
     public void deleteRoleDataByRoleId(Long roleId) {
         log.debug("Delete Role by id : {}", roleId);
         roleRepository.deleteById(roleId);
@@ -112,7 +105,6 @@ public class RoleService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    @Transactional
     public Page<RoleDto> findAll(Pageable pageable) {
         throw new UnsupportedOperationException("not yet implemented");
     }

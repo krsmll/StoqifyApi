@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class ItemDto {
@@ -18,6 +18,10 @@ public class ItemDto {
     @NotBlank(message = "The description is required")
     private String description;
 
+    @NotBlank(message = "The quantity is required")
+    private Integer quantity;
+
     @Null
-    private Date createdAt;
+    private LocalDate enteredAt;
+
 }

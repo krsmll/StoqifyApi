@@ -1,7 +1,7 @@
 package com.knits.product.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.knits.product.dto.RoleDto;
+import com.knits.product.dto.ItemDto;
 import com.knits.product.repository.RoleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +12,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class RoleControllerTest {
+class ItemControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,54 +29,50 @@ class RoleControllerTest {
     RoleRepository repository;
 
     @Test
-    void test_to_get_all_roles() throws Exception {
-
-        String getAllRoleControllerResult = mockMvc
-                .perform(MockMvcRequestBuilders.get("/api/roles/all")
+    void test_to_get_all_items() throws Exception {
+        String getAllItem = mockMvc
+                .perform(MockMvcRequestBuilders.get("/api/item/all")
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        RoleDto[] getRoles = objectMapper.readValue(getAllRoleControllerResult, RoleDto[].class);
+        ItemDto[] getItems = objectMapper.readValue(getAllItem, ItemDto[].class);
 
-        assertTrue(getRoles.length > 1);
+        assertTrue(getItems.length > 1);
+
     }
-
-
     @Test
-    void test_to_get_single_role_by_id() throws Exception {
-        String getAllRoleControllerResult = mockMvc
-                .perform(MockMvcRequestBuilders.get("/api/roles/1").contentType(MediaType.APPLICATION_JSON))
+    void test_to_search_by_item_name() throws Exception {
+        String getItems = mockMvc
+                .perform(MockMvcRequestBuilders.get("/api/search/Broadcom").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
-        RoleDto getRole = objectMapper.readValue(getAllRoleControllerResult, RoleDto.class);
+        ItemDto getItem = objectMapper.readValue(getItems, ItemDto.class);
 
-        assertEquals("Administrator", getRole.getRoleName());
-        assertEquals(1, getRole.getId());
+        assertEquals("Broadcom", getItem.getName());
+        assertEquals(1, getItem.getId());
 
     }
 
 
     @Test
-    void test_to_create_new_role() throws Exception {
+    void test_to_create_new_item() throws Exception {
 
-        RoleDto role = new RoleDto();
-        role.setRoleName("Test");
+        ItemDto item = new ItemDto();
+        item.setName("Test");
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/roles")
+                        .post("/api/item")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"roleName\": \"Test\"}"))
+                        .content("{\"name\": \"Test\"}"))
                 .andExpect(status().isOk());
     }
 
-
     @Test
-    void test_delete_roles_by_id_returns() throws Exception {
+    void test_delete_item_by_id() throws Exception {
 
-        MvcResult getAllRoleControllerResult = mockMvc.perform(MockMvcRequestBuilders
-                .delete("/api/roles/4")).andReturn();
-        int status = getAllRoleControllerResult.getResponse().getStatus();
+        MvcResult getItems = mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/item/5")).andReturn();
+        int status = getItems.getResponse().getStatus();
         assertEquals(204, status);
     }
-
 
 }
