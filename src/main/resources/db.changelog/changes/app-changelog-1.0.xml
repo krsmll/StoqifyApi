@@ -117,6 +117,7 @@
             <column name="ordered_qnt" type="INTEGER"/>
             <column name="delivered_qnt" type="INTEGER"/>
             <column name="shipped_qnt" type="INTEGER"/>
+            <column name="active" type="BOOLEAN"/>
         </createTable>
     </changeSet>
     <changeSet id="9" author="Soumen Banerjee">
@@ -285,6 +286,7 @@
             <column header="ordered_quantity" name="ordered_qnt" type="NUMERIC"/>
             <column header="delivered_quantity" name="delivered_qnt" type="NUMERIC"/>
             <column header="shipped_quantity" name="shipped_qnt" type="NUMERIC"/>
+            <column header="active" name="active" type="BOOLEAN"/>
         </loadData>
     </changeSet>
     <changeSet id="24" author="Soumen Banerjee">
