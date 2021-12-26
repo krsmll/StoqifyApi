@@ -165,7 +165,7 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="facility_user_link_pkey"/>
             </column>
             <column name="facility_id" type="BIGINT"/>
-            <column name="user_group_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet id="13" author="Soumen Banerjee">
@@ -329,7 +329,7 @@
     <changeSet id="28" author="Soumen Banerjee">
         <loadData tableName="facility_user_link" file="db.changelog/init-data/init-facility-user.csv">
             <column name="facility_id" type="NUMERIC"/>
-            <column name="user_group_id" type="NUMERIC"/>
+            <column name="user_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>

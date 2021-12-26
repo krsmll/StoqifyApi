@@ -1,5 +1,6 @@
 package com.knits.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Group {
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
     private Date createdAt;
 
+    @JsonIgnore
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "users_group", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
