@@ -68,7 +68,7 @@ public class UserController {
     }
 
     @GetMapping("/searchuser/{searchkeyword}")
-    public ResponseEntity<List<UserDto>> searchUser(@PathVariable String searchkeyword) {
+    public ResponseEntity<List<UserDto>> searchUser(@PathVariable("searchkeyword") String searchkeyword) {
         log.debug("Searched Keyword : {}", searchkeyword);
         return ResponseEntity.ok().body(userService.searchUsersByKeyword(searchkeyword));
     }
