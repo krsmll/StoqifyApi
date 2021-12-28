@@ -1,4 +1,4 @@
-registry_code,vat_code,country_code,country,city,zip_code,street,logo,active
-41673872213, EE82146173, EE, Estonia, Tallinn, 10132, Aia, logo1.jpg,TRUE
-52673872213, EE82445173, EE, Estonia, Tallinn, 10102, Aia, logo1.jpg,TRUE
-73673872213, EE12748193, EE, Estonia, Tallinn, 10112, Aia, logo1.jpg,TRUE
+registry_code,vat_code,country_code,country,city,zip_code,street,logo,active,company_type
+41673872213, EE82146173, EE, Estonia, Tallinn, 10132, Aia, logo1.jpg,TRUE,0
+52673872213, EE82445173, EE, Estonia, Tallinn, 10102, Aia, logo1.jpg,TRUE,1
+73673872213, EE12748193, EE, Estonia, Tallinn, 10112, Aia, logo1.jpg,TRUE,2

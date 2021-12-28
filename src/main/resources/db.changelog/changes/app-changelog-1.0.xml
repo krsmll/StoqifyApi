@@ -134,6 +134,7 @@
             <column name="street" type="VARCHAR(28)"/>
             <column name="logo" type="VARCHAR(28)"/>
             <column name="active" type="BOOLEAN"/>
+            <column name="company_type" type="VARCHAR(2)"/>
         </createTable>
     </changeSet>
     <changeSet id="10" author="Soumen Banerjee">
@@ -321,7 +322,6 @@
     </changeSet>
     <changeSet id="27" author="Lucky Ogogo">
         <loadData tableName="item" file="db.changelog/init-data/init-item.csv">
-<!--            <column header="item_id" name="item_id" type="NUMERIC"/>-->
             <column header="item_name" name="item_name" type="VARCHAR(28)"/>
             <column header="description" name="description" type="VARCHAR(128)"/>
             <column header="item_qty" name="item_qty" type="NUMERIC"/>
@@ -332,6 +332,20 @@
         <loadData tableName="facility_user_link" file="db.changelog/init-data/init-facility-user.csv">
             <column name="facility_id" type="NUMERIC"/>
             <column name="user_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="29" author="Soumen Banerjee">
+        <loadData tableName="company" file="db.changelog/init-data/init-companies.csv">
+            <column header="registry_code" name="registry_code" type="VARCHAR(28)"/>
+            <column header="vat_code" name="vat_code" type="VARCHAR(28)"/>
+            <column header="country_code" name="country_code" type="VARCHAR(28)"/>
+            <column header="country" name="country" type="VARCHAR(28)"/>
+            <column header="city" name="city" type="VARCHAR(28)"/>
+            <column header="zip_code" name="zip_code" type="NUMERIC"/>
+            <column header="street" name="street" type="VARCHAR(28)"/>
+            <column header="logo" name="logo" type="VARCHAR(28)"/>
+            <column header="active" name="active" type="BOOLEAN"/>
+            <column header="company_type" name="company_type" type="VARCHAR(2)"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>
