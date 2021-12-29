@@ -134,7 +134,7 @@
             <column name="street" type="VARCHAR(28)"/>
             <column name="logo" type="VARCHAR(28)"/>
             <column name="active" type="BOOLEAN"/>
-            <column name="company_type" type="VARCHAR(2)"/>
+            <column name="company_type" type="VARCHAR(15)"/>
         </createTable>
     </changeSet>
     <changeSet id="10" author="Soumen Banerjee">
@@ -345,7 +345,7 @@
             <column header="street" name="street" type="VARCHAR(28)"/>
             <column header="logo" name="logo" type="VARCHAR(28)"/>
             <column header="active" name="active" type="BOOLEAN"/>
-            <column header="company_type" name="company_type" type="VARCHAR(2)"/>
+            <column header="company_type" name="company_type" type="VARCHAR(15)"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>

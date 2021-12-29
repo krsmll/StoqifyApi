@@ -4,11 +4,15 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import java.util.stream.Collectors;
 import com.knits.product.dto.CustomerDto;
+import com.knits.product.dto.CompanyType;
 import org.springframework.stereotype.Service;
 import com.knits.product.mapper.CustomerMapper;
 import com.knits.product.repository.CompanyRepository;
 
-
+/**
+ * This is company service class
+ * @author Soumen Banerjee
+ */
 @AllArgsConstructor
 @Service("customer")
 public class CustomerService {
@@ -22,7 +26,7 @@ public class CustomerService {
      */
     public List<CustomerDto> getAllCustomers() {
         return companyRepository.findAll().stream()
-                .filter(getCompany -> getCompany.getCompanyType().equals("Customer"))
+                .filter(getCompany -> getCompany.getCompanyType().equals("CUSTOMER"))
                 .map(customerMapper::toCustomerDto)
                 .collect(Collectors.toList());
     }
@@ -33,7 +37,8 @@ public class CustomerService {
      * @return list of all customers even newly added customer
      */
     public List<CustomerDto> registerCustomer(CustomerDto customerDto) {
-        customerDto.setCompanyType("0");
+        customerDto.setCompanyType(CompanyType.CUSTOMER);
+        customerDto.setActive(true);
         companyRepository.save(customerMapper.toCompanyEntity(customerDto));
         return getAllCustomers();
     }

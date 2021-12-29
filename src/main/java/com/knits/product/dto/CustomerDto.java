@@ -2,18 +2,12 @@ package com.knits.product.dto;
 
 import lombok.Data;
 
+/**
+ * This is Company Data Object Transfer class
+ * @author Soumen Banerjee
+ */
 @Data
-public class CustomerDto {
+public class CustomerDto extends CompanyDto {
 
-    private Long id;
-    private String registryCode;
-    private String vatCode;
-    private String countryCode;
-    private String country;
-    private String city;
-    private Long zipCode;
-    private String street;
-    private String logo;
-    private boolean active;
-    private String companyType;
+    private CompanyType companyType;
 }

@@ -2,7 +2,6 @@ package com.knits.product.entity;
 
 import lombok.Data;
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * This is a entity class to handle data from database
@@ -47,17 +46,4 @@ public class Company {
 
     @Column(name = "company_type")
     private String companyType;
-
-    public String getCompanyType() {
-        if(Objects.equals(companyType, "0")) {
-            companyType = "Customer";
-        }
-        if(Objects.equals(companyType, "1")) {
-            companyType = "Supplier";
-        }
-        if(Objects.equals(companyType, "2")) {
-            companyType = "Carrier";
-        }
-        return companyType;
-    }
 }
