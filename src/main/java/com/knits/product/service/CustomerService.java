@@ -2,6 +2,8 @@ package com.knits.product.service;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
+
+import java.util.Objects;
 import java.util.stream.Collectors;
 import com.knits.product.dto.CustomerDto;
 import com.knits.product.dto.CompanyType;
@@ -26,7 +28,7 @@ public class CustomerService {
      */
     public List<CustomerDto> getAllCustomers() {
         return companyRepository.findAll().stream()
-                .filter(getCompany -> getCompany.getCompanyType().equals("CUSTOMER"))
+                .filter(getCompany -> Objects.equals(getCompany.getCompanyType(), CompanyType.CUSTOMER.toString()))
                 .map(customerMapper::toCustomerDto)
                 .collect(Collectors.toList());
     }
