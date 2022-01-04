@@ -7,7 +7,4 @@ import lombok.Data;
  * @author Soumen Banerjee
  */
 @Data
-public class CustomerDto extends CompanyDto {
-
-    private CompanyType companyType;
-}
+public class CustomerDto extends CompanyDto { }
