@@ -43,4 +43,7 @@ public class Company {
 
     @Column(name = "active", nullable = false)
     private Boolean active;
+
+    @Column(name = "company_type")
+    private String companyType;
 }
