@@ -24,21 +24,21 @@ public class SupplierService {
 
     /**
      *
-     * @return all customers
+     * @return all suppliers
      */
-    public List<CustomerDto> getAllSuppliers() {
+    public List<SupplierDto> getAllSuppliers() {
         return companyRepository.findAll().stream()
                 .filter(getCompany -> Objects.equals(getCompany.getCompanyType(), CompanyType.SUPPLIER.toString()))
-                .map(supplierMapper::toCustomerDto)
+                .map(supplierMapper::toSupplierDto)
                 .collect(Collectors.toList());
     }
 
     /**
      *
-     * @param supplierDto requested supplier data to create a new customer
-     * @return list of all customers even newly added customer
+     * @param supplierDto requested supplier data to create a new supplier
+     * @return list of all suppliers even newly added supplier
      */
-    public List<CustomerDto> registerSupplier(SupplierDto supplierDto) {
+    public List<SupplierDto> registerSupplier(SupplierDto supplierDto) {
         supplierDto.setCompanyType(CompanyType.SUPPLIER);
         supplierDto.setActive(true);
         companyRepository.save(supplierMapper.toCompanyEntity(supplierDto));
