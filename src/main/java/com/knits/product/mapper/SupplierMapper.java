@@ -12,6 +12,6 @@ import com.knits.product.dto.SupplierDto;
 @Mapper(componentModel = "spring")
 public interface SupplierMapper {
 
-    CustomerDto toCustomerDto(Company company);
+    SupplierDto toSupplierDto(Company company);
     Company toCompanyEntity(SupplierDto customerDto);
 }
