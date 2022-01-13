@@ -49,5 +49,5 @@ public class PurchaseOrder {
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinTable(name = "purchase_order_line", joinColumns = @JoinColumn(name = "purchase_order_id"),
             inverseJoinColumns = @JoinColumn(name = "order_line_id"))
-    private List<PurchaseOrder> purchaseOrders;
+    private List<OrderLine> purchaseOrders;
 }

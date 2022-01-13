@@ -26,6 +26,7 @@ spring:
   liquibase:
     change-log: classpath:db.changelog/app-changelog-root.xml
     drop-first: true
+    enabled: true
 
 server:
   port: 8082
