@@ -1,6 +1,7 @@
 package com.knits.product.dto;
 
 import lombok.Data;
+import java.util.List;
 
 @Data
 public class FacilityDto {
@@ -14,4 +15,5 @@ public class FacilityDto {
     private String street;
     private String ingLtd;
     private Boolean status;
+    private List<UserDto> users;
 }

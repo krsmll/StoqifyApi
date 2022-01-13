@@ -27,4 +27,9 @@ public class OrderLineController {
     public ResponseEntity<List<OrderLineDto>> editOrderLine(@RequestBody OrderLineDto purchaseOrderDto) {
         return ResponseEntity.ok().body(purchaseOrderService.editOrderLine(purchaseOrderDto));
     }
+
+    @PutMapping("/orderline/deactivate/{id}")
+    public ResponseEntity<List<OrderLineDto>> deactivateOrderLine(@PathVariable("id")Long orderLineId) {
+        return ResponseEntity.ok().body(purchaseOrderService.deactivateOrderLine(orderLineId));
+    }
 }

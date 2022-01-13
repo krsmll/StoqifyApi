@@ -131,3 +131,4 @@ Desktop.ini
 ######################
 /coverage/
 /.nyc_output/
+!/src/main/resources/application.yml

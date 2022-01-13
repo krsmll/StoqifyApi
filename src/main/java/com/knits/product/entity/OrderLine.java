@@ -30,4 +30,7 @@ public class OrderLine {
 
     @Column(name = "shipped_qnt", nullable = false)
     private Integer shippedQuantity;
+
+    @Column(name = "active")
+    private Boolean active;
 }

@@ -19,4 +19,5 @@ public class CompanyDto {
     private String street;
     private String logo;
     private boolean active;
+    private CompanyType companyType;
 }
