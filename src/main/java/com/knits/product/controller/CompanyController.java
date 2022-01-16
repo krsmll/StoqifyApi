@@ -13,33 +13,33 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/company")
 public class CompanyController {
 
     private final CompanyService companyService;
 
-    @GetMapping("company/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<CompanyDto>> getAllCompanies() {
         return ResponseEntity.ok().body(companyService.getAllCompanies());
     }
 
-    @PostMapping("company")
+    @PostMapping
     public ResponseEntity<List<CompanyDto>> saveAndGetAllComapnies(@RequestBody CompanyDto companyDto) {
         return ResponseEntity.ok().body(companyService.getSavedCompanyWithOldCompanies(companyDto));
     }
 
-    @PutMapping("company/disable")
+    @PutMapping(value = "/disable")
     public ResponseEntity<Void> deactivateCompany(@RequestBody CompanyDto companyDto) {
         companyService.deactivateCompany(companyDto);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("company/edit")
+    @PatchMapping(value = "/edit")
     public ResponseEntity<List<CompanyDto>> editCompany(@RequestBody CompanyDto companyDto) {
         return ResponseEntity.ok().body(companyService.getCompanyListAfterEdit(companyDto));
     }
 
-    @GetMapping("company/search/{company}")
+    @GetMapping(value = "/search/{company}")
     public ResponseEntity<CompanyDto> searchCompany(@PathVariable("company") String companyName) {
         return ResponseEntity.ok().body(companyService.getCompanyBySearchedName(companyName));
     }

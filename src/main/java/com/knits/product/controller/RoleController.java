@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/roles")
 public class RoleController {
 
     private final RoleService roleService;
 
-    @GetMapping(value = "/roles/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<RoleDto> getRoleById(@PathVariable("id") Long roleId) {
 
         log.debug("REST request to get Role : {}", roleId);
@@ -25,27 +25,26 @@ public class RoleController {
         return ResponseEntity.ok().body(roleFound);
     }
 
-    @GetMapping(value = "/roles/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<RoleDto>> getAllRoles() {
         log.debug("REST request to get all Roles");
         return ResponseEntity.ok().body(roleService.fetchAllRoles());
     }
 
 
-    @PostMapping(value = "/roles")
+    @PostMapping
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDTO) {
         log.debug("REST request to createRole Roles ");
         return ResponseEntity.ok().body(roleService.createNewRole(roleDTO));
     }
 
-    @PatchMapping(value = "/roles")
+    @PatchMapping
     public ResponseEntity<RoleDto> partialUpdateRole(@RequestBody RoleDto roleDto) {
         log.debug("REST request to updateRole Role ");
         return ResponseEntity.ok().body(roleService.partialUpdateRoleData(roleDto));
     }
 
-
-    @DeleteMapping(value = "/roles/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<RoleDto> deleteRoleById(@PathVariable("id") Long roleId) {
         log.debug("REST request to delete Role : {}", roleId);
         roleService.deleteRoleDataByRoleId(roleId);
@@ -53,7 +52,7 @@ public class RoleController {
 
     }
 
-    @GetMapping("/roles")
+    @GetMapping
     public ResponseEntity<List<RoleDto>> getAllRoles(Pageable pageable) {
         throw new UnsupportedOperationException("getAllRoles(Pageable pageable) not implemented");
     }

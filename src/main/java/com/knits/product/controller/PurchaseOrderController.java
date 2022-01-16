@@ -12,23 +12,23 @@ import com.knits.product.service.PurchasrOrderService;
  * @author Soumen Banerjee
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/purchaseorder")
 @AllArgsConstructor
 public class PurchaseOrderController {
 
     private final PurchasrOrderService purchasrOrderService;
 
-    @GetMapping("/purchaseorder/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<PurchaseOrderDto>> getAllPurchaseOrderList() {
         return ResponseEntity.ok().body(purchasrOrderService.getAllPurchaseOrderList());
     }
 
-    @PostMapping("/purchaseorder/create")
+    @PostMapping(value = "/create")
     public  ResponseEntity<List<PurchaseOrderDto>> createPurchaseOrder(@RequestBody PurchaseOrderDto purchaseOrderDto) {
         return ResponseEntity.ok().body(purchasrOrderService.createPurchaseOrder(purchaseOrderDto));
     }
 
-    @PutMapping("/purchaseorder/deactivate/{id}")
+    @PutMapping(value = "/deactivate/{id}")
     public ResponseEntity<List<PurchaseOrderDto>> cancelPurchaseOrder(@PathVariable("id")Long purchaseOrderId) {
         purchasrOrderService.cancelPurchaseOrder(purchaseOrderId);
         return ResponseEntity.ok().body(purchasrOrderService.cancelPurchaseOrder(purchaseOrderId));

@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/orderline")
 public class OrderLineController {
 
     private final OrderLineService purchaseOrderService;
 
-    @GetMapping("/orderline/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<OrderLineDto>> getAllPurchaseOrder() {
         return ResponseEntity.ok().body(purchaseOrderService.getAllOrderLines());
     }
 
-    @PutMapping("/orderline")
+    @PutMapping
     public ResponseEntity<List<OrderLineDto>> editOrderLine(@RequestBody OrderLineDto purchaseOrderDto) {
         return ResponseEntity.ok().body(purchaseOrderService.editOrderLine(purchaseOrderDto));
     }
 
-    @PutMapping("/orderline/deactivate/{id}")
+    @PutMapping(value = "/deactivate/{id}")
     public ResponseEntity<List<OrderLineDto>> deactivateOrderLine(@PathVariable("id")Long orderLineId) {
         return ResponseEntity.ok().body(purchaseOrderService.deactivateOrderLine(orderLineId));
     }

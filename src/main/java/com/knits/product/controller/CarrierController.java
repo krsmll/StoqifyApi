@@ -19,12 +19,12 @@ public class CarrierController {
 
     private final CarrierService carrierService;
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<CarrierDto>> getAllCarrier() {
         return ResponseEntity.ok().body(carrierService.getAllCarrier());
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<List<CarrierDto>> registerNewCarrier(@RequestBody @Valid CarrierDto carrierDto) {
         return ResponseEntity.ok().body(carrierService.registerCarrier(carrierDto));
     }

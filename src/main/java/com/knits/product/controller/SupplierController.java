@@ -19,12 +19,12 @@ public class SupplierController {
 
     private final SupplierService supplierService;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<SupplierDto>> getAllSuppliers() {
         return ResponseEntity.ok().body(supplierService.getAllSuppliers());
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<List<SupplierDto>> registerNewSupplier(@RequestBody @Valid SupplierDto supplierDto) {
         return ResponseEntity.ok().body(supplierService.registerSupplier(supplierDto));
     }
