@@ -32,46 +32,6 @@
             </column>
         </createTable>
 
-        <createTable tableName="advanced_shipping_notice_customer">
-            <column name="id" type="bigserial">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="asn_customer_pkey"/>
-            </column>
-            <column name="advanced_shipping_notice_id" type="bigint"/>
-            <column name="company_id" type="bigint"/>
-        </createTable>
-
-        <createTable tableName="advanced_shipping_notice_supplier">
-            <column name="id" type="bigserial">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="asn_supplier_pkey"/>
-            </column>
-            <column name="advanced_shipping_notice_id" type="bigint"/>
-            <column name="company_id" type="bigint"/>
-        </createTable>
-
-        <createTable tableName="advanced_shipping_notice_from_facility">
-            <column name="id" type="bigserial">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="asn_from_facility_pkey"/>
-            </column>
-            <column name="advanced_shipping_notice_id" type="bigint"/>
-            <column name="facility_id" type="bigint"/>
-        </createTable>
-
-        <createTable tableName="advanced_shipping_notice_to_facility">
-            <column name="id" type="bigserial">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="asn_to_facility_pkey"/>
-            </column>
-            <column name="advanced_shipping_notice_id" type="bigint"/>
-            <column name="facility_id" type="bigint"/>
-        </createTable>
-
-        <createTable tableName="advanced_shipping_notice_driver">
-            <column name="id" type="bigserial">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="asn_driver_pkey"/>
-            </column>
-            <column name="advanced_shipping_notice_id" type="bigint"/>
-            <column name="driver_carrier_id" type="bigint"/>
-        </createTable>
-
         <createTable tableName="advanced_shipping_notice_purchase_order">
             <column name="id" type="bigserial">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="asn_purchase_order_pkey"/>
@@ -79,71 +39,38 @@
             <column name="advanced_shipping_notice_id" type="bigint"/>
             <column name="purchase_order_id" type="bigint"/>
         </createTable>
-
-        <createTable tableName="advanced_shipping_notice_trailer">
-            <column name="id" type="bigserial">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="asn_trailer_pkey"/>
-            </column>
-            <column name="advanced_shipping_notice_id" type="bigint"/>
-            <column name="trailer_id" type="bigint"/>
-        </createTable>
     </changeSet>
 
     <changeSet id="ASN foreign keys" author="Kristjan">
         <addForeignKeyConstraint baseTableName="advanced_shipping_notice" baseColumnNames="trailer_id"
-                                 constraintName="fk_asn_asn_trailer"
-                                 referencedTableName="advanced_shipping_notice_trailer"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_trailer"
-                                 baseColumnNames="advanced_shipping_notice_id"
-                                 constraintName="fk_asn_trailer_asn"
-                                 referencedTableName="advanced_shipping_notice"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_trailer" baseColumnNames="trailer_id"
-                                 constraintName="fk_asn_trailer_trailer"
+                                 constraintName="fk_asn_trailer"
                                  referencedTableName="trailer"
                                  referencedColumnNames="id"/>
 
         <addForeignKeyConstraint baseTableName="advanced_shipping_notice" baseColumnNames="driver_id"
-                                 constraintName="fk_asn_asn_driver"
-                                 referencedTableName="advanced_shipping_notice_driver"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_driver"
-                                 baseColumnNames="advanced_shipping_notice_id"
-                                 constraintName="fk_asn_driver_asn"
-                                 referencedTableName="advanced_shipping_notice"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_driver" baseColumnNames="driver_carrier_id"
-                                 constraintName="fk_asn_driver_driver"
+                                 constraintName="fk_asn_driver"
                                  referencedTableName="driver_carrier"
                                  referencedColumnNames="id"/>
 
         <addForeignKeyConstraint baseTableName="advanced_shipping_notice" baseColumnNames="customer_id"
                                  constraintName="fk_asn_asn_customer"
-                                 referencedTableName="advanced_shipping_notice_customer"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_customer"
-                                 baseColumnNames="advanced_shipping_notice_id"
-                                 constraintName="fk_asn_customer_asn"
-                                 referencedTableName="advanced_shipping_notice"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_customer" baseColumnNames="company_id"
-                                 constraintName="fk_asn_customer_company"
                                  referencedTableName="company"
                                  referencedColumnNames="id"/>
 
         <addForeignKeyConstraint baseTableName="advanced_shipping_notice" baseColumnNames="supplier_id"
-                                 constraintName="fk_asn_asn_supplier"
-                                 referencedTableName="advanced_shipping_notice_supplier"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_supplier"
-                                 baseColumnNames="advanced_shipping_notice_id"
-                                 constraintName="fk_asn_supplier_asn"
-                                 referencedTableName="advanced_shipping_notice"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_supplier" baseColumnNames="company_id"
-                                 constraintName="fk_asn_supplier_company"
+                                 constraintName="fk_asn_supplier"
                                  referencedTableName="company"
+                                 referencedColumnNames="id"/>
+
+
+        <addForeignKeyConstraint baseTableName="advanced_shipping_notice" baseColumnNames="from_facility_id"
+                                 constraintName="fk_asn_asn_from_facility"
+                                 referencedTableName="facility"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="advanced_shipping_notice" baseColumnNames="to_facility_id"
+                                 constraintName="fk_asn_to_facility"
+                                 referencedTableName="facility"
                                  referencedColumnNames="id"/>
 
         <addForeignKeyConstraint baseTableName="advanced_shipping_notice" baseColumnNames="order_id"
@@ -159,36 +86,6 @@
                                  baseColumnNames="purchase_order_id"
                                  constraintName="fk_asn_purchase_order_purchase_order"
                                  referencedTableName="purchase_order"
-                                 referencedColumnNames="id"/>
-
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice" baseColumnNames="from_facility_id"
-                                 constraintName="fk_asn_asn_from_facility"
-                                 referencedTableName="advanced_shipping_notice_from_facility"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_from_facility"
-                                 baseColumnNames="advanced_shipping_notice_id"
-                                 constraintName="fk_asn_from_facility_asn"
-                                 referencedTableName="advanced_shipping_notice"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_from_facility"
-                                 baseColumnNames="facility_id"
-                                 constraintName="fk_asn_from_facility_facility"
-                                 referencedTableName="facility"
-                                 referencedColumnNames="id"/>
-
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice" baseColumnNames="to_facility_id"
-                                 constraintName="fk_asn_asn_to_facility"
-                                 referencedTableName="advanced_shipping_notice_to_facility"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_to_facility"
-                                 baseColumnNames="advanced_shipping_notice_id"
-                                 constraintName="fk_asn_to_facility_asn"
-                                 referencedTableName="advanced_shipping_notice"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="advanced_shipping_notice_to_facility"
-                                 baseColumnNames="facility_id"
-                                 constraintName="fk_asn_to_facility_facility"
-                                 referencedTableName="facility"
                                  referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>

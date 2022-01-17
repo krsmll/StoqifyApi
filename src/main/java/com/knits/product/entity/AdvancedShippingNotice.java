@@ -16,33 +16,27 @@ public class AdvancedShippingNotice {
     private Long id;
 
     @ManyToOne
-    @JoinTable(name = "advanced_shipping_notice_from_facility", joinColumns = @JoinColumn(name = "advanced_shipping_notice_id"),
-            inverseJoinColumns = @JoinColumn(name = "facility_id"))
+    @JoinColumn(name = "from_facility_id")
     private Facility fromFacility;
 
     @ManyToOne
-    @JoinTable(name = "advanced_shipping_notice_to_facility", joinColumns = @JoinColumn(name = "advanced_shipping_notice_id"),
-            inverseJoinColumns = @JoinColumn(name = "facility_id"))
+    @JoinColumn(name = "to_facility_id")
     private Facility toFacility;
 
     @ManyToOne
-    @JoinTable(name = "advanced_shipping_notice_supplier", joinColumns = @JoinColumn(name = "advanced_shipping_notice_id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id"))
+    @JoinColumn(name = "supplier_id")
     private Company supplier;
 
     @ManyToOne
-    @JoinTable(name = "advanced_shipping_notice_customer", joinColumns = @JoinColumn(name = "advanced_shipping_notice_id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id"))
+    @JoinColumn(name = "customer_id")
     private Company customer;
 
     @ManyToOne
-    @JoinTable(name = "advanced_shipping_notice_driver", joinColumns = @JoinColumn(name = "advanced_shipping_notice_id"),
-            inverseJoinColumns = @JoinColumn(name = "driver_carrier_id"))
+    @JoinColumn(name = "driver_id")
     private DriverCarrier driver;
 
     @ManyToOne
-    @JoinTable(name = "advanced_shipping_notice_trailer", joinColumns = @JoinColumn(name = "advanced_shipping_notice_id"),
-            inverseJoinColumns = @JoinColumn(name = "trailer_id"))
+    @JoinColumn(name = "trailer_id")
     private Trailer trailer;
 
     @OneToMany(cascade = CascadeType.ALL)
