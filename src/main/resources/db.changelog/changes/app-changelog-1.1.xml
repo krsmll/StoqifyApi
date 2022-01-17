@@ -18,10 +18,10 @@
             <column name="trailer_id" type="bigint"/>
             <column name="order_id" type="bigint"/>
             <column name="bill_of_landing_number" type="varchar(7)"/>
-            <column name="shipment_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="shipment_date" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="delivery_date" type="timestamp"/>
+            <column name="delivery_date" type="TIMESTAMP"/>
             <column name="identification_number" type="varchar(128)">
                 <constraints nullable="false"/>
             </column>
@@ -95,15 +95,15 @@
             <column header="driver_id" name="driver_id" type="NUMERIC"/>
             <column header="trailer_id" name="trailer_id" type="NUMERIC"/>
             <column header="bill_of_landing_number" name="bill_of_landing_number" type="VARCHAR(7)"/>
-            <column header="shipment_date" name="shipment_date" type="timestamp"/>
-            <column header="delivery_date" name="delivery_date" type="timestamp"/>
+            <column header="shipment_date" name="shipment_date" type="DATE"/>
+            <column header="delivery_date" name="delivery_date" type="DATE"/>
             <column header="identification_number" name="identification_number" type="VARCHAR(128)"/>
             <column header="status" name="status" type="VARCHAR(64)"/>
         </loadData>
 
         <loadData tableName="advanced_shipping_notice_purchase_order" file="db.changelog/init-data/init-asn-purchase-order.csv">
-            <column header="advanced_shipping_notice_id" name="advanced_shipping_notice_id" type="bigint"/>
-            <column header="purchase_order_id" name="purchase_order_id" type="bigint"/>
+            <column header="advanced_shipping_notice_id" name="advanced_shipping_notice_id" type="NUMERIC"/>
+            <column header="purchase_order_id" name="purchase_order_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>
