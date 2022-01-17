@@ -21,9 +21,7 @@
             <column name="shipment_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="delivery_date" type="timestamp">
-                <constraints nullable="false"/>
-            </column>
+            <column name="delivery_date" type="timestamp"/>
             <column name="identification_number" type="varchar(128)">
                 <constraints nullable="false"/>
             </column>
@@ -87,5 +85,25 @@
                                  constraintName="fk_asn_purchase_order_purchase_order"
                                  referencedTableName="purchase_order"
                                  referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="ASN Init Data" author="Kristjan Mill" >
+        <loadData tableName="advanced_shipping_notice" file="db.changelog/init-data/init-asn.csv">
+            <column header="from_facility_id" name="from_facility_id" type="NUMERIC"/>
+            <column header="to_facility_id" name="to_facility_id" type="NUMERIC"/>
+            <column header="supplier_id" name="supplier_id" type="NUMERIC"/>
+            <column header="customer_id" name="customer_id" type="NUMERIC"/>
+            <column header="driver_id" name="driver_id" type="NUMERIC"/>
+            <column header="trailer_id" name="trailer_id" type="NUMERIC"/>
+            <column header="bill_of_landing_number" name="bill_of_landing_number" type="VARCHAR(7)"/>
+            <column header="shipment_date" name="shipment_date" type="timestamp"/>
+            <column header="delivery_date" name="delivery_date" type="timestamp"/>
+            <column header="identification_number" name="identification_number" type="VARCHAR(128)"/>
+            <column header="status" name="status" type="VARCHAR(64)"/>
+        </loadData>
+
+        <loadData tableName="advanced_shipping_notice_purchase_order" file="db.changelog/init-data/init-asn-purchase-order.csv">
+            <column header="advanced_shipping_notice_id" name="advanced_shipping_notice_id" type="bigint"/>
+            <column header="purchase_order_id" name="purchase_order_id" type="bigint"/>
+        </loadData>
     </changeSet>
 </databaseChangeLog>
