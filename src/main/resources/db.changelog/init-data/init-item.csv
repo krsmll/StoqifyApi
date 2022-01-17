@@ -1,6 +1,6 @@
-item_name,description,item_qty,entered_at
-Broadcom,"Prosacco, Muller and Gerlach",64,2021-04-23
-Magellan,"Lind, Goodwin and Klein",43,2020-12-22
-Unilever,"Borer, Hills and Torphy",47,2021-09-07
-Ultrapar,Blick-Luettgen,55,2021-05-06
-W.R.,Konopelski Inc,45,2021-03-25
+item_name,description,item_qty,entered_at,status
+Broadcom,"Prosacco, Muller and Gerlach",64,2021-04-23,R
+Magellan,"Lind, Goodwin and Klein",43,2020-12-22,R
+Unilever,"Borer, Hills and Torphy",47,2021-09-07,R
+Ultrapar,Blick-Luettgen,55,2021-05-06,R
+W.R.,Konopelski Inc,45,2021-03-25,R

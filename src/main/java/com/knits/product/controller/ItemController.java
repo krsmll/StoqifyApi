@@ -22,7 +22,7 @@ public class ItemController {
         return ResponseEntity.ok().body(itemService.createItem(itemDto));
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping
     public ResponseEntity<List<ItemDto>> getAllItems() {
         log.debug("REST request to get all items");
         return ResponseEntity.ok().body(itemService.getAllItems());
