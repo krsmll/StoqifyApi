@@ -15,12 +15,17 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping(value = "/users/{id}")
+    /**
+     *
+     * @param userId requested user id to search for
+     * @return single user data
+     */
+    @GetMapping(value = "/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId) {
 
         log.debug("REST request to get User : {}", userId);
@@ -28,15 +33,22 @@ public class UserController {
         return ResponseEntity.ok().body(userFound);
     }
 
-
-    @GetMapping(value = "/users/all")
+    /**
+     *
+     * @return all users
+     */
+    @GetMapping(value = "/all")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         log.debug("REST request to get all Users");
         return ResponseEntity.ok().body(userService.fetchAllUsers());
     }
 
-
-    @PostMapping(value = "/users")
+    /**
+     *
+     * @param userDTO requested user to save
+     * @return return all user including newly saved
+     */
+    @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to createUser User ");
         if (userDTO == null) {
@@ -45,6 +57,11 @@ public class UserController {
         return ResponseEntity.ok().body(userService.createNewUser(userDTO));
     }
 
+    /**
+     *
+     * @param userDTO user data to update
+     * @return newly updated user
+     */
     @PutMapping(value = "/users")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDTO) {
         log.debug("REST request to updateUser User ");
@@ -54,12 +71,22 @@ public class UserController {
         return ResponseEntity.ok().body(userService.update(userDTO));
     }
 
+    /**
+     *
+     * @param userDto update specific user fields
+     * @return updated user info
+     */
     @PatchMapping(value = "/users")
     public ResponseEntity<UserDto> partialUpdateUser(@RequestBody UserDto userDto) {
         log.debug("REST request to updateUser User ");
         return ResponseEntity.ok().body(userService.partialUpdateUserData(userDto));
     }
 
+    /**
+     *
+     * @param userDto delete the requested user
+     * @return Void
+     */
     @DeleteMapping("/users")
     public ResponseEntity<Void> deleteUser(@RequestBody UserDto userDto) {
         log.debug("REST request to delete User : {}", userDto.getId());
@@ -67,18 +94,33 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     *
+     * @param searchkeyword search for the user
+     * @return all the users those are exits belong to the searched keyword
+     */
     @GetMapping("/searchuser/{searchkeyword}")
     public ResponseEntity<List<UserDto>> searchUser(@PathVariable("searchkeyword") String searchkeyword) {
         log.debug("Searched Keyword : {}", searchkeyword);
         return ResponseEntity.ok().body(userService.searchUsersByKeyword(searchkeyword));
     }
 
+    /**
+     *
+     * @param userDto add the user to the group
+     * @return error message
+     */
     @PutMapping("/addusergroup")
     public ResponseEntity<String> assignUserGroup(@Valid @RequestBody UserDto userDto) {
         log.debug("REST request to add user in a group: {}", userDto.getId());
         return ResponseEntity.ok().body(userService.addUserGroup(userDto));
     }
 
+    /**
+     *
+     * @param userDto requested user data to add it in role
+     * @return void
+     */
     @PutMapping("/adduserrole")
     public ResponseEntity<Void> addUserRole(@Valid @RequestBody UserDto userDto) {
         log.debug("Requested to add user role");
@@ -86,6 +128,11 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     *
+     * @param userDto user data to remove
+     * @return error message
+     */
     @PutMapping("/removeusergroup")
     public ResponseEntity<String> removeUserGroup(@RequestBody UserDto userDto) {
         userService.removeUserGroup(userDto);

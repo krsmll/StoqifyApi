@@ -24,4 +24,5 @@ public class ItemDto {
     @Null
     private LocalDate enteredAt;
 
+    private String status;
 }

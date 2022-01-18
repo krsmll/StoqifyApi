@@ -1,9 +1,8 @@
 package com.knits.product.service;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
-
 import java.util.Objects;
+import lombok.AllArgsConstructor;
 import java.util.stream.Collectors;
 import com.knits.product.dto.CustomerDto;
 import com.knits.product.dto.CompanyType;

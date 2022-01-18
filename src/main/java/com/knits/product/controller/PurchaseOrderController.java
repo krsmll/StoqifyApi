@@ -30,7 +30,7 @@ public class PurchaseOrderController {
         return ResponseEntity.ok().body(purchaseOrderService.createPurchaseOrder(purchaseOrderDto));
     }
 
-    @PutMapping("/purchaseorder/deactivate/{id}")
+    @PutMapping(value = "/deactivate/{id}")
     public ResponseEntity<List<PurchaseOrderDto>> cancelPurchaseOrder(@PathVariable("id")Long purchaseOrderId) {
         purchaseOrderService.cancelPurchaseOrder(purchaseOrderId);
         return ResponseEntity.ok().body(purchaseOrderService.cancelPurchaseOrder(purchaseOrderId));

@@ -26,4 +26,7 @@ public class Item {
 
     @Column(name = "entered_at", nullable = false, updatable = false, insertable = false)
     private LocalDate enteredAt;
+
+    @Column(name = "status", nullable = false)
+    private String status;
 }

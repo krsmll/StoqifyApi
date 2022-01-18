@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/facility")
 public class FacilityController {
 
     private final FacilityService facilityService;
 
-    @GetMapping("/facility/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<FacilityDto>> getAllFacilityData() {
         return ResponseEntity.ok().body(facilityService.getAllFacilityData());
     }
 
-    @PostMapping("/facility")
+    @PostMapping
     public ResponseEntity<List<FacilityDto>> saveFacilityData(@RequestBody FacilityDto facilityDto) {
         return ResponseEntity.ok().body(facilityService.saveFacilityData(facilityDto));
     }
 
-    @PutMapping("/facility/edit")
+    @PutMapping(value = "/edit")
     public ResponseEntity<List<FacilityDto>> editFacilityData(@RequestBody FacilityDto facilityDto) {
         return ResponseEntity.ok().body(facilityService.editFacilityData(facilityDto));
     }
 
-    @GetMapping("/facility/{searchedword}")
+    @GetMapping(value = "/{searchedword}")
     public ResponseEntity<FacilityDto> searchFacilityData(@PathVariable("searchedword")String facilitySearchWord) {
         return ResponseEntity.ok().body(facilityService.getFacilitySearchedData(facilitySearchWord));
     }
 
-    @PatchMapping("/facility/deactivate")
+    @PatchMapping(value = "/deactivate")
     public ResponseEntity<List<FacilityDto>> searchedFailcityData(@RequestBody FacilityDto facilityDto) {
         return ResponseEntity.ok().body(facilityService.deactivateFacilityData(facilityDto));
     }

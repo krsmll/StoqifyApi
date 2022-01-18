@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/trailer")
 public class TrailerController {
 
     private final TrailerService trailerService;
@@ -23,7 +23,7 @@ public class TrailerController {
      *
      * @return list of trailers
      */
-    @GetMapping("/trailer/all")
+    @GetMapping
     public ResponseEntity<List<TrailerDto>> getAllTrailers() {
         return ResponseEntity.ok().body(trailerService.getTrailerData());
     }
@@ -33,7 +33,7 @@ public class TrailerController {
      * @param trailerId to fetch trailer data
      * @return single trailer data by requested ID
      */
-    @GetMapping("/trailer/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<TrailerDto> getTrailerDataById(@PathVariable("id") Long trailerId) {
         return ResponseEntity.ok().body(trailerService.getTrailerById(trailerId));
     }
@@ -43,7 +43,7 @@ public class TrailerController {
      * @param trailerDto requested data to register trailer
      * @return void
      */
-    @RequestMapping("/trailer/register")
+    @PostMapping
     public ResponseEntity<Void> registerTrailer(@Valid @RequestBody TrailerDto trailerDto) {
         trailerService.registerTrailer(trailerDto);
         return ResponseEntity.noContent().build();
@@ -54,7 +54,7 @@ public class TrailerController {
      * @param trailerId delete trailer by requested id
      * @return
      */
-    @DeleteMapping("/trailer/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTrailerById(@PathVariable("id") Long trailerId) {
         trailerService.deleteTrailerById(trailerId);
         return ResponseEntity.noContent().build();
@@ -65,7 +65,7 @@ public class TrailerController {
      * @param trailerDto requested trailer data to update trailer data
      * @return trailer updated trailer list
      */
-    @PutMapping("/trailer/update")
+    @PutMapping(value = "/update")
     public ResponseEntity<List<TrailerDto>> updateDriverList(@Valid @RequestBody TrailerDto trailerDto) {
         return ResponseEntity.ok().body(trailerService.updateTrailerData(trailerDto));
     }

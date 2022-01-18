@@ -19,12 +19,12 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         return ResponseEntity.ok().body(customerService.getAllCustomers());
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<List<CustomerDto>> registerNewCustomer(@RequestBody @Valid CustomerDto customerDto) {
         return ResponseEntity.ok().body(customerService.registerCustomer(customerDto));
     }

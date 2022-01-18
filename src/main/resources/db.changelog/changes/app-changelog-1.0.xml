@@ -195,6 +195,7 @@
             <column name="description" type="VARCHAR(128)"/>
             <column name="item_qty" type="INTEGER"/>
             <column name="entered_at" type="DATE"/>
+            <column name="status" type="VARCHAR(2)"/>
         </createTable>
     </changeSet>
     <changeSet id="15" author="Kristjan Mill">
@@ -326,6 +327,7 @@
             <column header="description" name="description" type="VARCHAR(128)"/>
             <column header="item_qty" name="item_qty" type="NUMERIC"/>
             <column header="entered_at" name="entered_at" type="DATE"/>
+            <column header="status" name="status" type="VARCHAR(2)"/>
         </loadData>
     </changeSet>
     <changeSet id="28" author="Soumen Banerjee">
