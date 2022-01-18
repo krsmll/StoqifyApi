@@ -1,3 +1,3 @@
 from_facility_id,to_facility_id,supplier_id,customer_id,driver_id,trailer_id,bill_of_landing_number,shipment_date,delivery_date,identification_number,status
-1,2,1,2,1,1,6028377,2021-06-08T20:08:27,2021-07-08T08:20:33,ad533ad8-52cb-4420-b9af-78a0edf165d3,Completed
-2,3,2,3,2,2,2873795,2021-06-08T20:08:27,,3f5f78be-2fee-4a51-a421-98e800244069,En Route
+1,2,2,1,1,1,6028377,2021-06-08T20:08:27,2021-07-08T08:20:33,ad533ad8-52cb-4420-b9af-78a0edf165d3,Completed
+2,3,3,2,2,2,2873795,2021-06-08T20:08:27,,3f5f78be-2fee-4a51-a421-98e800244069,En Route

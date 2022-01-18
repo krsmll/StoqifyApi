@@ -227,19 +227,35 @@
                                  referencedTableName="user_group"
                                  referencedColumnNames="id"/>
     </changeSet>
-    <changeSet id="16" author="Kristjan Mill">
+    <changeSet  id="17" author="Soumen Banerjee">
+        <createTable tableName="dock">
+            <column name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="dock_pkey"/>
+            </column>
+            <column name="supervisor_id" type="BIGINT"/>
+            <column name="dock_dimentation" type="BIGINT"/>
+            <column name="status" type="VARCHAR(2)"/>
+            <column name="comment" type="VARCHAR(20)"/>
+            <column name="created_on" type="TIMESTAMP"/>
+            <column name="item_count" type="INTEGER"/>
+            <column name="reservation_date" type="TIMESTAMP"/>
+            <column name="pre_registration" type="TIMESTAMP"/>
+            <column name="last_update" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="18" author="Kristjan Mill">
         <loadData tableName="user_group" file="db.changelog/init-data/init-groups.csv">
             <column header="group_name" name="group_name" type="STRING"/>
             <column header="description" name="description" type="STRING"/>
             <column header="is_active" name="is_active" type="BOOLEAN"/>
         </loadData>
     </changeSet>
-    <changeSet id="17" author="Kristjan Mill">
+    <changeSet id="19" author="Kristjan Mill">
         <loadData tableName="user_role" file="db.changelog/init-data/init-roles.csv">
             <column header="role_name" name="role_name" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet id="18" author="Kristjan Mill">
+    <changeSet id="20" author="Kristjan Mill">
         <loadData tableName="users" file="db.changelog/init-data/init-users.csv">
             <column header="first_name" name="first_name" type="STRING"/>
             <column header="last_name" name="last_name" type="STRING"/>
@@ -251,19 +267,19 @@
             <column header="group_id" name="group_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="19" author="Kristjan Mill">
+    <changeSet id="21" author="Kristjan Mill">
         <loadData tableName="users_role" file="db.changelog/init-data/init-user-roles.csv">
             <column header="role_id" name="role_id" type="NUMERIC"/>
             <column header="user_id" name="user_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="20" author="Kristjan Mill">
+    <changeSet id="22" author="Kristjan Mill">
         <loadData tableName="users_group" file="db.changelog/init-data/init-user-groups.csv">
             <column header="group_id" name="group_id" type="NUMERIC"/>
             <column header="user_id" name="user_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="21" author="Soumen Banerjee">
+    <changeSet id="23" author="Soumen Banerjee">
         <loadData tableName="driver_carrier" file="db.changelog/init-data/init-drivers.csv">
             <column header="first_name" name="first_name" type="STRING"/>
             <column header="last_name" name="last_name" type="STRING"/>
@@ -273,7 +289,7 @@
             <column header="carrier_company_name" name="carrier_company_name" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet id="22" author="Soumen Banerjee">
+    <changeSet id="24" author="Soumen Banerjee">
         <loadData tableName="trailer" file="db.changelog/init-data/init-trailer.csv">
             <column name="brand_name" type="VARCHAR(128)"/>
             <column name="model" type="VARCHAR(128)"/>
@@ -281,7 +297,7 @@
             <column name="carrier" type="VARCHAR(128)"/>
         </loadData>
     </changeSet>
-    <changeSet id="23" author="Soumen Banerjee">
+    <changeSet id="25" author="Soumen Banerjee">
         <loadData tableName="orderline" file="db.changelog/init-data/init-order-lines.csv">
             <column header="item_id" name="item_id" type="NUMERIC"/>
             <column header="unit_price" name="unit_price" type="NUMERIC"/>
@@ -291,7 +307,7 @@
             <column header="active" name="active" type="BOOLEAN"/>
         </loadData>
     </changeSet>
-    <changeSet id="24" author="Soumen Banerjee">
+    <changeSet id="26" author="Soumen Banerjee">
         <loadData tableName="facility" file="db.changelog/init-data/init-facility.csv">
             <column header="name" name="name" type="VARCHAR(28)"/>
             <column header="code" name="code" type="VARCHAR(28)"/>
@@ -303,13 +319,13 @@
             <column header="status" name="status" type="BOOLEAN"/>
         </loadData>
     </changeSet>
-    <changeSet id="25" author="Soumen Banerjee">
+    <changeSet id="27" author="Soumen Banerjee">
         <loadData tableName="purchase_order_line" file="db.changelog/init-data/init-purchase-order-line.csv">
             <column header="order_line_id" name="order_line_id" type="NUMERIC"/>
             <column header="purchase_order_id" name="purchase_order_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="26" author="Soumen Banerjee">
+    <changeSet id="28" author="Soumen Banerjee">
         <loadData tableName="purchase_order" file="db.changelog/init-data/init-purchase-order.csv">
             <column header="supplier_company_id" name="supplier_company_id" type="NUMERIC"/>
             <column header="customer_comapny_id" name="customer_comapny_id" type="NUMERIC"/>
@@ -321,7 +337,7 @@
             <column header="cancel_date" name="cancel_date" type="DATE"/>
         </loadData>
     </changeSet>
-    <changeSet id="27" author="Lucky Ogogo">
+    <changeSet id="29" author="Lucky Ogogo">
         <loadData tableName="item" file="db.changelog/init-data/init-item.csv">
             <column header="item_name" name="item_name" type="VARCHAR(28)"/>
             <column header="description" name="description" type="VARCHAR(128)"/>
@@ -330,13 +346,13 @@
             <column header="status" name="status" type="VARCHAR(2)"/>
         </loadData>
     </changeSet>
-    <changeSet id="28" author="Soumen Banerjee">
+    <changeSet id="30" author="Soumen Banerjee">
         <loadData tableName="facility_user_link" file="db.changelog/init-data/init-facility-user.csv">
             <column name="facility_id" type="NUMERIC"/>
             <column name="user_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet id="29" author="Soumen Banerjee">
+    <changeSet id="31" author="Soumen Banerjee">
         <loadData tableName="company" file="db.changelog/init-data/init-companies.csv">
             <column header="registry_code" name="registry_code" type="VARCHAR(28)"/>
             <column header="vat_code" name="vat_code" type="VARCHAR(28)"/>
@@ -348,6 +364,20 @@
             <column header="logo" name="logo" type="VARCHAR(28)"/>
             <column header="active" name="active" type="BOOLEAN"/>
             <column header="company_type" name="company_type" type="VARCHAR(15)"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="32" author="Soumen Banerjee">
+        <loadData tableName="dock" file="db.changelog/init-data/init-dock.csv">
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="supervisor_id" name="supervisor_id" type="NUMERIC"/>
+            <column header="dock_dimentation" name="dock_dimentation" type="NUMERIC"/>
+            <column header="status" name="status" type="VARCHAR(2)"/>
+            <column header="comment" name="comment" type="VARCHAR(20)"/>
+            <column header="created_on" name="created_on" type="DATE"/>
+            <column header="item_count" name="item_count" type="NUMERIC"/>
+            <column header="reservation_date" name="reservation_date" type="DATE"/>
+            <column header="pre_registration" name="pre_registration" type="DATE"/>
+            <column header="last_update" name="last_update" type="DATE"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>
