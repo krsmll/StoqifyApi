@@ -6,6 +6,13 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Entity class representing an advanced shipping notice.
+ *
+ * @see com.knits.product.controller.AdvancedShippingNoticeController AdvancedShippingNoticeController
+ * @see com.knits.product.service.AdvancedShippingNoticeService AdvancedShippingNoticeService
+ * @see com.knits.product.dto.AdvancedShippingNoticeDto AdvancedShippingNoticeDto
+ */
 @Data
 @Entity
 @Table(name = "advanced_shipping_notice")

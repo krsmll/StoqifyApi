@@ -10,6 +10,10 @@ import javax.validation.constraints.Null;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Data transfer object for the advanced shipping notice entity.
+ * @see com.knits.product.entity.AdvancedShippingNotice AdvancedShippingNotice
+ */
 @Data
 public class AdvancedShippingNoticeDto {
     @NotNull(groups = {UpdateGroup.class})
