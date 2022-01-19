@@ -23,6 +23,8 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     /**
+     * Get list of all items.
+     *
      * @return list of all items
      */
     public List<ItemDto> getAllItems() {
@@ -32,7 +34,7 @@ public class ItemService {
     }
 
     /**
-     * Save a employee.
+     * Create an item.
      *
      * @param itemDto the entity to save.
      * @return the persisted entity.
@@ -45,6 +47,9 @@ public class ItemService {
     }
 
     /**
+     * Get item by name.
+     *
+     * @param name Item name.
      * @return item by name
      */
     public ItemDto getItemByName(String name) {
@@ -53,7 +58,7 @@ public class ItemService {
     }
 
     /**
-     * Save a employee.
+     * Delete item by ID.
      *
      * @param id the entity to save.
      */
@@ -63,7 +68,7 @@ public class ItemService {
     }
 
     /**
-     * Save a employee.
+     * Partially update item data.
      *
      * @param itemDto the entity to save.
      * @return the persisted entity.
@@ -78,7 +83,7 @@ public class ItemService {
     }
 
     /**
-     * Save a employee.
+     * Update item data.
      *
      * @param itemDto the entity to save.
      * @return the persisted entity.
@@ -91,4 +96,22 @@ public class ItemService {
         itemRepository.save(item);
         return itemMapper.toDto(item);
     }
+
+
+    /**
+     * Edit status of an item.
+     *
+     * @param itemId ID of an item.
+     * @param newStatus New status for an item.
+     * @return Item with newly assigned status for it.
+     */
+    public ItemDto editItemStatus(Long itemId, String newStatus) {
+        log.debug("Request to edit item status with an ID of : {}", itemId);
+        Item item = itemRepository.findById(itemId).orElseThrow(() ->
+                new UserException(String.format("Role with an ID of %d not found.", itemId))
+        );
+        item.setStatus(newStatus);
+        return itemMapper.toDto(itemRepository.save(item));
+    }
+
 }

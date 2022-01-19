@@ -47,5 +47,13 @@ public class ItemController {
         return ResponseEntity.ok().body(itemService.partialUpdateItemData(itemDto));
     }
 
+    @PutMapping("/{id}/missing")
+    public ResponseEntity<ItemDto> markItemAsMissing(@PathVariable Long id) {
+        return ResponseEntity.ok(itemService.editItemStatus(id, "Missing"));
+    }
 
+    @PutMapping("/{id}/damaged")
+    public ResponseEntity<ItemDto> markItemAsDamaged(@PathVariable Long id) {
+        return ResponseEntity.ok(itemService.editItemStatus(id, "Damaged"));
+    }
 }
