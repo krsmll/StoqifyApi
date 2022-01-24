@@ -1,0 +1,3 @@
+operator_id,carrier_id,dock_id,status,comment,created_date,last_updated_date
+1,1,1,"C","Booking Created",2021-07-08T10:20:22,2021-07-08T10:20:22
+1,2,2,"R","Booking Rejected",2021-07-08T10:20:22,2021-07-08T10:20:22

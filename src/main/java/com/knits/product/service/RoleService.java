@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service("role")
 @AllArgsConstructor
+@Transactional
 public class RoleService {
 
     private final RoleMapper roleMapper;
@@ -45,7 +46,6 @@ public class RoleService {
      * @param roleDTO the entity to update partially.
      * @return the persisted entity.
      */
-
     public RoleDto partialUpdateRoleData(RoleDto roleDTO) {
         log.debug("Request to partially update Role : {}", roleDTO);
         Role role = roleRepository.findById(roleDTO.getId())
@@ -61,8 +61,6 @@ public class RoleService {
      * @param roleDTO the entity to update.
      * @return the persisted entity.
      */
-
-
     public RoleDto updateRoleData(RoleDto roleDTO) {
         log.debug("Request to update Role : {}", roleDTO);
         Role role = roleRepository.findById(roleDTO.getId())
