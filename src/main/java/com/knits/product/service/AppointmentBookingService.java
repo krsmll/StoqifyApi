@@ -1,10 +1,9 @@
 package com.knits.product.service;
 
+import java.util.Date;
 import java.util.List;
-
-import com.knits.product.dto.UpdateBookedAppointmentDto;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import com.knits.product.exceptions.UserException;
@@ -12,7 +11,10 @@ import com.knits.product.entity.AppointmentBooking;
 import com.knits.product.dto.AppointmentBookingDto;
 import com.knits.product.dto.UpdateBookedAppointment;
 import com.knits.product.mapper.AppointmentBookingMapper;
+import com.knits.product.dto.AppointmentBookingAssignASNDto;
 import com.knits.product.repository.AppointmentBookingRepository;
+import com.knits.product.entity.AppointBookingWithAdvancedShipping;
+import com.knits.product.repository.AppointmentBookingWithAdvancedShippingRepository;
 
 /**
  * This is a appointment booking service class
@@ -25,6 +27,7 @@ public class AppointmentBookingService {
 
     private final AppointmentBookingMapper appointmentBookingMapper;
     private final AppointmentBookingRepository appointmentBookingRepository;
+    private final AppointmentBookingWithAdvancedShippingRepository appointmentBookingWithAdvancedShippingRepository;
 
     /**
      *
@@ -56,5 +59,32 @@ public class AppointmentBookingService {
         appointmentBooking.setComment(updateBookedAppointmentDto.getComment());
         appointmentBookingRepository.save(appointmentBooking);
         return appointmentBookingRepository.findAll().stream().map(appointmentBookingMapper::toDto).collect(Collectors.toList());
+    }
+
+    /**
+     *
+     * @param appointmentBookingAssignASNDto
+     * @return list of bookings with ASN data after assigned
+     */
+    public List<AppointmentBookingDto> assignBookingWithASN(AppointmentBookingAssignASNDto appointmentBookingAssignASNDto) {
+        appointmentBookingWithAdvancedShippingRepository.save(new AppointBookingWithAdvancedShipping(0L, appointmentBookingAssignASNDto.getAppointmentId(), appointmentBookingAssignASNDto.getAsnId()));
+        return getAllAppoitmentList();
+    }
+
+    /**
+     *
+     * @param appointmentBookingDto requested appointment data
+     * @return list of booked appointments after creating a new appointment
+     */
+    public List<AppointmentBookingDto> createNewAppointment(AppointmentBookingDto appointmentBookingDto) {
+        AppointmentBooking newAppointmentBooking = appointmentBookingMapper.toEntity(appointmentBookingDto);
+
+        newAppointmentBooking.setStatus("C");
+        newAppointmentBooking.setComment("New booking created");
+        newAppointmentBooking.setCreatedData(new Date());
+
+        appointmentBookingRepository.save(appointmentBookingMapper.toEntity(appointmentBookingDto));
+        return appointmentBookingRepository.findAll().stream()
+                .map(appointmentBookingMapper::toDto).collect(Collectors.toList());
     }
 }

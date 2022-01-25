@@ -2,14 +2,13 @@ package com.knits.product.controller;
 
 import java.util.List;
 import javax.validation.Valid;
-
-import com.knits.product.dto.UpdateBookedAppointmentDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.knits.product.dto.UpdateBookedAppointment;
 import com.knits.product.dto.AppointmentBookingDto;
 import com.knits.product.service.AppointmentBookingService;
+import com.knits.product.dto.AppointmentBookingAssignASNDto;
 
 /**
  * This is REST API to handle creating appointment / modifying existing appointment
@@ -17,7 +16,7 @@ import com.knits.product.service.AppointmentBookingService;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/appointments")
+@RequestMapping("api/bookappointments")
 public class AppointmentBookingController {
 
     private final AppointmentBookingService appointmentBookingService;
@@ -27,8 +26,18 @@ public class AppointmentBookingController {
         return ResponseEntity.ok().body(appointmentBookingService.getAllAppoitmentList());
     }
 
-    @PatchMapping
+    @PutMapping
     public ResponseEntity<List<AppointmentBookingDto>> changeBookingAppointment(@RequestBody UpdateBookedAppointment updateBookedAppointmentDto) {
         return ResponseEntity.ok().body(appointmentBookingService.changeAppointmentStatus(updateBookedAppointmentDto));
+    }
+
+    @PostMapping("/assignasn")
+    public ResponseEntity<List<AppointmentBookingDto>> assignASNtoNewlyCreatedBooking(@Valid @RequestBody AppointmentBookingAssignASNDto appointmentBookingAssignASNDto) {
+        return ResponseEntity.ok().body(appointmentBookingService.assignBookingWithASN(appointmentBookingAssignASNDto));
+    }
+
+    @PostMapping("/newbooking")
+    public ResponseEntity<List<AppointmentBookingDto>> createNewBookingAppointment(@RequestBody AppointmentBookingDto appointmentBookingDto) {
+        return ResponseEntity.ok().body(appointmentBookingService.createNewAppointment(appointmentBookingDto));
     }
 }

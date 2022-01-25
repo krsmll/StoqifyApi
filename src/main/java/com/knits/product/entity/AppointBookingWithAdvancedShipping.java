@@ -1,8 +1,12 @@
 package com.knits.product.entity;
 
 import javax.persistence.*;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "appointment_booking_advanced_shipping")
 public class AppointBookingWithAdvancedShipping {
 

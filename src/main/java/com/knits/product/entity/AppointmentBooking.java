@@ -1,5 +1,6 @@
 package com.knits.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import java.util.Date;
 import javax.persistence.*;
@@ -28,10 +29,10 @@ public class AppointmentBooking {
     @Column(name = "dock_id")
     private Long dockId;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinTable(name = "appointment_booking_advanced_shipping", joinColumns = @JoinColumn(name = "advanced_shipping_notice_id"),
-            inverseJoinColumns = @JoinColumn(name = "appointment_booking_id"))
+    @JoinTable(name = "appointment_booking_advanced_shipping", joinColumns = @JoinColumn(name = "appointment_booking_id"),
+            inverseJoinColumns = @JoinColumn(name = "advanced_shipping_notice_id"))
     private AdvancedShippingNotice advancedShippingNotice;
 
     @Column(name = "status")

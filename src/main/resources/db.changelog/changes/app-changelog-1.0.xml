@@ -262,8 +262,12 @@
             <column name="id" type="BIGSERIAL">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="appointment_booking_advanced_shipping_booking_pkey"/>
             </column>
-            <column name="appointment_booking_id" type="BIGINT"/>
-            <column name="advanced_shipping_notice_id" type="BIGINT"/>
+            <column name="appointment_booking_id" type="BIGINT">
+                <constraints unique="true"/>
+            </column>
+            <column name="advanced_shipping_notice_id" type="BIGINT">
+                <constraints unique="true"/>
+            </column>
         </createTable>
     </changeSet>
     <changeSet id="20" author="Kristjan Mill">
