@@ -138,6 +138,12 @@ public class UserService {
      * @return
      */
     public String addUserGroup(UserDto userDto) {
+        usersRoleRepository.findById(userDto.getRoleId())
+                .orElseThrow(() -> new UserException("User Role #" + userDto.getRoleId() + " does not exits"));
+
+        userGroupRepository.findById(userDto.getGroupId())
+                .orElseThrow(() -> new UserException("User Group #" + userDto.getGroupId() + " does not exits"));
+
         userGroupRepository.save(new UsersGroup(0L, userDto.getGroupId(), userDto.getId()));
         return "User could not add in group";
     }

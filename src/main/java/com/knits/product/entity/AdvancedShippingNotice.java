@@ -1,10 +1,12 @@
 package com.knits.product.entity;
 
 import lombok.Data;
-
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Entity class representing an advanced shipping notice.
@@ -46,7 +48,9 @@ public class AdvancedShippingNotice {
     @JoinColumn(name = "trailer_id")
     private Trailer trailer;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinTable(name = "advanced_shipping_notice_purchase_order", joinColumns = @JoinColumn(name = "advanced_shipping_notice_id"),
             inverseJoinColumns = @JoinColumn(name = "purchase_order_id"))
     private List<PurchaseOrder> packages;
