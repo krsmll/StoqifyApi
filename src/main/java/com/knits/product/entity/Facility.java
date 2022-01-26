@@ -1,5 +1,6 @@
 package com.knits.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import java.util.List;
 import javax.persistence.*;
@@ -41,7 +42,8 @@ public class Facility {
     @Column(name = "status")
     private Boolean status;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = "facility_user_link", joinColumns = @JoinColumn(name = "facility_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;

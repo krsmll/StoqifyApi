@@ -1,6 +1,7 @@
 package com.knits.product.controller;
 
 import com.knits.product.dto.ItemDto;
+import com.knits.product.entity.Item;
 import com.knits.product.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,7 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ItemDto>> getAllItems() {
+    public ResponseEntity<List<Item>> getAllItems() {
         log.debug("REST request to get all items");
         return ResponseEntity.ok().body(itemService.getAllItems());
     }

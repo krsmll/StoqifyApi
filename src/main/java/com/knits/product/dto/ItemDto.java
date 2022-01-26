@@ -3,14 +3,15 @@ package com.knits.product.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.time.LocalDate;
 
 @Data
 public class ItemDto {
 
-    @NotBlank(message = "The id is required.")
-    private long id;
+    @NotNull(message = "Item ID can not be null")
+    private Long id;
 
     @NotBlank(message = "The name is required.")
     private String name;
