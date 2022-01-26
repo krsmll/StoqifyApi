@@ -1,6 +1,8 @@
 package com.knits.product.dto;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This is a Data Transfer Object class to handle requested data

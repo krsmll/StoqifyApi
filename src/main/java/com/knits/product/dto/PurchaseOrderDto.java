@@ -1,6 +1,9 @@
 package com.knits.product.dto;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -10,7 +13,6 @@ import java.util.List;
  */
 @Data
 public class PurchaseOrderDto {
-
     private Long id;
     private Long supplierCompanyId;
     private Long customerComapnyId;

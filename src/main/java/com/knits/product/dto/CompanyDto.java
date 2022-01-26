@@ -1,12 +1,15 @@
 package com.knits.product.dto;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * This is a company Data Transfer Object to handle data
  * @author Soumen Banerjee
  */
 @Data
+@NoArgsConstructor
 public class CompanyDto {
 
     private Long id;
