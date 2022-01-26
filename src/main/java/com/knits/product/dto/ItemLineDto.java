@@ -12,7 +12,7 @@ import com.knits.product.entity.AdvancedShippingNotice;
 @Data
 public class ItemLineDto {
 
-    @NotNull(groups = UpdateGroup.class)
+    @NotNull(groups = UpdateGroup.class, message = "Item line id can not be null.")
     private Long itemLineid;
 
     private Long itemCount;
