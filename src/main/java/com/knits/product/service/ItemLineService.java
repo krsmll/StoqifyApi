@@ -12,6 +12,7 @@ import com.knits.product.entity.ItemLinkAsn;
 import com.knits.product.mapper.ItemLineMapper;
 import org.springframework.stereotype.Service;
 import com.knits.product.entity.ItemLinkItemLine;
+import com.knits.product.exceptions.UserException;
 import com.knits.product.repository.ItemLineRepository;
 import com.knits.product.repository.ItemLinkAsnRepository;
 import com.knits.product.repository.ItemLinkItemLineRepository;
@@ -66,6 +67,31 @@ public class ItemLineService {
         itemLineRepository.save(newItemLine);
         itemLinkItemLineRepository.saveAll(itemLineLinkList);
         itemLinkAsnRepository.save(new ItemLinkAsn(0L, getlastItemLineId, itemLineDto.getAsn().getId()));
+
+        return getAllItemList();
+    }
+
+    /**
+     *
+     * @param itemLineDto requested updated item line data to updated existing record
+     * @return full list of item line
+     */
+    public List<ItemLineDto> updateItemLine(ItemLineDto itemLineDto) {
+        List<ItemLinkItemLine> itemLineLinkList = new ArrayList<>();
+
+        List<ItemLinkItemLine> getItemLineLinkList = itemLinkItemLineRepository.findByItemLineId(itemLineDto.getItemLineid());
+        ItemLinkAsn getitemLinkASN = itemLinkAsnRepository.findByItemLineId(itemLineDto.getItemLineid())
+                .orElseThrow(() -> new UserException("ItemLinkAsn #" + itemLineDto.getItemLineid() + " not found by requested item line id"));
+
+        itemLinkItemLineRepository.deleteAll(getItemLineLinkList);
+
+        itemLineDto.getItems().forEach(getRequestedItem -> {
+            itemLineLinkList.add(new ItemLinkItemLine(0L, itemLineDto.getItemLineid(), getRequestedItem.getId()));
+        });
+        getitemLinkASN.setAdvancedShippingNoticeId(itemLineDto.getAsn().getId());
+
+        itemLinkAsnRepository.save(getitemLinkASN);
+        itemLinkItemLineRepository.saveAll(itemLineLinkList);
 
         return getAllItemList();
     }
