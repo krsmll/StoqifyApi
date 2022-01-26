@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class ItemDto {
 
     @NotBlank(message = "The id is required.")
-    private long id;
+    private Long id;
 
     @NotBlank(message = "The name is required.")
     private String name;

@@ -1,9 +1,12 @@
 package com.knits.product.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
 import javax.persistence.*;
+
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -13,6 +16,7 @@ import org.hibernate.annotations.NotFoundAction;
  */
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "item_line")
 public class ItemLine {
 
@@ -39,4 +43,10 @@ public class ItemLine {
 
     @Column(name = "item_line_comment")
     private String comment;
+
+    public ItemLine(Date enteredDate, Long itemCount, String comment) {
+        this.enteredDate = enteredDate;
+        this.itemCount = itemCount;
+        this.comment = comment;
+    }
 }

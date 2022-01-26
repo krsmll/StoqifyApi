@@ -7,6 +7,8 @@ import com.knits.product.service.ItemLineService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * This is a REST API class to handle Item Line data
  * @author Soumen Banerjee
@@ -24,7 +26,7 @@ public class ItemLineController {
     }
 
     @PostMapping
-    public ResponseEntity<List<ItemLineDto>> createItemLineData(@RequestBody ItemLineDto itemLineDto) {
+    public ResponseEntity<List<ItemLineDto>> createItemLineData(@Valid @RequestBody ItemLineDto itemLineDto) {
         return ResponseEntity.ok().body(itemLineService.createNewItemLine(itemLineDto));
     }
 }

@@ -2,10 +2,7 @@ package com.knits.product.mapper;
 
 import com.knits.product.dto.ItemDto;
 import com.knits.product.entity.Item;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -13,11 +10,11 @@ import java.util.List;
 public interface ItemMapper {
 
     List<Item> toEntityList(List<ItemDto> itemDtos);
-
     List<ItemDto> toDtoList(List<Item> item);
 
-    ItemDto toDto(Item item);
+    List<ItemDto> mapDifferentFields(List<ItemDto> itemDtos);
 
+    ItemDto toDto(Item item);
     Item toEntity(ItemDto itemDto);
 
     void update(@MappingTarget Item item, ItemDto updatedItem);
