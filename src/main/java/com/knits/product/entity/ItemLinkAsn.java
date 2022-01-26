@@ -1,8 +1,14 @@
 package com.knits.product.entity;
 
 import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "item_link_asn")
 public class ItemLinkAsn {
 

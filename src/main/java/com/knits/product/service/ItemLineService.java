@@ -1,19 +1,19 @@
 package com.knits.product.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.knits.product.entity.Item;
-import com.knits.product.entity.ItemLinkItemLine;
-import com.knits.product.mapper.ItemMapper;
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import java.util.stream.Collectors;
 import com.knits.product.entity.ItemLine;
 import com.knits.product.dto.ItemLineDto;
+import com.knits.product.mapper.ItemMapper;
+import com.knits.product.entity.ItemLinkAsn;
 import com.knits.product.mapper.ItemLineMapper;
 import org.springframework.stereotype.Service;
+import com.knits.product.entity.ItemLinkItemLine;
 import com.knits.product.repository.ItemLineRepository;
+import com.knits.product.repository.ItemLinkAsnRepository;
 import com.knits.product.repository.ItemLinkItemLineRepository;
 
 /**
@@ -27,6 +27,7 @@ public class ItemLineService {
     private final ItemMapper itemMapper;
     private final ItemLineMapper itemLineMapper;
     private final ItemLineRepository itemLineRepository;
+    private final ItemLinkAsnRepository itemLinkAsnRepository;
     private final ItemLinkItemLineRepository itemLinkItemLineRepository;
 
     /**
@@ -44,22 +45,30 @@ public class ItemLineService {
      */
     public List<ItemLineDto> createNewItemLine(ItemLineDto itemLineDto) {
 
-        List<ItemLinkItemLine> itemLineLinkList = new ArrayList<>();
+       List<ItemLinkItemLine> itemLineLinkList = new ArrayList<>();
 
         List<Long> itemIds = itemLinkItemLineRepository.findAll().stream()
                 .map(ItemLinkItemLine::getItemId).collect(Collectors.toList());
+
+        ItemLine newItemLine = new ItemLine(new Date(), 0L, itemLineDto.getComment());
+
+        itemLineRepository.save(newItemLine);
+
+        Long getlastItemLineId = newItemLine.getId();
+
         itemLineDto.getItems().forEach(getItemLineData -> {
             if(!itemIds.contains(getItemLineData.getId())) {
-                itemLineLinkList.add(new ItemLinkItemLine(0L, itemLineDto.getItemLineid(), getItemLineData.getId()));
+                itemLineLinkList.add(new ItemLinkItemLine(0L, getlastItemLineId, getItemLineData.getId()));
             }
         });
 
+        newItemLine.setItemCount(itemLineLinkList.stream().count());
+
+        itemLineRepository.save(newItemLine);
         itemLinkItemLineRepository.saveAll(itemLineLinkList);
-        //itemLineRepository.save(new ItemLine(new Date(), 1L, itemLineDto.getComment()));
-        /*
-        itemLinkItemLineRepository.findAll().forEach(k -> {
-            System.out.println("ITEM ID --> " + k.getItemId() + " ITEM LINE ID --> " + k.getItemLineId());
-        });*/
+
+        itemLinkAsnRepository.save(new ItemLinkAsn(0L, getlastItemLineId, itemLineDto.getAsn().getId()));
+
         return getAllItemList();
     }
 }

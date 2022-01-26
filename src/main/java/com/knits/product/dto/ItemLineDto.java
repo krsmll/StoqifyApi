@@ -10,10 +10,11 @@ import com.knits.product.entity.AdvancedShippingNotice;
 @Data
 public class ItemLineDto {
 
-    @NotNull(message = "Item Line ID can not be null")
     private Long itemLineid;
 
     private Long itemCount;
+
+    @NotNull(message = "Comment can not be null")
     private String comment;
     private Date enteredDate;
 
