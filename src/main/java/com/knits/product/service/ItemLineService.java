@@ -41,18 +41,17 @@ public class ItemLineService {
 
     /**
      *
-     * @return item lines
+     * @param itemLineDto requested item line data to create a new one
+     * @return updated list of item line including new one
      */
     public List<ItemLineDto> createNewItemLine(ItemLineDto itemLineDto) {
 
        List<ItemLinkItemLine> itemLineLinkList = new ArrayList<>();
-
-        List<Long> itemIds = itemLinkItemLineRepository.findAll().stream()
+       List<Long> itemIds = itemLinkItemLineRepository.findAll().stream()
                 .map(ItemLinkItemLine::getItemId).collect(Collectors.toList());
 
-        ItemLine newItemLine = new ItemLine(new Date(), 0L, itemLineDto.getComment());
-
-        itemLineRepository.save(newItemLine);
+       ItemLine newItemLine = new ItemLine(new Date(), 0L, itemLineDto.getComment());
+       itemLineRepository.save(newItemLine);
 
         Long getlastItemLineId = newItemLine.getId();
 
@@ -66,7 +65,6 @@ public class ItemLineService {
 
         itemLineRepository.save(newItemLine);
         itemLinkItemLineRepository.saveAll(itemLineLinkList);
-
         itemLinkAsnRepository.save(new ItemLinkAsn(0L, getlastItemLineId, itemLineDto.getAsn().getId()));
 
         return getAllItemList();
