@@ -1,15 +1,17 @@
 package com.knits.product.controller;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
-import com.knits.product.dto.ItemLineDto;
+
 import com.knits.product.dto.groups.InsertGroup;
 import com.knits.product.dto.groups.UpdateGroup;
-import org.springframework.http.ResponseEntity;
+import lombok.AllArgsConstructor;
+import com.knits.product.dto.ItemLineDto;
 import com.knits.product.service.ItemLineService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 
 /**
  * This is a REST API class to handle Item Line data
@@ -35,10 +37,5 @@ public class ItemLineController {
     @PutMapping
     public ResponseEntity<List<ItemLineDto>> editItemLineData(@Validated(UpdateGroup.class) @RequestBody ItemLineDto itemLineDto) {
         return ResponseEntity.ok().body(itemLineService.updateItemLine(itemLineDto));
-    }
-
-    @DeleteMapping
-    public ResponseEntity<List<ItemLineDto>> deleteASNassignFromItemLine(@Validated(UpdateGroup.class) @RequestBody ItemLineDto itemLineDto) {
-        return ResponseEntity.ok().body(itemLineService.deleteASNfromItemLine(itemLineDto));
     }
 }
