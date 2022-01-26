@@ -25,10 +25,10 @@ public class ItemService {
     /**
      * @return list of all items
      */
-    public List<ItemDto> getAllItems() {
+    public List<Item> getAllItems() {
         log.debug("Request to get all Item");
 
-        return itemRepository.findAll().stream().map(itemMapper::toDto).collect(Collectors.toList());
+        return itemRepository.findAll(); //.stream().map(itemMapper::toDto).collect(Collectors.toList());
     }
 
     /**

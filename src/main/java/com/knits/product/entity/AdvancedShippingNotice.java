@@ -58,7 +58,7 @@ public class AdvancedShippingNotice {
     @Column(name = "bill_of_landing_number")
     private String billOfLandingNumber;
 
-    @Column(name = "shipment_date", columnDefinition = "TIMESTAMP", nullable = false, updatable = false, insertable = false)
+    @Column(name = "shipment_date", columnDefinition = "TIMESTAMP", nullable = true, updatable = false, insertable = false)
     private Date shipmentDate;
 
     @Column(name = "delivery_date", columnDefinition = "TIMESTAMP")
