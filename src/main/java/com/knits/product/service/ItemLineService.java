@@ -95,17 +95,4 @@ public class ItemLineService {
 
         return getAllItemList();
     }
-
-    /**
-     *
-     * @param itemLineDto unassign ASN from item line which is requested
-     * @return updated item line list
-     */
-    public List<ItemLineDto> deleteASNfromItemLine(ItemLineDto itemLineDto) {
-        ItemLinkAsn getitemLinkASN = itemLinkAsnRepository.findByItemLineId(itemLineDto.getItemLineid())
-                .orElseThrow(() -> new UserException("ItemLinkAsn #" + itemLineDto.getItemLineid() + " not found by requested item line id"));
-
-        itemLinkAsnRepository.delete(getitemLinkASN);
-        return getAllItemList();
-    }
 }
