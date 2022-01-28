@@ -1,9 +1,7 @@
 package com.knits.product.dto;
 
 import lombok.Data;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 
 /**
@@ -13,5 +11,7 @@ import javax.persistence.Table;
 @Data
 public class RoleDto {
     private Long id;
+
+    @Pattern(regexp = "^[A-Za-z]*$", message = "Role name should contain only characters")
     private String roleName;
 }

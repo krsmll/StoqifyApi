@@ -6,6 +6,8 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import com.knits.product.entity.AdvancedShippingNotice;
 
 
@@ -18,6 +20,7 @@ public class ItemLineDto {
     private Long itemCount;
 
     @NotNull(message = "Comment can not be null", groups = {InsertGroup.class, UpdateGroup.class})
+    @Pattern(regexp = "^[A-Za-z]*$", message = "Item comment should contain only characters")
     private String comment;
     private Date enteredDate;
 

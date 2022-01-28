@@ -13,7 +13,9 @@ public class GroupDto {
     private long id;
 
     @NotBlank(groups = {InsertGroup.class, UpdateGroup.class})
-    @Size(max = 128)
+    @Size(groups = {InsertGroup.class, UpdateGroup.class}, max = 128)
+    @Pattern(groups = {InsertGroup.class, UpdateGroup.class},
+            regexp = "^[A-Za-z]*$", message = "Group name should contain only characters")
     private String name;
 
     @Null
