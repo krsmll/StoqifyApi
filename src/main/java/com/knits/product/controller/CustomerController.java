@@ -1,15 +1,18 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import javax.validation.Valid;
-import lombok.AllArgsConstructor;
 import com.knits.product.dto.CustomerDto;
-import org.springframework.http.ResponseEntity;
 import com.knits.product.service.CustomerService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * This is Customer REST API class
+ *
  * @author Soumen Banerjee
  */
 @RestController
@@ -26,6 +29,6 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<List<CustomerDto>> registerNewCustomer(@RequestBody @Valid CustomerDto customerDto) {
-        return ResponseEntity.ok().body(customerService.registerCustomer(customerDto));
+        return new ResponseEntity<>(customerService.registerCustomer(customerDto), HttpStatus.CREATED);
     }
 }

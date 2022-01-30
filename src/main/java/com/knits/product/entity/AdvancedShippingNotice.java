@@ -24,31 +24,30 @@ public class AdvancedShippingNotice {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "from_facility_id")
     private Facility fromFacility;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "to_facility_id")
     private Facility toFacility;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "supplier_id")
     private Company supplier;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Company customer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "driver_id")
     private DriverCarrier driver;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trailer_id")
     private Trailer trailer;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinTable(name = "advanced_shipping_notice_purchase_order", joinColumns = @JoinColumn(name = "advanced_shipping_notice_id"),
@@ -58,7 +57,7 @@ public class AdvancedShippingNotice {
     @Column(name = "bill_of_landing_number")
     private String billOfLandingNumber;
 
-    @Column(name = "shipment_date", columnDefinition = "TIMESTAMP", nullable = false, updatable = false, insertable = false)
+    @Column(name = "shipment_date", columnDefinition = "TIMESTAMP")
     private Date shipmentDate;
 
     @Column(name = "delivery_date", columnDefinition = "TIMESTAMP")

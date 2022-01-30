@@ -33,8 +33,8 @@ public class AdvancedShippingNoticeService {
     /**
      * Get all advanced shipping notices.
      *
-     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      * @return List of all advanced shipping notices.
+     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      */
     public List<AdvancedShippingNoticeDto> fetchAllAdvancedShippingNotices() {
         log.debug("Request to get all AdvancedShippingNotices");
@@ -47,9 +47,9 @@ public class AdvancedShippingNoticeService {
     /**
      * Get advanced shipping notice by ID.
      *
-     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      * @param id Advanced shipping notice ID.
      * @return Advanced shipping notice with specified ID.
+     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      */
     public AdvancedShippingNoticeDto getAdvancedShippingNoticeById(long id) {
         log.debug("Request to get AdvancedShippingNotice by id : {}", id);
@@ -64,29 +64,29 @@ public class AdvancedShippingNoticeService {
     /**
      * Create an advanced shipping notice.
      *
-     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      * @param advancedShippingNoticeDto Advanced shipping notice to create.
      * @return Created advanced shipping notice.
+     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      */
     public AdvancedShippingNoticeDto createAdvancedShippingNotice(AdvancedShippingNoticeDto advancedShippingNoticeDto) {
         log.debug("Request to create an AdvancedShippingNotice: {}", advancedShippingNoticeDto);
 
-        return advancedShippingNoticeMapper.toDto(
-                advancedShippingNoticeRepository.save(
-                        advancedShippingNoticeMapper.toEntity(advancedShippingNoticeDto)
-                )
-        );
+        AdvancedShippingNotice entity = advancedShippingNoticeMapper.toEntity(advancedShippingNoticeDto);
+        AdvancedShippingNotice created = advancedShippingNoticeRepository.save(entity);
+        AdvancedShippingNoticeDto createdDto = advancedShippingNoticeMapper.toDto(created);
+
+        return createdDto;
     }
 
     /**
      * Add packages to an advanced shipping notice.
      *
+     * @param packages List of purchase orders (packages) to add to the advanced shipping notice.
+     * @param id       ID of an advanced shipping notice to add the packages to.
+     * @return Advanced shipping notice with added packages.
      * @see com.knits.product.entity.PurchaseOrder PurchaseOrder
      * @see PurchaseOrderDto PurchaseOrderDto
      * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
-     * @param packages List of purchase orders (packages) to add to the advanced shipping notice.
-     * @param id ID of an advanced shipping notice to add the packages to.
-     * @return Advanced shipping notice with added packages.
      */
     public AdvancedShippingNoticeDto addPackagesToAdvancedShippingNotice(List<PurchaseOrderDto> packages, Long id) {
         log.debug("Request to add {} packages to AdvancedShippingNotice with an ID of {}", packages.size(), id);
@@ -106,12 +106,12 @@ public class AdvancedShippingNoticeService {
     /**
      * Add packages to an advanced shipping notice.
      *
+     * @param packageId ID of a package that needs to be removed from the advanced shipping notice.
+     * @param asnId     ID of an advanced shipping notice to remove the package from.
+     * @return Advanced shipping notice with the package removed.
      * @see com.knits.product.entity.PurchaseOrder PurchaseOrder
      * @see PurchaseOrderDto PurchaseOrderDto
      * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
-     * @param packageId ID of a package that needs to be removed from the advanced shipping notice.
-     * @param asnId ID of an advanced shipping notice to remove the package from.
-     * @return Advanced shipping notice with the package removed.
      */
     public AdvancedShippingNoticeDto removePackageFromAdvancedShippingNoticeById(Long packageId, Long asnId) {
         log.debug("Request to remove a package with an ID: {} from AdvancedShippingNotice with an ID: {}.", packageId, asnId);
@@ -127,9 +127,9 @@ public class AdvancedShippingNoticeService {
     /**
      * Update advanced shipping notice.
      *
-     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      * @param advancedShippingNoticeDto Updated advanced shipping notice.
      * @return Updated advanced shipping notice.
+     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      */
     public AdvancedShippingNoticeDto updateAdvancedShippingNotice(AdvancedShippingNoticeDto advancedShippingNoticeDto) {
         log.debug("Request to update AdvancedShippingNotice : {}", advancedShippingNoticeDto);
@@ -146,9 +146,9 @@ public class AdvancedShippingNoticeService {
     /**
      * Partially update advanced shipping notice.
      *
-     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      * @param advancedShippingNoticeDto Partially updated advanced shipping notice.
      * @return Updated advanced shipping notice.
+     * @see AdvancedShippingNoticeDto AdvancedShippingNoticeDto
      */
     public AdvancedShippingNoticeDto partialUpdateAdvancedShippingNotice(AdvancedShippingNoticeDto advancedShippingNoticeDto) {
         log.debug("Request to partially update AdvancedShippingNotice : {}", advancedShippingNoticeDto);

@@ -1,6 +1,5 @@
 package com.knits.product.dto;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

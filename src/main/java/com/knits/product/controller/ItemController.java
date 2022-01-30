@@ -4,8 +4,10 @@ import com.knits.product.dto.ItemDto;
 import com.knits.product.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Slf4j
@@ -19,7 +21,7 @@ public class ItemController {
     @PostMapping
     public ResponseEntity<ItemDto> createItem(@RequestBody ItemDto itemDto) {
         log.debug("REST request to createUser User ");
-        return ResponseEntity.ok().body(itemService.createItem(itemDto));
+        return new ResponseEntity<>(itemService.createItem(itemDto), HttpStatus.CREATED);
     }
 
     @GetMapping

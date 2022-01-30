@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 public class TrailerDto {
-
     private Long id;
 
     @NotNull(message = "Brand name can not be null")

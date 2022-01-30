@@ -1,13 +1,15 @@
 package com.knits.product.controller;
 
-import java.util.List;
 import com.knits.product.dto.RoleDto;
 import com.knits.product.service.RoleService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -35,7 +37,7 @@ public class RoleController {
     @PostMapping
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDTO) {
         log.debug("REST request to createRole Roles ");
-        return ResponseEntity.ok().body(roleService.createNewRole(roleDTO));
+        return new ResponseEntity<>(roleService.createNewRole(roleDTO), HttpStatus.CREATED);
     }
 
     @PatchMapping
