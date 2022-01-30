@@ -59,7 +59,7 @@ public class TrailerService {
     }
 
     /**
-     * @param TrailerDto requested data to change trailer data
+     * @param trailerDto requested data to change trailer data
      * @return trailer list
      */
     public List<TrailerDto> updateTrailerData(TrailerDto trailerDto) {

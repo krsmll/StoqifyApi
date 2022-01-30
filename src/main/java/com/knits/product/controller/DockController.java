@@ -5,9 +5,9 @@ import lombok.AllArgsConstructor;
 import com.knits.product.dto.DockDto;
 import com.knits.product.service.DockService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.knits.product.dto.groups.InsertGroup;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * This is a REST API controller class to handle dock related data
@@ -27,5 +27,14 @@ public class DockController {
     @GetMapping
     public ResponseEntity<List<DockDto>> getAllDockData() {
         return ResponseEntity.ok().body(dockService.getAllDocks());
+    }
+
+    /**
+     *
+     * @return list of dock
+     */
+    @PostMapping
+    public ResponseEntity<List<DockDto>> createNewDock(@Validated(InsertGroup.class) @RequestBody DockDto dockDto) {
+        return ResponseEntity.ok().body(dockService.createNewDock(dockDto));
     }
 }

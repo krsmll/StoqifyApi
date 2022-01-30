@@ -39,7 +39,7 @@ public class ExceptionController {
     public ResponseEntity<ExceptionDto> handleAllExceptions(Exception ex, Errors errors) {
         log.error(ex.getMessage(),ex);
         String errorMessage = errors.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.joining(" "));
+                .collect(Collectors.joining(", "));
 
         ExceptionDto exDto = new ExceptionDto(ExceptionCodes.UNMAPPED_EXCEPTION_CODE, errorMessage);
         return wrapIntoResponseEntity(exDto, HttpStatus.INTERNAL_SERVER_ERROR);

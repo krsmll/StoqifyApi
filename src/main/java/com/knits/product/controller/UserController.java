@@ -7,12 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import com.knits.product.dto.UserDto;
 import com.knits.product.service.UserService;
 import org.springframework.http.ResponseEntity;
-import com.knits.product.exceptions.UserException;
+import com.knits.product.dto.groups.DeleteGroup;
+import com.knits.product.dto.groups.UpdateGroup;
 import org.springframework.web.bind.annotation.*;
+import com.knits.product.exceptions.UserException;
 import org.springframework.validation.annotation.Validated;
 
 @Slf4j
-@Validated
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/users")
@@ -49,11 +50,8 @@ public class UserController {
      * @return return all user including newly saved
      */
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDTO) {
-        log.debug("REST request to createUser User ");
-        if (userDTO == null) {
-            throw new UserException("User data are missing");
-        }
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDTO) {
+        log.debug("REST request to create a new User ");
         return ResponseEntity.ok().body(userService.createNewUser(userDTO));
     }
 
@@ -63,7 +61,7 @@ public class UserController {
      * @return newly updated user
      */
     @PutMapping(value = "/users")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDTO) {
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDTO) {
         log.debug("REST request to updateUser User ");
         if (userDTO == null) {
             throw new UserException("User data are missing");
@@ -77,7 +75,7 @@ public class UserController {
      * @return updated user info
      */
     @PatchMapping(value = "/users")
-    public ResponseEntity<UserDto> partialUpdateUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> partialUpdateUser(@Valid @RequestBody UserDto userDto) {
         log.debug("REST request to updateUser User ");
         return ResponseEntity.ok().body(userService.partialUpdateUserData(userDto));
     }
@@ -111,7 +109,7 @@ public class UserController {
      * @return error message
      */
     @PutMapping("/addusergroup")
-    public ResponseEntity<String> assignUserGroup(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<String> assignUserGroup(@Validated(UpdateGroup.class) @RequestBody UserDto userDto) {
         log.debug("REST request to add user in a group: {}", userDto.getId());
         return ResponseEntity.ok().body(userService.addUserGroup(userDto));
     }
@@ -122,7 +120,7 @@ public class UserController {
      * @return void
      */
     @PutMapping("/adduserrole")
-    public ResponseEntity<Void> addUserRole(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<Void> addUserRole(@RequestBody UserDto userDto) {
         log.debug("Requested to add user role");
         userService.addUserRole(userDto);
         return ResponseEntity.noContent().build();
@@ -134,7 +132,7 @@ public class UserController {
      * @return error message
      */
     @PutMapping("/removeusergroup")
-    public ResponseEntity<String> removeUserGroup(@RequestBody UserDto userDto) {
+    public ResponseEntity<String> removeUserGroup(@Validated(DeleteGroup.class) @RequestBody UserDto userDto) {
         userService.removeUserGroup(userDto);
         return ResponseEntity.noContent().build();
     }

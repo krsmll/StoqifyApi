@@ -82,7 +82,7 @@ public class UserService {
      */
     public List<UserDto> fetchAllUsers() {
         return userRepository.findAll().stream()
-                .map(it -> userMapper.toDto(it))
+                .map(userMapper::toDto)
                 .collect(Collectors.toList());
     }
 
