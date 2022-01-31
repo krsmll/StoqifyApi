@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service("delivery")
 public class DeliveryService {
 
-    private Date end;
     private Date start;
     private List<DeliveryProgressDto> deliveryProgressList = new ArrayList<>();
 
@@ -70,7 +69,7 @@ public class DeliveryService {
                 .orElseThrow(() -> new UserException("Delivery Assign #" + deliveryProgressDto.getDeliveryAssignId() + " not found"));
 
         if(deliveryProgressDto.getStatus().equals("E")) {
-            this.end = new Date();
+            Date end = new Date();
 
             long diffInMillies = Math.abs(end.getTime() - start.getTime());
             long min = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
