@@ -23,10 +23,6 @@ public class DeliveryService {
 
     private Date end;
     private Date start;
-    private Date arrivalTime;
-    private DeliveryAssign deliveryAssign;
-    private Boolean startAccepting = false;
-    private Boolean finishAccepting = false;
     private List<DeliveryProgressDto> deliveryProgressList = new ArrayList<>();
 
     @Autowired
@@ -42,9 +38,9 @@ public class DeliveryService {
      *
      * @return list of all assigned deliveries
      */
-    public List<DeliveryAssign> getAllAssignedDeliveries() {
+    public List<DeliveryAssignDto> getAllAssignedDeliveries() {
 
-        return deliveryAssignRepository.findAll();
+        return deliveryAssignRepository.findAll().stream().map(deliveryMapper::toDeliveryAssignDto).collect(Collectors.toList());
     }
 
     /**
@@ -52,14 +48,12 @@ public class DeliveryService {
      * @param deliveryAssign requested delivery assigning data
      * @return full list of assigned deliveries data
      */
-    public List<DeliveryAssign> assignNewDelivery(DeliveryAssignDto deliveryAssign) {
-
-        this.arrivalTime = deliveryAssign.getArrivalTime() == null ? new Date() : deliveryAssign.getArrivalTime();
+    public List<DeliveryAssignDto> assignNewDelivery(DeliveryAssignDto deliveryAssign) {
 
         deliveryAssign.setStatus("C");
         deliveryAssign.setArrivalTime(new Date());
 
-        this.deliveryAssign = deliveryAssignRepository.save(deliveryMapper.toDeliveryAssignEntity(deliveryAssign));
+        deliveryAssignRepository.save(deliveryMapper.toDeliveryAssignEntity(deliveryAssign));
 
         return getAllAssignedDeliveries();
     }
@@ -70,10 +64,13 @@ public class DeliveryService {
      * @return list of all delivery progress
      */
     public List<DeliveryProgressDto> getDeliveryProgress(DeliveryProgressDto deliveryProgressDto) {
-        if(deliveryProgressDto.getStatus().equals("E") && !finishAccepting && startAccepting) {
+
+        DeliveryAssign getDeliveryAssignData = deliveryAssignRepository
+                .findById(deliveryProgressDto.getDeliveryAssignId())
+                .orElseThrow(() -> new UserException("Delivery Assign #" + deliveryProgressDto.getDeliveryAssignId() + " not found"));
+
+        if(deliveryProgressDto.getStatus().equals("E")) {
             this.end = new Date();
-            this.startAccepting = false;
-            this.finishAccepting = false;
 
             long diffInMillies = Math.abs(end.getTime() - start.getTime());
             long min = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
@@ -84,8 +81,9 @@ public class DeliveryService {
             DeliveryProgressDto fetchSingleDeliveryReport =
                     this.deliveryProgressList
                     .stream()
-                    .filter(getDeliveryReport -> getDeliveryReport.getDeliveryId().equals(deliveryProgressDto.getDeliveryId()))
-                    .findAny().orElseThrow(() -> new UserException("Delivery Report #" + deliveryProgressDto.getDeliveryId() + " does not exists"));
+                    .filter(getDeliveryReport -> getDeliveryReport.getDeliveryAssignId().equals(getDeliveryAssignData.getId()))
+                    .findAny().orElseThrow(() -> new UserException("Delivery Report #" + getDeliveryAssignData.getId() +
+                                    " does not exists"));
 
             int index = this.deliveryProgressList.indexOf(fetchSingleDeliveryReport);
 
@@ -98,18 +96,17 @@ public class DeliveryService {
 
             this.deliveryProgressList.add(fetchSingleDeliveryReport);
 
-            deliveryProgressRepository.save(new DeliveryProgress(this.arrivalTime, fetchSingleDeliveryReport.getStartReceving(),
+            deliveryProgressRepository.save(new DeliveryProgress(getDeliveryAssignData.getArrivalTime(),
+                    fetchSingleDeliveryReport.getStartReceving(),
                     fetchSingleDeliveryReport.getEndReceving(), fetchSingleDeliveryReport.getTotalTimeTaken(),
                     fetchSingleDeliveryReport.getComment(), fetchSingleDeliveryReport.getStatus()));
 
             return this.deliveryProgressList;
 
-        } else if(deliveryProgressDto.getStatus().equals("S") && !finishAccepting && !startAccepting) {
-            this.startAccepting = true;
+        } else if(deliveryProgressDto.getStatus().equals("S")) {
             this.start = new Date();
-            this.deliveryProgressList.add(new DeliveryProgressDto(deliveryProgressDto.getDeliveryId() == null ?
-                    this.deliveryAssign.getId() : deliveryProgressDto.getDeliveryId(), this.start, null,
-                    "N/A", "Started", "S"));
+            this.deliveryProgressList.add(new DeliveryProgressDto(0L, getDeliveryAssignData.getId(), this.start,
+                    null, null, "Started", "S"));
         }
 
         return this.deliveryProgressList;

@@ -22,12 +22,12 @@ public class DeliveryController {
     private final DeliveryService deliveryService;
 
     @GetMapping("assigns")
-    public ResponseEntity<List<DeliveryAssign>> getAllDeliveryAssigns() {
+    public ResponseEntity<List<DeliveryAssignDto>> getAllDeliveryAssigns() {
         return ResponseEntity.ok().body(deliveryService.getAllAssignedDeliveries());
     }
 
     @PostMapping
-    public ResponseEntity<List<DeliveryAssign>> assignDelivery(@RequestBody DeliveryAssignDto deliveryAssign) {
+    public ResponseEntity<List<DeliveryAssignDto>> assignDelivery(@RequestBody DeliveryAssignDto deliveryAssign) {
         return ResponseEntity.ok().body(deliveryService.assignNewDelivery(deliveryAssign));
     }
 

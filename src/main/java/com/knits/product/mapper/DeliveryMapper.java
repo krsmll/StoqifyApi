@@ -18,7 +18,7 @@ public interface DeliveryMapper {
     DeliveryProgressDto toDeliveryProgressDto(DeliveryProgress deliveryProgress);
     DeliveryProgress toDeliveryProgressEntity(DeliveryProgressDto deliveryProgressDto);
 
-    List<DeliveryAssignDto> toDeliveryAssignDto(List<DeliveryAssign> deliveryAssign);
+    DeliveryAssignDto toDeliveryAssignDto(DeliveryAssign deliveryAssign);
     DeliveryAssign toDeliveryAssignEntity(DeliveryAssignDto deliveryAssignDto);
 
 }

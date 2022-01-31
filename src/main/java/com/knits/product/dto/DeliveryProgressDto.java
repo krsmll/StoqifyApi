@@ -16,6 +16,8 @@ public class DeliveryProgressDto {
 
     private Long deliveryId;
 
+    private Long deliveryAssignId;
+
     @JsonFormat(pattern = "dd.mm.YYYY hh:mm")
     private Date startReceving;
 
