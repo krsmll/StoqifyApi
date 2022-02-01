@@ -1,7 +1,6 @@
 package com.knits.product.service;
 
 import com.knits.product.dto.RoleDto;
-import com.knits.product.dto.UserDto;
 import com.knits.product.entity.Role;
 import com.knits.product.exceptions.ExceptionCodes;
 import com.knits.product.exceptions.UserException;
@@ -13,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

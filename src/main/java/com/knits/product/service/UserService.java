@@ -73,6 +73,7 @@ public class UserService {
                 .orElseThrow(() -> new UserException("User#" + userDTO.getId() + " not found"));
         userMapper.update(user, userDTO);
         userRepository.save(user);
+
         return userMapper.toDto(user);
     }
 
@@ -103,7 +104,7 @@ public class UserService {
     /**
      * Delete the "id" user.
      *
-     * @param id the id of the entity.
+     * @param userDto the id of the entity.
      */
     public void deleteUserDataByUserId(UserDto userDto) {
         log.debug("Delete User by id : {}", userDto.getId());
@@ -133,9 +134,7 @@ public class UserService {
 
     /**
      *
-     * @param userId specific user on which the group will be apply
-     * @param groupId the group has been requested for
-     * @return
+     * @param userDto specific user on which the group will be applied
      */
     public String addUserGroup(UserDto userDto) {
         usersRoleRepository.findById(userDto.getRoleId())
@@ -149,9 +148,8 @@ public class UserService {
     }
 
     /**
-     *
-     * @param userId the user will be use to set role
-     * @param roleId assign role
+
+     * @param userDto the user will be used to set role
      */
     public void addUserRole(UserDto userDto) {
         usersRoleRepository.save(new UsersRole(0L, userDto.getRoleId(), userDto.getId()));
@@ -159,8 +157,7 @@ public class UserService {
 
     /**
      *
-     * @param userId user id to remove group
-     * @return message string
+     * @param userDto user to remove group from
      */
     public void removeUserGroup(UserDto userDto) {
         UsersGroup usersGroupData = userGroupRepository.findOneByUserId(userDto.getId())
