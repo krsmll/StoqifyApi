@@ -93,12 +93,14 @@ public class DeliveryService {
             fetchSingleDeliveryReport.setComment("Ended Receving Process");
             fetchSingleDeliveryReport.setTotalTimeTaken(hours + "h: " + min + "m: " + seconds + "s");
 
-            this.deliveryProgressList.add(fetchSingleDeliveryReport);
 
-            deliveryProgressRepository.save(new DeliveryProgress(getDeliveryAssignData.getArrivalTime(),
+            DeliveryProgress updatedDeliveryProgress = deliveryProgressRepository.save(new DeliveryProgress(getDeliveryAssignData.getArrivalTime(),
                     fetchSingleDeliveryReport.getStartReceving(),
                     fetchSingleDeliveryReport.getEndReceving(), fetchSingleDeliveryReport.getTotalTimeTaken(),
                     fetchSingleDeliveryReport.getComment(), fetchSingleDeliveryReport.getStatus()));
+
+            fetchSingleDeliveryReport.setDeliveryId(updatedDeliveryProgress.getDeliveryId());
+            this.deliveryProgressList.add(fetchSingleDeliveryReport);
 
             return this.deliveryProgressList;
 
