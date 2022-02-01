@@ -1,16 +1,17 @@
 package com.knits.product.controller;
 
-import java.util.List;
-
-import com.knits.product.entity.PurchaseOrder;
-import lombok.AllArgsConstructor;
 import com.knits.product.dto.PurchaseOrderDto;
+import com.knits.product.service.PurchaseOrderService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.knits.product.service.PurchaseOrderService;
+
+import java.util.List;
 
 /**
  * This is a REST API controller to handle purchase order
+ *
  * @author Soumen Banerjee
  */
 @RestController
@@ -27,11 +28,11 @@ public class PurchaseOrderController {
 
     @PostMapping
     public ResponseEntity<List<PurchaseOrderDto>> createPurchaseOrder(@RequestBody PurchaseOrderDto purchaseOrderDto) {
-        return ResponseEntity.ok().body(purchaseOrderService.createPurchaseOrder(purchaseOrderDto));
+        return new ResponseEntity<>(purchaseOrderService.createPurchaseOrder(purchaseOrderDto), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/deactivate/{id}")
-    public ResponseEntity<List<PurchaseOrderDto>> cancelPurchaseOrder(@PathVariable("id")Long purchaseOrderId) {
+    public ResponseEntity<List<PurchaseOrderDto>> cancelPurchaseOrder(@PathVariable("id") Long purchaseOrderId) {
         purchaseOrderService.cancelPurchaseOrder(purchaseOrderId);
         return ResponseEntity.ok().body(purchaseOrderService.cancelPurchaseOrder(purchaseOrderId));
     }

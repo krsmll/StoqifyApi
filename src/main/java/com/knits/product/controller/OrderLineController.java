@@ -1,14 +1,16 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import lombok.AllArgsConstructor;
 import com.knits.product.dto.OrderLineDto;
-import org.springframework.http.ResponseEntity;
 import com.knits.product.service.OrderLineService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * This is a REST API controller class to handle Purchase Order data
+ *
  * @author Soumen Banerjee
  */
 @RestController
@@ -29,7 +31,7 @@ public class OrderLineController {
     }
 
     @PutMapping(value = "/deactivate/{id}")
-    public ResponseEntity<List<OrderLineDto>> deactivateOrderLine(@PathVariable("id")Long orderLineId) {
+    public ResponseEntity<List<OrderLineDto>> deactivateOrderLine(@PathVariable("id") Long orderLineId) {
         return ResponseEntity.ok().body(purchaseOrderService.deactivateOrderLine(orderLineId));
     }
 }

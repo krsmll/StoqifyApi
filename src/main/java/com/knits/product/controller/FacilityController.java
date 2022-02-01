@@ -1,14 +1,17 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import lombok.AllArgsConstructor;
 import com.knits.product.dto.FacilityDto;
-import org.springframework.http.ResponseEntity;
 import com.knits.product.service.FacilityService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * This is REST Controller to handle facility data
+ *
  * @author Soumen Banerjee
  */
 @RestController
@@ -25,7 +28,7 @@ public class FacilityController {
 
     @PostMapping
     public ResponseEntity<List<FacilityDto>> saveFacilityData(@RequestBody FacilityDto facilityDto) {
-        return ResponseEntity.ok().body(facilityService.saveFacilityData(facilityDto));
+        return new ResponseEntity<>(facilityService.saveFacilityData(facilityDto), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/edit")
@@ -34,7 +37,7 @@ public class FacilityController {
     }
 
     @GetMapping(value = "/{searchedword}")
-    public ResponseEntity<FacilityDto> searchFacilityData(@PathVariable("searchedword")String facilitySearchWord) {
+    public ResponseEntity<FacilityDto> searchFacilityData(@PathVariable("searchedword") String facilitySearchWord) {
         return ResponseEntity.ok().body(facilityService.getFacilitySearchedData(facilitySearchWord));
     }
 

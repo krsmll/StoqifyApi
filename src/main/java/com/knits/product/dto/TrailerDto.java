@@ -11,7 +11,6 @@ import javax.validation.constraints.Pattern;
  */
 @Data
 public class TrailerDto {
-
     private Long id;
 
     @NotNull(message = "Brand name can not be null")

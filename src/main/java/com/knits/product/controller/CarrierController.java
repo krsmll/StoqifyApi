@@ -1,15 +1,18 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import javax.validation.Valid;
-import lombok.AllArgsConstructor;
 import com.knits.product.dto.CarrierDto;
 import com.knits.product.service.CarrierService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
+
 /**
  * This is Customer REST API class
+ *
  * @author Soumen Banerjee
  */
 @RestController
@@ -26,6 +29,6 @@ public class CarrierController {
 
     @PostMapping
     public ResponseEntity<List<CarrierDto>> registerNewCarrier(@RequestBody @Valid CarrierDto carrierDto) {
-        return ResponseEntity.ok().body(carrierService.registerCarrier(carrierDto));
+        return new ResponseEntity<>(carrierService.registerCarrier(carrierDto), HttpStatus.CREATED);
     }
 }

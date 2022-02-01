@@ -1,10 +1,13 @@
 package com.knits.product.dto;
 
 import lombok.Data;
+
 import javax.validation.constraints.Pattern;
+
 
 /**
  * This is a company Data Transfer Object to handle data
+ *
  * @author Soumen Banerjee
  */
 @Data

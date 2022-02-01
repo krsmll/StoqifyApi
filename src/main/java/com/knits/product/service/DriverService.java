@@ -31,10 +31,10 @@ public class DriverService {
 
     /**
      * @param driverDto save driver data
-     * @return void
+     * @return DriverDto
      */
-    public void saveDriverData(DriverDto driverDto) {
-        driverRepository.save(driverCarrierMapper.toEntity(driverDto));
+    public DriverDto saveDriverData(DriverDto driverDto) {
+        return driverCarrierMapper.toDriverDto(driverRepository.save(driverCarrierMapper.toEntity(driverDto)));
     }
 
     /**

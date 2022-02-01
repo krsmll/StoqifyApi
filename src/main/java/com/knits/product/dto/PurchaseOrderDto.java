@@ -4,15 +4,14 @@ import lombok.Data;
 
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * This is Data transfer object class to handle request purchase data
+ *
  * @author Soumen Banerjee
  */
 @Data
 public class PurchaseOrderDto {
-
     private Long id;
     private Long supplierCompanyId;
     private Long customerComapnyId;
