@@ -73,9 +73,8 @@ public class AdvancedShippingNoticeService {
 
         AdvancedShippingNotice entity = advancedShippingNoticeMapper.toEntity(advancedShippingNoticeDto);
         AdvancedShippingNotice created = advancedShippingNoticeRepository.save(entity);
-        AdvancedShippingNoticeDto createdDto = advancedShippingNoticeMapper.toDto(created);
 
-        return createdDto;
+        return advancedShippingNoticeMapper.toDto(created);
     }
 
     /**
