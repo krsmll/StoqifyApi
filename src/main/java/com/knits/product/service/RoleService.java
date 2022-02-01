@@ -92,7 +92,7 @@ public class RoleService {
      *
      * @param roleId the id of the entity.
      */
-    public void deleteRoleDataByRoleId(Long roleId) {
+    public void deleteRoleByRoleId(Long roleId) {
         log.debug("Delete Role by id : {}", roleId);
         roleRepository.deleteById(roleId);
     }

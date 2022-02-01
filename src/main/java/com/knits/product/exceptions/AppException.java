@@ -3,7 +3,7 @@ package com.knits.product.exceptions;
 import lombok.Data;
 
 @Data
-public class AppException extends RuntimeException{
+public class AppException extends RuntimeException {
 
     private int code;
 

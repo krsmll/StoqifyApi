@@ -1,12 +1,12 @@
 package com.knits.product.controller;
 
 import java.util.List;
-import com.knits.product.dto.RoleDto;
-import com.knits.product.service.RoleService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
+import com.knits.product.dto.RoleDto;
+import com.knits.product.service.RoleService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -47,7 +47,7 @@ public class RoleController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<RoleDto> deleteRoleById(@PathVariable("id") Long roleId) {
         log.debug("REST request to delete Role : {}", roleId);
-        roleService.deleteRoleDataByRoleId(roleId);
+        roleService.deleteRoleByRoleId(roleId);
         return ResponseEntity.noContent().build();
 
     }

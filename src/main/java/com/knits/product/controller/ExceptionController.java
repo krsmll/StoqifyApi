@@ -6,12 +6,16 @@ import com.knits.product.exceptions.SystemException;
 import com.knits.product.exceptions.UserException;
 import com.knits.product.dto.ExceptionDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.stream.Collectors;
 
 @Slf4j
 @ControllerAdvice
@@ -32,9 +36,12 @@ public class ExceptionController {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ResponseEntity<ExceptionDto> handleAllExceptions(Exception ex) {
+    public ResponseEntity<ExceptionDto> handleAllExceptions(Exception ex, Errors errors) {
         log.error(ex.getMessage(),ex);
-        ExceptionDto exDto = new ExceptionDto(ExceptionCodes.UNMAPPED_EXCEPTION_CODE,ex.getMessage());
+        String errorMessage = errors.getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.joining(", "));
+
+        ExceptionDto exDto = new ExceptionDto(ExceptionCodes.UNMAPPED_EXCEPTION_CODE, errorMessage);
         return wrapIntoResponseEntity(exDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
