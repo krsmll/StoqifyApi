@@ -1,10 +1,12 @@
 package com.knits.product.dto;
 
 import lombok.Data;
-
-import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
 import java.util.List;
+import java.time.LocalDate;
+import com.knits.product.entity.OrderLine;
+import javax.validation.constraints.Pattern;
+
+
 
 /**
  * This is Data transfer object class to handle request purchase data
@@ -23,5 +25,5 @@ public class PurchaseOrderDto {
     private LocalDate shippingDate;
     private LocalDate deliverDate;
     private LocalDate cancelDate;
-    private OrderLineDto orderLine;
+    private List<OrderLineDto> purchaseOrders;
 }

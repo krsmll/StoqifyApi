@@ -1,11 +1,9 @@
 package com.knits.product.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.List;
 import java.util.Date;
 import javax.persistence.*;
-
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;

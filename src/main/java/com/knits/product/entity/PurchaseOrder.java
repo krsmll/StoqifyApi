@@ -1,10 +1,9 @@
 package com.knits.product.entity;
 
 import lombok.Data;
+import java.util.List;
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
-
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -45,9 +44,9 @@ public class PurchaseOrder {
     @Column(name = "order_date")
     private LocalDate orderDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinTable(name = "purchase_order_line", joinColumns = @JoinColumn(name = "purchase_order_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_line_id"))
+            inverseJoinColumns = @JoinColumn(name = "orderline_id"))
     private List<OrderLine> purchaseOrders;
 }

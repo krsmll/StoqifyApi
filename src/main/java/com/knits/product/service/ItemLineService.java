@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import java.util.stream.Collectors;
 import com.knits.product.entity.ItemLine;
 import com.knits.product.dto.ItemLineDto;
-import com.knits.product.mapper.ItemMapper;
 import com.knits.product.entity.ItemLinkAsn;
 import com.knits.product.mapper.ItemLineMapper;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,6 @@ import com.knits.product.repository.ItemLinkItemLineRepository;
 @Service("itemline")
 public class ItemLineService {
 
-    private final ItemMapper itemMapper;
     private final ItemLineMapper itemLineMapper;
     private final ItemLineRepository itemLineRepository;
     private final ItemLinkAsnRepository itemLinkAsnRepository;

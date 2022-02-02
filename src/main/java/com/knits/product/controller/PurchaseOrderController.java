@@ -1,8 +1,6 @@
 package com.knits.product.controller;
 
 import java.util.List;
-
-import com.knits.product.entity.PurchaseOrder;
 import lombok.AllArgsConstructor;
 import com.knits.product.dto.PurchaseOrderDto;
 import org.springframework.http.ResponseEntity;

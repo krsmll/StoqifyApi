@@ -1,13 +1,12 @@
 package com.knits.product.dto;
 
-import com.knits.product.dto.groups.InsertGroup;
-import com.knits.product.dto.groups.UpdateGroup;
 import lombok.Data;
 import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
+import com.knits.product.dto.groups.InsertGroup;
+import com.knits.product.dto.groups.UpdateGroup;
 import com.knits.product.entity.AdvancedShippingNotice;
 
 

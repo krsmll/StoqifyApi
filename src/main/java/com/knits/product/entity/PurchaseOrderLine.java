@@ -1,6 +1,5 @@
 package com.knits.product.entity;
 
-import lombok.Data;
 import javax.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.AllArgsConstructor;
  * This is an entity class to join Order line with purchase order
  * @author Soumen Banerjee
  */
-@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +18,7 @@ public class PurchaseOrderLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_line_id")
+    @Column(name = "orderline_id")
     private Long orderLineId;
 
     @Column(name = "purchase_order_id")

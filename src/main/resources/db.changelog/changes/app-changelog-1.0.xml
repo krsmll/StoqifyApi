@@ -157,7 +157,7 @@
             <column name="id" type="BIGSERIAL">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="purchase_order_line_pkey"/>
             </column>
-            <column name="order_line_id" type="BIGINT"/>
+            <column name="orderline_id" type="BIGINT"/>
             <column name="purchase_order_id" type="BIGINT"/>
         </createTable>
     </changeSet>
@@ -375,7 +375,7 @@
     </changeSet>
     <changeSet id="32" author="Soumen Banerjee">
         <loadData tableName="purchase_order_line" file="db.changelog/init-data/init-purchase-order-line.csv">
-            <column header="order_line_id" name="order_line_id" type="NUMERIC"/>
+            <column header="orderline_id" name="orderline_id" type="NUMERIC"/>
             <column header="purchase_order_id" name="purchase_order_id" type="NUMERIC"/>
         </loadData>
     </changeSet>

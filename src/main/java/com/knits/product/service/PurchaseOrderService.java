@@ -1,6 +1,9 @@
 package com.knits.product.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.knits.product.dto.PurchaseOrderDto;
@@ -32,7 +35,8 @@ public class PurchaseOrderService {
      * @return list of all purchases
      */
     public List<PurchaseOrderDto> getAllPurchaseOrderList() {
-        return purchaseOrderMapper.toPurchaseOrderDtoList(purchaseOrderRepository.findAll());
+        return purchaseOrderRepository.findAll()
+                .stream().map(purchaseOrderMapper::toDto).collect(Collectors.toList());
     }
 
     /**
@@ -44,10 +48,13 @@ public class PurchaseOrderService {
        Long lastPurchaseOrderId = purchaseOrderRepository.save(purchaseOrderMapper.toPurchaseEntity(purchaseOrderDto))
                .getId();
 
-       Long lastOrderLineId = orderLineRepository.save(orderLineMapper.toOrderLineEntity(purchaseOrderDto.getOrderLine()))
-               .getId();
+       List<PurchaseOrderLine> orderLineMappingList = new ArrayList<>();
 
-       purchaseOrderLineRepository.save(new PurchaseOrderLine(0L, lastOrderLineId, lastPurchaseOrderId));
+       purchaseOrderDto.getPurchaseOrders().forEach(getOrderLineData -> {
+           orderLineMappingList.add(new PurchaseOrderLine(0L, getOrderLineData.getId(), lastPurchaseOrderId));
+       });
+
+       purchaseOrderLineRepository.saveAll(orderLineMappingList);
        return purchaseOrderMapper.toPurchaseOrderDtoList(purchaseOrderRepository.findAll());
     }
 
