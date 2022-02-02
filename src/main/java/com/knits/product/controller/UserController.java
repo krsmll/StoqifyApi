@@ -1,17 +1,19 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import javax.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import com.knits.product.dto.UserDto;
-import com.knits.product.service.UserService;
-import org.springframework.http.ResponseEntity;
 import com.knits.product.dto.groups.DeleteGroup;
 import com.knits.product.dto.groups.UpdateGroup;
-import org.springframework.web.bind.annotation.*;
 import com.knits.product.exceptions.UserException;
+import com.knits.product.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -22,7 +24,6 @@ public class UserController {
     private final UserService userService;
 
     /**
-     *
      * @param userId requested user id to search for
      * @return single user data
      */
@@ -35,7 +36,6 @@ public class UserController {
     }
 
     /**
-     *
      * @return all users
      */
     @GetMapping(value = "/all")
@@ -45,18 +45,19 @@ public class UserController {
     }
 
     /**
-     *
      * @param userDTO requested user to save
      * @return return all user including newly saved
      */
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDTO) {
-        log.debug("REST request to create a new User ");
-        return ResponseEntity.ok().body(userService.createNewUser(userDTO));
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDTO) {
+        log.debug("REST request to createUser User ");
+        if (userDTO == null) {
+            throw new UserException("User data are missing");
+        }
+        return new ResponseEntity<>(userService.createNewUser(userDTO), HttpStatus.CREATED);
     }
 
     /**
-     *
      * @param userDTO user data to update
      * @return newly updated user
      */
@@ -70,7 +71,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param userDto update specific user fields
      * @return updated user info
      */
@@ -81,7 +81,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param userDto delete the requested user
      * @return Void
      */
@@ -93,7 +92,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param searchkeyword search for the user
      * @return all the users those are exits belong to the searched keyword
      */
@@ -104,7 +102,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param userDto add the user to the group
      * @return error message
      */
@@ -115,7 +112,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param userDto requested user data to add it in role
      * @return void
      */
@@ -127,7 +123,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param userDto user data to remove
      * @return error message
      */

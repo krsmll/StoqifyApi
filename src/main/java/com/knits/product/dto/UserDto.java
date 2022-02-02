@@ -1,5 +1,6 @@
 package com.knits.product.dto;
 
+import lombok.Builder;
 import lombok.Data;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -8,7 +9,6 @@ import com.knits.product.dto.groups.UpdateGroup;
 
 @Data
 public class UserDto {
-
     @NotNull(groups = DeleteGroup.class, message = "ID can not be null")
     private Long id;
 

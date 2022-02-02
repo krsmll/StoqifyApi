@@ -1,16 +1,18 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import lombok.AllArgsConstructor;
 import com.knits.product.dto.DockDto;
 import com.knits.product.service.DockService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import com.knits.product.dto.groups.InsertGroup;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 /**
  * This is a REST API controller class to handle dock related data
+ *
  * @author Soumen Banerjee
  */
 @RestController
@@ -21,7 +23,6 @@ public class DockController {
     private final DockService dockService;
 
     /**
-     *
      * @return REST API Endpoint to get all dock data
      */
     @GetMapping

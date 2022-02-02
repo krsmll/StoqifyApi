@@ -1,15 +1,17 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import javax.validation.Valid;
-import lombok.AllArgsConstructor;
 import com.knits.product.dto.TrailerDto;
-import org.springframework.http.ResponseEntity;
 import com.knits.product.service.TrailerService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * This is a REST API class
+ *
  * @author Soumen Banerjee
  */
 @RestController
@@ -20,7 +22,6 @@ public class TrailerController {
     private final TrailerService trailerService;
 
     /**
-     *
      * @return list of trailers
      */
     @GetMapping
@@ -29,7 +30,6 @@ public class TrailerController {
     }
 
     /**
-     *
      * @param trailerId to fetch trailer data
      * @return single trailer data by requested ID
      */
@@ -39,7 +39,6 @@ public class TrailerController {
     }
 
     /**
-     *
      * @param trailerDto requested data to register trailer
      * @return void
      */
@@ -50,9 +49,8 @@ public class TrailerController {
     }
 
     /**
-     *
      * @param trailerId delete trailer by requested id
-     * @return
+     * @return void
      */
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTrailerById(@PathVariable("id") Long trailerId) {
@@ -61,7 +59,6 @@ public class TrailerController {
     }
 
     /**
-     *
      * @param trailerDto requested trailer data to update trailer data
      * @return trailer updated trailer list
      */

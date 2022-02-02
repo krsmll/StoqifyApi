@@ -12,13 +12,13 @@ import java.util.List;
 
 /**
  * Data transfer object for the advanced shipping notice entity.
+ *
  * @see com.knits.product.entity.AdvancedShippingNotice AdvancedShippingNotice
  */
 @Data
 public class AdvancedShippingNoticeDto {
     @NotNull(groups = {UpdateGroup.class})
     private Long id;
-
 
     @NotBlank(groups = {InsertGroup.class})
     private String billOfLandingNumber;
@@ -48,6 +48,9 @@ public class AdvancedShippingNoticeDto {
 
     @NotNull(groups = {InsertGroup.class})
     private DriverDto driver;
+
+    @NotNull(groups = {InsertGroup.class})
+    private TrailerDto trailer;
 
     @NotNull(groups = {InsertGroup.class})
     private List<PurchaseOrderDto> packages;

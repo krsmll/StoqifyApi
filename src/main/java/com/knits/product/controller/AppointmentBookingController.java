@@ -1,17 +1,20 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import javax.validation.Valid;
+import com.knits.product.dto.AppointmentBookingAssignASNDto;
+import com.knits.product.dto.AppointmentBookingDto;
+import com.knits.product.dto.UpdateBookedAppointment;
+import com.knits.product.service.AppointmentBookingService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.knits.product.dto.UpdateBookedAppointment;
-import com.knits.product.dto.AppointmentBookingDto;
-import com.knits.product.service.AppointmentBookingService;
-import com.knits.product.dto.AppointmentBookingAssignASNDto;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * This is REST API to handle creating appointment / modifying existing appointment
+ *
  * @author Soumen Banerjee
  */
 @RestController
@@ -38,6 +41,6 @@ public class AppointmentBookingController {
 
     @PostMapping("/newbooking")
     public ResponseEntity<List<AppointmentBookingDto>> createNewBookingAppointment(@RequestBody AppointmentBookingDto appointmentBookingDto) {
-        return ResponseEntity.ok().body(appointmentBookingService.createNewAppointment(appointmentBookingDto));
+        return new ResponseEntity<>(appointmentBookingService.createNewAppointment(appointmentBookingDto), HttpStatus.CREATED);
     }
 }

@@ -3,7 +3,6 @@ package com.knits.product.controller;
 import com.knits.product.dto.GroupDto;
 import com.knits.product.dto.groups.InsertGroup;
 import com.knits.product.dto.groups.UpdateGroup;
-import com.knits.product.exceptions.SystemException;
 import com.knits.product.service.GroupService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @Slf4j
@@ -62,26 +59,19 @@ public class GroupController {
     }
 
     @PostMapping
-    public ResponseEntity<GroupDto> createGroup(@Validated(InsertGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request) {
+    public ResponseEntity<GroupDto> createGroup(@Validated(InsertGroup.class) @RequestBody GroupDto groupDto) {
         log.debug("REST request to createGroup");
 
         GroupDto createdGroup = groupService.createGroup(groupDto);
-        URI uri;
-        try {
-            uri = new URI(request.getRequestURL().append("/").append(createdGroup.getId()).toString());
-        } catch (URISyntaxException e) {
-            throw new SystemException(e);
-        }
 
-        return ResponseEntity.created(uri).body(createdGroup);
+        return new ResponseEntity<>(createdGroup, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<GroupDto> updateGroup(@Validated(UpdateGroup.class) @RequestBody GroupDto groupDto, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<GroupDto> updateGroup(@Validated(UpdateGroup.class) @RequestBody GroupDto groupDto) {
         log.debug("REST request to updateGroup");
 
         GroupDto updatedGroup = groupService.updateGroup(groupDto);
-        response.setHeader("Location", request.getRequestURL().append("/").append(updatedGroup.getId()).toString());
 
         return ResponseEntity.ok().body(updatedGroup);
     }

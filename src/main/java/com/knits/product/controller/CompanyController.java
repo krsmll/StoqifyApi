@@ -1,14 +1,17 @@
 package com.knits.product.controller;
 
-import java.util.List;
-import lombok.AllArgsConstructor;
 import com.knits.product.dto.CompanyDto;
-import org.springframework.http.ResponseEntity;
 import com.knits.product.service.CompanyService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * This is a REST Controller to handle company related request
+ *
  * @author Soumen Banerjee
  */
 @RestController
@@ -24,8 +27,8 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<List<CompanyDto>> saveAndGetAllComapnies(@RequestBody CompanyDto companyDto) {
-        return ResponseEntity.ok().body(companyService.getSavedCompanyWithOldCompanies(companyDto));
+    public ResponseEntity<List<CompanyDto>> saveAndGetAllCompanies(@RequestBody CompanyDto companyDto) {
+        return new ResponseEntity<>(companyService.getSavedCompanyWithOldCompanies(companyDto), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/disable")
