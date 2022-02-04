@@ -66,7 +66,7 @@ class RoleControllerTest {
                         .post("/api/roles")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"roleName\": \"Test\"}"))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 
 

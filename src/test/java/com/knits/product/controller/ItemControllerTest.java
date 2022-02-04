@@ -28,43 +28,44 @@ class ItemControllerTest {
     @Autowired
     RoleRepository repository;
 
-    @Test
-    void test_to_get_all_items() throws Exception {
-        String getAllItem = mockMvc
-                .perform(MockMvcRequestBuilders.get("/api/item/all")
-                        .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        ItemDto[] getItems = objectMapper.readValue(getAllItem, ItemDto[].class);
+//    @Test
+//    void test_to_get_all_items() throws Exception {
+//        String getAllItem = mockMvc
+//                .perform(MockMvcRequestBuilders.get("/api/item/all")
+//                        .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+//                .andReturn().getResponse().getContentAsString();
+//        ItemDto[] getItems = objectMapper.readValue(getAllItem, ItemDto[].class);
+//
+//        assertTrue(getItems.length > 1);
+//
+//    }
 
-        assertTrue(getItems.length > 1);
-
-    }
-    @Test
-    void test_to_search_by_item_name() throws Exception {
-        String getItems = mockMvc
-                .perform(MockMvcRequestBuilders.get("/api/search/Broadcom").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-
-        ItemDto getItem = objectMapper.readValue(getItems, ItemDto.class);
-
-        assertEquals("Broadcom", getItem.getName());
-        assertEquals(1, getItem.getId());
-
-    }
+//    @Test
+//    void test_to_search_by_item_name() throws Exception {
+//        String getItems = mockMvc
+//                .perform(MockMvcRequestBuilders.get("/api/search/Broadcom").contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+//
+//        ItemDto getItem = objectMapper.readValue(getItems, ItemDto.class);
+//
+//        assertEquals("Broadcom", getItem.getName());
+//        assertEquals(1, getItem.getId());
+//
+//    }
 
 
-    @Test
-    void test_to_create_new_item() throws Exception {
-
-        ItemDto item = new ItemDto();
-        item.setName("Test");
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/item")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\": \"Test\"}"))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    void test_to_create_new_item() throws Exception {
+//
+//        ItemDto item = new ItemDto();
+//        item.setName("Test");
+//
+//        mockMvc.perform(MockMvcRequestBuilders
+//                        .post("/api/item")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content("{\"name\": \"Test\"}"))
+//                .andExpect(status().isOk());
+//    }
 
     @Test
     void test_delete_item_by_id() throws Exception {
