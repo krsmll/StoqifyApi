@@ -1,8 +1,6 @@
 package com.knits.product.controller;
 
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
 import com.knits.product.dto.OrderLineDto;
 import static org.junit.jupiter.api.Assertions.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
